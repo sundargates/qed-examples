@@ -5,5 +5,5 @@ if [ $# -ne 1 ]; then
 else
 	FILENAME=${1##*/}
 	BASENAME=${FILENAME%%.*}
-	clang -O0 -emit-llvm ${FILENAME} -c -o ${BASENAME}.bc
+	clang -O1 -emit-llvm ${FILENAME} -c -o ${BASENAME}.bc
 fi

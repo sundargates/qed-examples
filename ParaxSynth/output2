@@ -1,0 +1,633 @@
+; ModuleID = '<stdin>'
+target datalayout = "e-p:64:64:64-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:64:64-f32:32:32-f64:64:64-v64:64:64-v128:128:128-a0:0:64-s0:64:64-f80:128:128-n8:16:32:64-S128"
+target triple = "x86_64-apple-macosx10.8.0"
+
+@buffer_dup = global [1000 x i8] zeroinitializer, align 16
+@buffer = global [1000 x i8] zeroinitializer, align 16
+@checksum_dup = global [1 x i64] zeroinitializer, align 8
+@checksum = global [1 x i64] zeroinitializer, align 8
+@datawidth_dup = global i32 2, align 4
+@datawidth = global i32 2, align 4
+@stride_dup = global i32 0, align 4
+@stride = global i32 0, align 4
+@counters_dup = global i32 0, align 4
+@counters = global i32 0, align 4
+@iters_dup = global i32 10, align 4
+@iters = global i32 10, align 4
+@.str_dup = private unnamed_addr constant [9 x i8] c"%d %lld\0A\00", align 1
+@.str = private unnamed_addr constant [9 x i8] c"%d %lld\0A\00", align 1
+@llvm.global_ctors = appending global [1 x { i32, void ()* }] [{ i32, void ()* } { i32 65535, void ()* @_GLOBAL__I_a }]
+
+define internal void @__cxx_global_var_init() section "__TEXT,__StaticInit,regular,pure_instructions" {
+entry:
+  %0 = load i32* @datawidth_dup, align 4
+  %1 = load i32* @datawidth, align 4
+  %mul_dup = mul nsw i32 1, %0
+  %mul = mul nsw i32 1, %1
+  %mul_check = icmp eq i32 %mul, %mul_dup
+  store i32 %mul_dup, i32* @stride_dup, align 4
+  store i32 %mul, i32* @stride, align 4
+  ret void
+}
+
+define internal void @__cxx_global_var_init1() section "__TEXT,__StaticInit,regular,pure_instructions" {
+entry:
+  %0 = load i32* @datawidth_dup, align 4
+  %1 = load i32* @datawidth, align 4
+  %div_dup = sdiv i32 1000, %0
+  %div = sdiv i32 1000, %1
+  %div_check = icmp eq i32 %div, %div_dup
+  %div1_dup = sdiv i32 %div_dup, 1
+  %div1 = sdiv i32 %div, 1
+  %div1_check = icmp eq i32 %div1, %div1_dup
+  store i32 %div1_dup, i32* @counters_dup, align 4
+  store i32 %div1, i32* @counters, align 4
+  ret void
+}
+
+define void @_Z4Testi(i32 %id, i32 %id_dup) #0 {
+entry:
+  %id.addr_dup = alloca i32, align 4
+  %id.addr = alloca i32, align 4
+  %pbuffer_dup = alloca i8*, align 8
+  %pbuffer = alloca i8*, align 8
+  %pchecksum_dup = alloca i8*, align 8
+  %pchecksum = alloca i8*, align 8
+  %i_dup = alloca i32, align 4
+  %i = alloca i32, align 4
+  %pcounter_dup = alloca i8*, align 8
+  %pcounter = alloca i8*, align 8
+  %j_dup = alloca i32, align 4
+  %j = alloca i32, align 4
+  store i32 %id_dup, i32* %id.addr_dup, align 4
+  store i32 %id, i32* %id.addr, align 4
+  %0 = load i32* @datawidth_dup, align 4
+  %1 = load i32* @datawidth, align 4
+  %2 = load i32* %id.addr_dup, align 4
+  %3 = load i32* %id.addr, align 4
+  %mul_dup = mul nsw i32 %0, %2
+  %mul = mul nsw i32 %1, %3
+  %mul_check = icmp eq i32 %mul, %mul_dup
+  %idx.ext_dup = sext i32 %mul_dup to i64
+  %idx.ext = sext i32 %mul to i64
+  %idx.ext_check = icmp eq i64 %idx.ext, %idx.ext_dup
+  %add.ptr_dup = getelementptr inbounds i8* getelementptr inbounds ([1000 x i8]* @buffer_dup, i32 0, i32 0), i64 %idx.ext_dup
+  %add.ptr = getelementptr inbounds i8* getelementptr inbounds ([1000 x i8]* @buffer, i32 0, i32 0), i64 %idx.ext
+  %add.ptr_check = icmp eq i8* %add.ptr, %add.ptr_dup
+  store i8* %add.ptr_dup, i8** %pbuffer_dup, align 8
+  store i8* %add.ptr, i8** %pbuffer, align 8
+  %4 = load i32* @datawidth_dup, align 4
+  %5 = load i32* @datawidth, align 4
+  %6 = load i32* %id.addr_dup, align 4
+  %7 = load i32* %id.addr, align 4
+  %mul1_dup = mul nsw i32 %4, %6
+  %mul1 = mul nsw i32 %5, %7
+  %mul1_check = icmp eq i32 %mul1, %mul1_dup
+  %idx.ext2_dup = sext i32 %mul1_dup to i64
+  %idx.ext2 = sext i32 %mul1 to i64
+  %idx.ext2_check = icmp eq i64 %idx.ext2, %idx.ext2_dup
+  %add.ptr3_dup = getelementptr inbounds i8* bitcast ([1 x i64]* @checksum_dup to i8*), i64 %idx.ext2_dup
+  %add.ptr3 = getelementptr inbounds i8* bitcast ([1 x i64]* @checksum to i8*), i64 %idx.ext2
+  %add.ptr3_check = icmp eq i8* %add.ptr3, %add.ptr3_dup
+  store i8* %add.ptr3_dup, i8** %pchecksum_dup, align 8
+  store i8* %add.ptr3, i8** %pchecksum, align 8
+  store i32 0, i32* %i_dup, align 4
+  store i32 0, i32* %i, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc11, %entry
+  %8 = load i32* %i_dup, align 4
+  %9 = load i32* %i, align 4
+  %10 = load i32* @iters_dup, align 4
+  %11 = load i32* @iters, align 4
+  %cmp_dup = icmp ult i32 %8, %10
+  %cmp = icmp ult i32 %9, %11
+  %cmp_check = icmp eq i1 %cmp, %cmp_dup
+  br i1 %cmp, label %for.body, label %for.end13
+
+for.body:                                         ; preds = %for.cond
+  %12 = load i8** %pbuffer_dup, align 8
+  %13 = load i8** %pbuffer, align 8
+  store i8* %12, i8** %pcounter_dup, align 8
+  store i8* %13, i8** %pcounter, align 8
+  store i32 0, i32* %j_dup, align 4
+  store i32 0, i32* %j, align 4
+  br label %for.cond4
+
+for.cond4:                                        ; preds = %for.inc, %for.body
+  %14 = load i32* %j_dup, align 4
+  %15 = load i32* %j, align 4
+  %16 = load i32* @counters_dup, align 4
+  %17 = load i32* @counters, align 4
+  %cmp5_dup = icmp ult i32 %14, %16
+  %cmp5 = icmp ult i32 %15, %17
+  %cmp5_check = icmp eq i1 %cmp5, %cmp5_dup
+  br i1 %cmp5, label %for.body6, label %for.end
+
+for.body6:                                        ; preds = %for.cond4
+  %18 = load i32* @datawidth_dup, align 4
+  %19 = load i32* @datawidth, align 4
+  switch i32 %19, label %sw.epilog [
+    i32 1, label %sw.bb
+    i32 2, label %sw.bb7
+    i32 4, label %sw.bb8
+  ]
+
+sw.bb:                                            ; preds = %for.body6
+  %20 = load i8** %pcounter_dup, align 8
+  %21 = load i8** %pcounter, align 8
+  call void asm sideeffect "incb ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %20) #5, !srcloc !0
+  call void asm sideeffect "incb ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %21) #5, !srcloc !0
+  %22 = load i8** %pchecksum_dup, align 8
+  %23 = load i8** %pchecksum, align 8
+  call void asm sideeffect "incb ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %22) #5, !srcloc !1
+  call void asm sideeffect "incb ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %23) #5, !srcloc !1
+  br label %sw.epilog
+
+sw.bb7:                                           ; preds = %for.body6
+  %24 = load i8** %pcounter_dup, align 8
+  %25 = load i8** %pcounter, align 8
+  call void asm sideeffect "incw ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %24) #5, !srcloc !2
+  call void asm sideeffect "incw ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %25) #5, !srcloc !2
+  %26 = load i8** %pchecksum_dup, align 8
+  %27 = load i8** %pchecksum, align 8
+  call void asm sideeffect "incw ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %26) #5, !srcloc !3
+  call void asm sideeffect "incw ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %27) #5, !srcloc !3
+  br label %sw.epilog
+
+sw.bb8:                                           ; preds = %for.body6
+  %28 = load i8** %pcounter_dup, align 8
+  %29 = load i8** %pcounter, align 8
+  call void asm sideeffect "incl ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %28) #5, !srcloc !4
+  call void asm sideeffect "incl ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %29) #5, !srcloc !4
+  %30 = load i8** %pchecksum_dup, align 8
+  %31 = load i8** %pchecksum, align 8
+  call void asm sideeffect "incl ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %30) #5, !srcloc !5
+  call void asm sideeffect "incl ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* %31) #5, !srcloc !5
+  br label %sw.epilog
+
+sw.epilog:                                        ; preds = %sw.bb8, %sw.bb7, %sw.bb, %for.body6
+  %32 = load i32* @stride_dup, align 4
+  %33 = load i32* @stride, align 4
+  %34 = load i8** %pcounter_dup, align 8
+  %35 = load i8** %pcounter, align 8
+  %idx.ext9_dup = sext i32 %32 to i64
+  %idx.ext9 = sext i32 %33 to i64
+  %idx.ext9_check = icmp eq i64 %idx.ext9, %idx.ext9_dup
+  %add.ptr10_dup = getelementptr inbounds i8* %34, i64 %idx.ext9_dup
+  %add.ptr10 = getelementptr inbounds i8* %35, i64 %idx.ext9
+  %add.ptr10_check = icmp eq i8* %add.ptr10, %add.ptr10_dup
+  store i8* %add.ptr10_dup, i8** %pcounter_dup, align 8
+  store i8* %add.ptr10, i8** %pcounter, align 8
+  br label %for.inc
+
+for.inc:                                          ; preds = %sw.epilog
+  %36 = load i32* %j_dup, align 4
+  %37 = load i32* %j, align 4
+  %inc_dup = add i32 %36, 1
+  %inc = add i32 %37, 1
+  %inc_check = icmp eq i32 %inc, %inc_dup
+  store i32 %inc_dup, i32* %j_dup, align 4
+  store i32 %inc, i32* %j, align 4
+  br label %for.cond4
+
+for.end:                                          ; preds = %for.cond4
+  br label %for.inc11
+
+for.inc11:                                        ; preds = %for.end
+  %38 = load i32* %i_dup, align 4
+  %39 = load i32* %i, align 4
+  %inc12_dup = add i32 %38, 1
+  %inc12 = add i32 %39, 1
+  %inc12_check = icmp eq i32 %inc12, %inc12_dup
+  store i32 %inc12_dup, i32* %i_dup, align 4
+  store i32 %inc12, i32* %i, align 4
+  br label %for.cond
+
+for.end13:                                        ; preds = %for.cond
+  ret void
+}
+
+define <{ i32, i32 }> @_Z13CompareNBytesyPhi(i64 %a, i64 %a_dup, i8* %b, i8* %b_dup, i32 %n, i32 %n_dup) #1 {
+entry:
+  %retval_dup = alloca i32, align 4
+  %retval = alloca i32, align 4
+  %a.addr_dup = alloca i64, align 8
+  %a.addr = alloca i64, align 8
+  %b.addr_dup = alloca i8*, align 8
+  %b.addr = alloca i8*, align 8
+  %n.addr_dup = alloca i32, align 4
+  %n.addr = alloca i32, align 4
+  store i64 %a_dup, i64* %a.addr_dup, align 8
+  store i64 %a, i64* %a.addr, align 8
+  store i8* %b_dup, i8** %b.addr_dup, align 8
+  store i8* %b, i8** %b.addr, align 8
+  store i32 %n_dup, i32* %n.addr_dup, align 4
+  store i32 %n, i32* %n.addr, align 4
+  %0 = load i32* %n.addr_dup, align 4
+  %1 = load i32* %n.addr, align 4
+  switch i32 %1, label %sw.epilog [
+    i32 1, label %sw.bb
+    i32 2, label %sw.bb1
+    i32 4, label %sw.bb4
+  ]
+
+sw.bb:                                            ; preds = %entry
+  %2 = load i64* %a.addr_dup, align 8
+  %3 = load i64* %a.addr, align 8
+  %conv_dup = trunc i64 %2 to i8
+  %conv = trunc i64 %3 to i8
+  %conv_check = icmp eq i8 %conv, %conv_dup
+  %4 = load i8** %b.addr_dup, align 8
+  %5 = load i8** %b.addr, align 8
+  %6 = load i8* %4, align 1
+  %7 = load i8* %5, align 1
+  %8 = call <{ i32, i32 }> @_Z7CompareIhEiT_S0_(i8 zeroext %conv, i8 zeroext %conv_dup, i8 %7, i8 %6)
+  %9 = extractvalue <{ i32, i32 }> %8, 0
+  %10 = extractvalue <{ i32, i32 }> %8, 1
+  store i32 %10, i32* %retval_dup
+  store i32 %9, i32* %retval
+  br label %return
+
+sw.bb1:                                           ; preds = %entry
+  %11 = load i64* %a.addr_dup, align 8
+  %12 = load i64* %a.addr, align 8
+  %conv2_dup = trunc i64 %11 to i16
+  %conv2 = trunc i64 %12 to i16
+  %conv2_check = icmp eq i16 %conv2, %conv2_dup
+  %13 = load i8** %b.addr_dup, align 8
+  %14 = load i8** %b.addr, align 8
+  %15 = bitcast i8* %13 to i16*
+  %16 = bitcast i8* %14 to i16*
+  %17 = icmp eq i16* %16, %15
+  %18 = load i16* %15, align 2
+  %19 = load i16* %16, align 2
+  %20 = call <{ i32, i32 }> @_Z7CompareItEiT_S0_(i16 zeroext %conv2, i16 zeroext %conv2_dup, i16 %19, i16 %18)
+  %21 = extractvalue <{ i32, i32 }> %20, 0
+  %22 = extractvalue <{ i32, i32 }> %20, 1
+  store i32 %22, i32* %retval_dup
+  store i32 %21, i32* %retval
+  br label %return
+
+sw.bb4:                                           ; preds = %entry
+  %23 = load i64* %a.addr_dup, align 8
+  %24 = load i64* %a.addr, align 8
+  %conv5_dup = trunc i64 %23 to i32
+  %conv5 = trunc i64 %24 to i32
+  %conv5_check = icmp eq i32 %conv5, %conv5_dup
+  %25 = load i8** %b.addr_dup, align 8
+  %26 = load i8** %b.addr, align 8
+  %27 = bitcast i8* %25 to i32*
+  %28 = bitcast i8* %26 to i32*
+  %29 = icmp eq i32* %28, %27
+  %30 = load i32* %27, align 4
+  %31 = load i32* %28, align 4
+  %32 = call <{ i32, i32 }> @_Z7CompareIjEiT_S0_(i32 %conv5, i32 %conv5_dup, i32 %31, i32 %30)
+  %33 = extractvalue <{ i32, i32 }> %32, 0
+  %34 = extractvalue <{ i32, i32 }> %32, 1
+  store i32 %34, i32* %retval_dup
+  store i32 %33, i32* %retval
+  br label %return
+
+sw.epilog:                                        ; preds = %entry
+  store i32 0, i32* %retval_dup
+  store i32 0, i32* %retval
+  br label %return
+
+return:                                           ; preds = %sw.epilog, %sw.bb4, %sw.bb1, %sw.bb
+  %35 = load i32* %retval_dup
+  %36 = load i32* %retval
+  %37 = alloca <{ i32, i32 }>
+  %38 = load <{ i32, i32 }>* %37
+  %39 = insertvalue <{ i32, i32 }> %38, i32 %36, 0
+  %40 = insertvalue <{ i32, i32 }> %39, i32 %35, 1
+  ret <{ i32, i32 }> %40
+}
+
+define linkonce_odr <{ i32, i32 }> @_Z7CompareIhEiT_S0_(i8 zeroext %a, i8 zeroext %a_dup, i8 zeroext %b, i8 zeroext %b_dup) #2 {
+entry:
+  %a.addr_dup = alloca i8, align 1
+  %a.addr = alloca i8, align 1
+  %b.addr_dup = alloca i8, align 1
+  %b.addr = alloca i8, align 1
+  store i8 %a_dup, i8* %a.addr_dup, align 1
+  store i8 %a, i8* %a.addr, align 1
+  store i8 %b_dup, i8* %b.addr_dup, align 1
+  store i8 %b, i8* %b.addr, align 1
+  %0 = load i8* %b.addr_dup, align 1
+  %1 = load i8* %b.addr, align 1
+  %conv_dup = zext i8 %0 to i32
+  %conv = zext i8 %1 to i32
+  %conv_check = icmp eq i32 %conv, %conv_dup
+  %2 = load i8* %a.addr_dup, align 1
+  %3 = load i8* %a.addr, align 1
+  %conv1_dup = zext i8 %2 to i32
+  %conv1 = zext i8 %3 to i32
+  %conv1_check = icmp eq i32 %conv1, %conv1_dup
+  %sub_dup = sub nsw i32 %conv_dup, %conv1_dup
+  %sub = sub nsw i32 %conv, %conv1
+  %sub_check = icmp eq i32 %sub, %sub_dup
+  %4 = alloca <{ i32, i32 }>
+  %5 = load <{ i32, i32 }>* %4
+  %6 = insertvalue <{ i32, i32 }> %5, i32 %sub, 0
+  %7 = insertvalue <{ i32, i32 }> %6, i32 %sub_dup, 1
+  ret <{ i32, i32 }> %7
+}
+
+define linkonce_odr <{ i32, i32 }> @_Z7CompareItEiT_S0_(i16 zeroext %a, i16 zeroext %a_dup, i16 zeroext %b, i16 zeroext %b_dup) #2 {
+entry:
+  %a.addr_dup = alloca i16, align 2
+  %a.addr = alloca i16, align 2
+  %b.addr_dup = alloca i16, align 2
+  %b.addr = alloca i16, align 2
+  store i16 %a_dup, i16* %a.addr_dup, align 2
+  store i16 %a, i16* %a.addr, align 2
+  store i16 %b_dup, i16* %b.addr_dup, align 2
+  store i16 %b, i16* %b.addr, align 2
+  %0 = load i16* %b.addr_dup, align 2
+  %1 = load i16* %b.addr, align 2
+  %conv_dup = zext i16 %0 to i32
+  %conv = zext i16 %1 to i32
+  %conv_check = icmp eq i32 %conv, %conv_dup
+  %2 = load i16* %a.addr_dup, align 2
+  %3 = load i16* %a.addr, align 2
+  %conv1_dup = zext i16 %2 to i32
+  %conv1 = zext i16 %3 to i32
+  %conv1_check = icmp eq i32 %conv1, %conv1_dup
+  %sub_dup = sub nsw i32 %conv_dup, %conv1_dup
+  %sub = sub nsw i32 %conv, %conv1
+  %sub_check = icmp eq i32 %sub, %sub_dup
+  %4 = alloca <{ i32, i32 }>
+  %5 = load <{ i32, i32 }>* %4
+  %6 = insertvalue <{ i32, i32 }> %5, i32 %sub, 0
+  %7 = insertvalue <{ i32, i32 }> %6, i32 %sub_dup, 1
+  ret <{ i32, i32 }> %7
+}
+
+define linkonce_odr <{ i32, i32 }> @_Z7CompareIjEiT_S0_(i32 %a, i32 %a_dup, i32 %b, i32 %b_dup) #2 {
+entry:
+  %a.addr_dup = alloca i32, align 4
+  %a.addr = alloca i32, align 4
+  %b.addr_dup = alloca i32, align 4
+  %b.addr = alloca i32, align 4
+  store i32 %a_dup, i32* %a.addr_dup, align 4
+  store i32 %a, i32* %a.addr, align 4
+  store i32 %b_dup, i32* %b.addr_dup, align 4
+  store i32 %b, i32* %b.addr, align 4
+  %0 = load i32* %b.addr_dup, align 4
+  %1 = load i32* %b.addr, align 4
+  %2 = load i32* %a.addr_dup, align 4
+  %3 = load i32* %a.addr, align 4
+  %sub_dup = sub i32 %0, %2
+  %sub = sub i32 %1, %3
+  %sub_check = icmp eq i32 %sub, %sub_dup
+  %4 = alloca <{ i32, i32 }>
+  %5 = load <{ i32, i32 }>* %4
+  %6 = insertvalue <{ i32, i32 }> %5, i32 %sub, 0
+  %7 = insertvalue <{ i32, i32 }> %6, i32 %sub_dup, 1
+  ret <{ i32, i32 }> %7
+}
+
+define <{ i32, i32 }> @_Z5Checki(i32 %id, i32 %id_dup) #3 {
+entry:
+  %retval_dup = alloca i32, align 4
+  %retval = alloca i32, align 4
+  %id.addr_dup = alloca i32, align 4
+  %id.addr = alloca i32, align 4
+  %pchecksum_dup = alloca i8*, align 8
+  %pchecksum = alloca i8*, align 8
+  %checksumExpected_dup = alloca i64, align 8
+  %checksumExpected = alloca i64, align 8
+  %res_dup = alloca i32, align 4
+  %res = alloca i32, align 4
+  %pcounter_dup = alloca i8*, align 8
+  %pcounter = alloca i8*, align 8
+  %counterExpected_dup = alloca i64, align 8
+  %counterExpected = alloca i64, align 8
+  %j_dup = alloca i32, align 4
+  %j = alloca i32, align 4
+  %res8_dup = alloca i32, align 4
+  %res8 = alloca i32, align 4
+  store i32 %id_dup, i32* %id.addr_dup, align 4
+  store i32 %id, i32* %id.addr, align 4
+  %0 = load i32* @datawidth_dup, align 4
+  %1 = load i32* @datawidth, align 4
+  %2 = load i32* %id.addr_dup, align 4
+  %3 = load i32* %id.addr, align 4
+  %mul_dup = mul nsw i32 %0, %2
+  %mul = mul nsw i32 %1, %3
+  %mul_check = icmp eq i32 %mul, %mul_dup
+  %idx.ext_dup = sext i32 %mul_dup to i64
+  %idx.ext = sext i32 %mul to i64
+  %idx.ext_check = icmp eq i64 %idx.ext, %idx.ext_dup
+  %add.ptr_dup = getelementptr inbounds i8* bitcast ([1 x i64]* @checksum_dup to i8*), i64 %idx.ext_dup
+  %add.ptr = getelementptr inbounds i8* bitcast ([1 x i64]* @checksum to i8*), i64 %idx.ext
+  %add.ptr_check = icmp eq i8* %add.ptr, %add.ptr_dup
+  store i8* %add.ptr_dup, i8** %pchecksum_dup, align 8
+  store i8* %add.ptr, i8** %pchecksum, align 8
+  %4 = load i32* @counters_dup, align 4
+  %5 = load i32* @counters, align 4
+  %6 = load i32* @iters_dup, align 4
+  %7 = load i32* @iters, align 4
+  %mul1_dup = mul nsw i32 %4, %6
+  %mul1 = mul nsw i32 %5, %7
+  %mul1_check = icmp eq i32 %mul1, %mul1_dup
+  %conv_dup = sext i32 %mul1_dup to i64
+  %conv = sext i32 %mul1 to i64
+  %conv_check = icmp eq i64 %conv, %conv_dup
+  store i64 %conv_dup, i64* %checksumExpected_dup, align 8
+  store i64 %conv, i64* %checksumExpected, align 8
+  %8 = load i8** %pchecksum_dup, align 8
+  %9 = load i8** %pchecksum, align 8
+  %10 = bitcast i8* %8 to i16*
+  %11 = bitcast i8* %9 to i16*
+  %12 = icmp eq i16* %11, %10
+  %13 = load i16* %10, align 2
+  %14 = load i16* %11, align 2
+  %conv2_dup = zext i16 %13 to i32
+  %conv2 = zext i16 %14 to i32
+  %conv2_check = icmp eq i32 %conv2, %conv2_dup
+  %15 = load i64* %checksumExpected_dup, align 8
+  %16 = load i64* %checksumExpected, align 8
+  %call_dup = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str_dup, i32 0, i32 0), i32 %conv2_dup, i64 %15)
+  %call = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([9 x i8]* @.str, i32 0, i32 0), i32 %conv2, i64 %16)
+  %17 = load i64* %checksumExpected_dup, align 8
+  %18 = load i64* %checksumExpected, align 8
+  %19 = load i8** %pchecksum_dup, align 8
+  %20 = load i8** %pchecksum, align 8
+  %21 = load i32* @datawidth_dup, align 4
+  %22 = load i32* @datawidth, align 4
+  %23 = call <{ i32, i32 }> @_Z13CompareNBytesyPhi(i64 %18, i64 %17, i8* %20, i8* %19, i32 %22, i32 %21)
+  %24 = extractvalue <{ i32, i32 }> %23, 0
+  %25 = extractvalue <{ i32, i32 }> %23, 1
+  store i32 %25, i32* %res_dup, align 4
+  store i32 %24, i32* %res, align 4
+  %26 = load i32* %res_dup, align 4
+  %27 = load i32* %res, align 4
+  %tobool_dup = icmp ne i32 %26, 0
+  %tobool = icmp ne i32 %27, 0
+  %tobool_check = icmp eq i1 %tobool, %tobool_dup
+  br i1 %tobool, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  %28 = load i32* @counters_dup, align 4
+  %29 = load i32* @counters, align 4
+  store i32 %28, i32* %retval_dup
+  store i32 %29, i32* %retval
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %30 = load i32* @datawidth_dup, align 4
+  %31 = load i32* @datawidth, align 4
+  %32 = load i32* %id.addr_dup, align 4
+  %33 = load i32* %id.addr, align 4
+  %mul4_dup = mul nsw i32 %30, %32
+  %mul4 = mul nsw i32 %31, %33
+  %mul4_check = icmp eq i32 %mul4, %mul4_dup
+  %idx.ext5_dup = sext i32 %mul4_dup to i64
+  %idx.ext5 = sext i32 %mul4 to i64
+  %idx.ext5_check = icmp eq i64 %idx.ext5, %idx.ext5_dup
+  %add.ptr6_dup = getelementptr inbounds i8* getelementptr inbounds ([1000 x i8]* @buffer_dup, i32 0, i32 0), i64 %idx.ext5_dup
+  %add.ptr6 = getelementptr inbounds i8* getelementptr inbounds ([1000 x i8]* @buffer, i32 0, i32 0), i64 %idx.ext5
+  %add.ptr6_check = icmp eq i8* %add.ptr6, %add.ptr6_dup
+  store i8* %add.ptr6_dup, i8** %pcounter_dup, align 8
+  store i8* %add.ptr6, i8** %pcounter, align 8
+  %34 = load i32* @iters_dup, align 4
+  %35 = load i32* @iters, align 4
+  %conv7_dup = sext i32 %34 to i64
+  %conv7 = sext i32 %35 to i64
+  %conv7_check = icmp eq i64 %conv7, %conv7_dup
+  store i64 %conv7_dup, i64* %counterExpected_dup, align 8
+  store i64 %conv7, i64* %counterExpected, align 8
+  store i32 0, i32* %j_dup, align 4
+  store i32 0, i32* %j, align 4
+  br label %for.cond
+
+for.cond:                                         ; preds = %for.inc, %if.end
+  %36 = load i32* %j_dup, align 4
+  %37 = load i32* %j, align 4
+  %38 = load i32* @counters_dup, align 4
+  %39 = load i32* @counters, align 4
+  %cmp_dup = icmp ult i32 %36, %38
+  %cmp = icmp ult i32 %37, %39
+  %cmp_check = icmp eq i1 %cmp, %cmp_dup
+  br i1 %cmp, label %for.body, label %for.end
+
+for.body:                                         ; preds = %for.cond
+  %40 = load i64* %counterExpected_dup, align 8
+  %41 = load i64* %counterExpected, align 8
+  %42 = load i8** %pcounter_dup, align 8
+  %43 = load i8** %pcounter, align 8
+  %44 = load i32* @datawidth_dup, align 4
+  %45 = load i32* @datawidth, align 4
+  %46 = call <{ i32, i32 }> @_Z13CompareNBytesyPhi(i64 %41, i64 %40, i8* %43, i8* %42, i32 %45, i32 %44)
+  %47 = extractvalue <{ i32, i32 }> %46, 0
+  %48 = extractvalue <{ i32, i32 }> %46, 1
+  store i32 %48, i32* %res8_dup, align 4
+  store i32 %47, i32* %res8, align 4
+  %49 = load i32* %res8_dup, align 4
+  %50 = load i32* %res8, align 4
+  %tobool10_dup = icmp ne i32 %49, 0
+  %tobool10 = icmp ne i32 %50, 0
+  %tobool10_check = icmp eq i1 %tobool10, %tobool10_dup
+  br i1 %tobool10, label %if.then11, label %if.end12
+
+if.then11:                                        ; preds = %for.body
+  %51 = load i32* %j_dup, align 4
+  %52 = load i32* %j, align 4
+  store i32 %51, i32* %retval_dup
+  store i32 %52, i32* %retval
+  br label %return
+
+if.end12:                                         ; preds = %for.body
+  %53 = load i32* @stride_dup, align 4
+  %54 = load i32* @stride, align 4
+  %55 = load i8** %pcounter_dup, align 8
+  %56 = load i8** %pcounter, align 8
+  %idx.ext13_dup = sext i32 %53 to i64
+  %idx.ext13 = sext i32 %54 to i64
+  %idx.ext13_check = icmp eq i64 %idx.ext13, %idx.ext13_dup
+  %add.ptr14_dup = getelementptr inbounds i8* %55, i64 %idx.ext13_dup
+  %add.ptr14 = getelementptr inbounds i8* %56, i64 %idx.ext13
+  %add.ptr14_check = icmp eq i8* %add.ptr14, %add.ptr14_dup
+  store i8* %add.ptr14_dup, i8** %pcounter_dup, align 8
+  store i8* %add.ptr14, i8** %pcounter, align 8
+  br label %for.inc
+
+for.inc:                                          ; preds = %if.end12
+  %57 = load i32* %j_dup, align 4
+  %58 = load i32* %j, align 4
+  %inc_dup = add i32 %57, 1
+  %inc = add i32 %58, 1
+  %inc_check = icmp eq i32 %inc, %inc_dup
+  store i32 %inc_dup, i32* %j_dup, align 4
+  store i32 %inc, i32* %j, align 4
+  br label %for.cond
+
+for.end:                                          ; preds = %for.cond
+  store i32 0, i32* %retval_dup
+  store i32 0, i32* %retval
+  br label %return
+
+return:                                           ; preds = %for.end, %if.then11, %if.then
+  %59 = load i32* %retval_dup
+  %60 = load i32* %retval
+  %61 = alloca <{ i32, i32 }>
+  %62 = load <{ i32, i32 }>* %61
+  %63 = insertvalue <{ i32, i32 }> %62, i32 %60, 0
+  %64 = insertvalue <{ i32, i32 }> %63, i32 %59, 1
+  ret <{ i32, i32 }> %64
+}
+
+declare i32 @printf(i8*, ...) #4
+
+define void @_Z10initializev() #2 {
+entry:
+  call void @llvm.memset.p0i8.i64(i8* getelementptr inbounds ([1000 x i8]* @buffer, i32 0, i32 0), i8 0, i64 1000, i32 16, i1 false)
+  call void @llvm.memset.p0i8.i64(i8* bitcast ([1 x i64]* @checksum to i8*), i8 0, i64 1000, i32 8, i1 false)
+  ret void
+}
+
+declare void @llvm.memset.p0i8.i64(i8* nocapture, i8, i64, i32, i1) #5
+
+define i32 @main() #1 {
+entry:
+  %retval_dup = alloca i32, align 4
+  %retval = alloca i32, align 4
+  %id_dup = alloca i32, align 4
+  %id = alloca i32, align 4
+  store i32 0, i32* %retval_dup
+  store i32 0, i32* %retval
+  store i32 0, i32* %id_dup, align 4
+  store i32 0, i32* %id, align 4
+  %0 = load i32* %id_dup, align 4
+  %1 = load i32* %id, align 4
+  call void @_Z4Testi(i32 %1, i32 %0)
+  %2 = load i32* %id_dup, align 4
+  %3 = load i32* %id, align 4
+  %4 = call <{ i32, i32 }> @_Z5Checki(i32 %3, i32 %2)
+  %5 = extractvalue <{ i32, i32 }> %4, 0
+  %6 = extractvalue <{ i32, i32 }> %4, 1
+  ret i32 %5
+}
+
+define internal void @_GLOBAL__I_a() section "__TEXT,__StaticInit,regular,pure_instructions" {
+entry:
+  call void @__cxx_global_var_init()
+  call void @__cxx_global_var_init1()
+  ret void
+}
+
+attributes #0 = { noinline nounwind ssp uwtable "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf"="true" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #1 = { ssp uwtable "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf"="true" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #2 = { nounwind ssp uwtable "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf"="true" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #3 = { noinline ssp uwtable "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf"="true" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #4 = { "less-precise-fpmad"="false" "no-frame-pointer-elim"="true" "no-frame-pointer-elim-non-leaf"="true" "no-infs-fp-math"="false" "no-nans-fp-math"="false" "unsafe-fp-math"="false" "use-soft-float"="false" }
+attributes #5 = { nounwind }
+
+!0 = metadata !{i32 842}
+!1 = metadata !{i32 887}
+!2 = metadata !{i32 971}
+!3 = metadata !{i32 1016}
+!4 = metadata !{i32 1096}
+!5 = metadata !{i32 1141}

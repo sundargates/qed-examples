@@ -1,0 +1,1276 @@
+; ModuleID = 'parax.cpp'
+target datalayout = "e-p:32:32:32-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:32:64-f32:32:32-f64:32:64-v64:64:64-v128:128:128-a0:0:64-f80:32:32-n8:16:32-S128"
+target triple = "i686-pc-metal"
+
+%"class.maestro::Barrier" = type { i32, i32, i32 }
+%"struct.maestro::ia32::STACK_TOP" = type { i16, i16, i16, i16, i16, [6 x i8], i64, i64, i64, i64, i64, i64, i64, i64, i64, %union.anon, %union.anon.0, %union.anon.1, %union.anon.2, %union.anon.3, %union.anon.4, %union.anon.5, i32, i32, %union.anon.6, i16, [6 x i8], %union.anon.7, %union.anon.8 }
+%union.anon = type { i64 }
+%union.anon.0 = type { i64 }
+%union.anon.1 = type { i64 }
+%union.anon.2 = type { i64 }
+%union.anon.3 = type { i64 }
+%union.anon.4 = type { i64 }
+%union.anon.5 = type { i64 }
+%union.anon.6 = type { i64 }
+%union.anon.7 = type { i64 }
+%union.anon.8 = type { i64 }
+
+@__MCP__Test__MCP__buffer_maestro_init_2 = addrspace(12) global [16777216 x i8] zeroinitializer, section "__MCP__Test__MCP__buffer_maestro_init_2", align 1
+@__MCP__Test__MCP__checksum_maestro_init_1 = addrspace(12) global [4 x i8] zeroinitializer, section "__MCP__Test__MCP__checksum_maestro_init_1", align 1
+@__MCP__Test__MCP__bar = internal global %"class.maestro::Barrier" zeroinitializer, align 4
+@llvm.global_ctors = appending global [2 x { i32, void ()* }] [{ i32, void ()* } { i32 65535, void ()* @__MCP__Test__MCP___GLOBAL__I_a }, { i32, void ()* } { i32 65535, void ()* @_GLOBAL__I_a }]
+@IDTBuffer = internal global [256 x i64] zeroinitializer, align 4096
+@llvm.used = appending global [5 x i8*] [i8* bitcast (void ()* @_Z24_DefaultInterruptHandlerv to i8*), i8* bitcast (i8 addrspace(12)** @LogBufferBase to i8*), i8* bitcast (i32* @LogBufferSize to i8*), i8* bitcast (i8* (i8*, i32, i32)* @memset to i8*), i8* bitcast (i8* (i8*, i8*, i32)* @memcpy to i8*)], section "llvm.metadata"
+@ThreadExitSync = internal global %"class.maestro::Barrier" zeroinitializer, align 4
+@_ZL16ThreadExitFailed = internal global i32 0, align 4
+@_ZZ5_exitE4flag = internal global i8 0, align 1
+@_ZN12_GLOBAL__N_16bufferE_maestro_init_0 = addrspace(12) global [1048576 x i8] undef, section "_ZN12_GLOBAL__N_16bufferE_maestro_init_0", align 1
+@LogBufferBase = global i8 addrspace(12)* getelementptr inbounds ([1048576 x i8] addrspace(12)* @_ZN12_GLOBAL__N_16bufferE_maestro_init_0, i32 0, i32 0), align 4
+@LogBufferSize = global i32 0, align 4
+@_mainStub_0_stack = internal global [4096 x i8] zeroinitializer, align 4096
+@__BarrierWaitOnCtor0 = internal global i8 0
+@__FlagRunCtorOnce0 = internal global i8 0
+@__BarrierWaitOnCtor1 = internal global i8 0
+@__FlagRunCtorOnce1 = internal global i8 0
+
+define internal fastcc i32 @__MCP__Test__MCP__main() nounwind noinline {
+entry:
+  %buf.i.i = alloca [10 x i8], align 1
+  %0 = call i16 asm sideeffect ".intel_syntax;\0A\09mov\09ax,\09cs;\0A", "={ax},~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !353
+  %conv.i = zext i16 %0 to i64
+  %shl.i = shl nuw nsw i64 %conv.i, 16
+  br label %for.body.i
+
+for.body.i:                                       ; preds = %for.body.i, %entry
+  %i.02.i = phi i32 [ 0, %entry ], [ %inc.i, %for.body.i ]
+  %baseOffset.01.i = phi i32 [ ptrtoint (void ()* @_Z24_DefaultInterruptHandlerv to i32), %entry ], [ %add.i, %for.body.i ]
+  %and.i = and i32 %baseOffset.01.i, 65520
+  %conv12.i = zext i32 %and.i to i64
+  %and14.i = and i32 %baseOffset.01.i, -65536
+  %conv15.i = zext i32 %and14.i to i64
+  %shl16.i = shl nuw i64 %conv15.i, 32
+  %or.i = or i64 %shl.i, %conv12.i
+  %or13.i = or i64 %or.i, %shl16.i
+  %or17.i = or i64 %or13.i, 156130651144192
+  %arrayidx.i = getelementptr inbounds [256 x i64]* @IDTBuffer, i32 0, i32 %i.02.i
+  store i64 %or17.i, i64* %arrayidx.i, align 8
+  %add.i = add i32 %baseOffset.01.i, 16
+  %inc.i = add i32 %i.02.i, 1
+  %exitcond.i = icmp eq i32 %inc.i, 256
+  br i1 %exitcond.i, label %_Z23_InstallDefaultHandlersb182.exit, label %for.body.i
+
+_Z23_InstallDefaultHandlersb182.exit:             ; preds = %for.body.i
+  %1 = getelementptr inbounds [10 x i8]* %buf.i.i, i32 0, i32 0
+  call void @llvm.lifetime.start(i64 -1, i8* %1) nounwind
+  call void @llvm.memset.p0i8.i32(i8* %1, i8 0, i32 10, i32 1, i1 false) nounwind
+  store i8 -1, i8* %1, align 1
+  %arrayidx1.i.i = getelementptr inbounds [10 x i8]* %buf.i.i, i32 0, i32 1
+  store i8 7, i8* %arrayidx1.i.i, align 1
+  %arrayidx2.i.i = getelementptr inbounds [10 x i8]* %buf.i.i, i32 0, i32 2
+  %2 = bitcast i8* %arrayidx2.i.i to i32*
+  store i32 ptrtoint ([256 x i64]* @IDTBuffer to i32), i32* %2, align 4
+  %3 = ptrtoint [10 x i8]* %buf.i.i to i32
+  call void asm sideeffect "lidt\09($0)", "r,~{dirflag},~{fpsr},~{flags}"(i32 %3) nounwind, !srcloc !354
+  call void @llvm.lifetime.end(i64 -1, i8* %1) nounwind
+  call fastcc void @__ExecuteGlobalCtorChain0()
+  call fastcc void @__WaitForGlobalCtorChain0()
+  call fastcc void @__MCP__Test__MCP__Test() nounwind
+  %4 = load i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 2), align 4
+  %cmp.i = icmp ugt i32 %4, 1
+  br i1 %cmp.i, label %if.then.i, label %_ZN7maestro7Barrier4SyncEv.exit
+
+if.then.i:                                        ; preds = %_Z23_InstallDefaultHandlersb182.exit
+  %5 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 1), align 4
+  %6 = atomicrmw add i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 0), i32 1 seq_cst
+  %7 = add i32 %6, 1
+  %8 = load i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 2), align 4
+  %cmp3.i = icmp eq i32 %7, %8
+  br i1 %cmp3.i, label %if.then4.i, label %while.cond.preheader.i
+
+while.cond.preheader.i:                           ; preds = %if.then.i
+  %9 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 1), align 4
+  %cmp81.i = icmp eq i32 %9, %5
+  br i1 %cmp81.i, label %while.body.i, label %_ZN7maestro7Barrier4SyncEv.exit
+
+if.then4.i:                                       ; preds = %if.then.i
+  store i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 0), align 4
+  %10 = atomicrmw add i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 1), i32 1 seq_cst
+  br label %_ZN7maestro7Barrier4SyncEv.exit
+
+while.body.i:                                     ; preds = %while.cond.preheader.i, %while.body.i
+  call void asm sideeffect "pause", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !355
+  %11 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 1), align 4
+  %cmp8.i = icmp eq i32 %11, %5
+  br i1 %cmp8.i, label %while.body.i, label %_ZN7maestro7Barrier4SyncEv.exit
+
+_ZN7maestro7Barrier4SyncEv.exit:                  ; preds = %while.body.i, %_Z23_InstallDefaultHandlersb182.exit, %while.cond.preheader.i, %if.then4.i
+  %call1 = call fastcc i32 @__MCP__Test__MCP__Check() nounwind
+  ret i32 %call1
+}
+
+define internal fastcc void @__MCP__Test__MCP__Test() nounwind noinline {
+entry:
+  br label %sw.bb20
+
+sw.bb20:                                          ; preds = %sw.bb20, %entry
+  %i.07 = phi i32 [ %inc25, %sw.bb20 ], [ 0, %entry ]
+  tail call void asm sideeffect "incl ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* bitcast ([16777216 x i8] addrspace(12)* @__MCP__Test__MCP__buffer_maestro_init_2 to i8*)) nounwind, !srcloc !356
+  tail call void asm sideeffect "incl ($0)", "r,~{dirflag},~{fpsr},~{flags}"(i8* bitcast ([4 x i8] addrspace(12)* @__MCP__Test__MCP__checksum_maestro_init_1 to i8*)) nounwind, !srcloc !357
+  %inc25 = add i32 %i.07, 1
+  %exitcond = icmp eq i32 %inc25, 3026
+  br i1 %exitcond, label %for.end26, label %sw.bb20
+
+for.end26:                                        ; preds = %sw.bb20
+  ret void
+}
+
+define internal fastcc i32 @__MCP__Test__MCP__Check() nounwind readonly noinline {
+entry:
+  %0 = load i32* bitcast ([4 x i8] addrspace(12)* @__MCP__Test__MCP__checksum_maestro_init_1 to i32*), align 4
+  %not.tobool = icmp ne i32 %0, 3026
+  %. = zext i1 %not.tobool to i32
+  ret i32 %.
+}
+
+define internal void @__MCP__Test__MCP___GLOBAL__I_a() nounwind section ".text.startup" {
+entry:
+  store i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 0), align 4
+  store volatile i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 1), align 4
+  store i32 1, i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 2), align 4
+  ret void
+}
+
+define internal void @_Z24_DefaultInterruptHandlerv() noreturn nounwind noinline naked align 16 {
+entry:
+  %0 = tail call { %"struct.maestro::ia32::STACK_TOP"*, i32 } asm sideeffect ".intel_syntax;\0Aivl0:;\0A\09push\090;\0A\09push\090;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl1:;\0A\09push\090;\0A\09push\091;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl2:;\0A\09push\090;\0A\09push\092;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl3:;\0A\09push\090;\0A\09push\093;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl4:;\0A\09push\090;\0A\09push\094;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl5:;\0A\09push\090;\0A\09push\095;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl6:;\0A\09push\090;\0A\09push\096;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl7:;\0A\09push\090;\0A\09push\097;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl8:;\0A\09push\098;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl9:;\0A\09push\090;\0A\09push\099;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl10:;\0A\09push\0910;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl11:;\0A\09push\0911;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl12:;\0A\09push\0912;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl13:;\0A\09push\0913;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl14:;\0A\09push\0914;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl15:;\0A\09push\090;\0A\09push\0915;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl16:;\0A\09push\090;\0A\09push\0916;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl17:;\0A\09push\0917;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl18:;\0A\09push\090;\0A\09push\0918;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl19:;\0A\09push\090;\0A\09push\0919;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl20:;\0A\09push\090;\0A\09push\0920;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl21:;\0A\09push\090;\0A\09push\0921;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl22:;\0A\09push\090;\0A\09push\0922;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl23:;\0A\09push\090;\0A\09push\0923;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl24:;\0A\09push\090;\0A\09push\0924;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl25:;\0A\09push\090;\0A\09push\0925;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl26:;\0A\09push\090;\0A\09push\0926;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl27:;\0A\09push\090;\0A\09push\0927;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl28:;\0A\09push\090;\0A\09push\0928;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl29:;\0A\09push\090;\0A\09push\0929;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl30:;\0A\09push\090;\0A\09push\0930;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl31:;\0A\09push\090;\0A\09push\0931;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl32:;\0A\09push\090;\0A\09push\0932;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl33:;\0A\09push\090;\0A\09push\0933;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl34:;\0A\09push\090;\0A\09push\0934;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl35:;\0A\09push\090;\0A\09push\0935;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl36:;\0A\09push\090;\0A\09push\0936;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl37:;\0A\09push\090;\0A\09push\0937;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl38:;\0A\09push\090;\0A\09push\0938;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl39:;\0A\09push\090;\0A\09push\0939;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl40:;\0A\09push\090;\0A\09push\0940;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl41:;\0A\09push\090;\0A\09push\0941;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl42:;\0A\09push\090;\0A\09push\0942;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl43:;\0A\09push\090;\0A\09push\0943;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl44:;\0A\09push\090;\0A\09push\0944;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl45:;\0A\09push\090;\0A\09push\0945;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl46:;\0A\09push\090;\0A\09push\0946;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl47:;\0A\09push\090;\0A\09push\0947;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl48:;\0A\09push\090;\0A\09push\0948;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl49:;\0A\09push\090;\0A\09push\0949;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl50:;\0A\09push\090;\0A\09push\0950;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl51:;\0A\09push\090;\0A\09push\0951;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl52:;\0A\09push\090;\0A\09push\0952;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl53:;\0A\09push\090;\0A\09push\0953;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl54:;\0A\09push\090;\0A\09push\0954;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl55:;\0A\09push\090;\0A\09push\0955;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl56:;\0A\09push\090;\0A\09push\0956;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl57:;\0A\09push\090;\0A\09push\0957;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl58:;\0A\09push\090;\0A\09push\0958;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl59:;\0A\09push\090;\0A\09push\0959;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl60:;\0A\09push\090;\0A\09push\0960;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl61:;\0A\09push\090;\0A\09push\0961;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl62:;\0A\09push\090;\0A\09push\0962;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl63:;\0A\09push\090;\0A\09push\0963;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl64:;\0A\09push\090;\0A\09push\0964;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl65:;\0A\09push\090;\0A\09push\0965;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl66:;\0A\09push\090;\0A\09push\0966;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl67:;\0A\09push\090;\0A\09push\0967;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl68:;\0A\09push\090;\0A\09push\0968;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl69:;\0A\09push\090;\0A\09push\0969;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl70:;\0A\09push\090;\0A\09push\0970;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl71:;\0A\09push\090;\0A\09push\0971;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl72:;\0A\09push\090;\0A\09push\0972;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl73:;\0A\09push\090;\0A\09push\0973;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl74:;\0A\09push\090;\0A\09push\0974;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl75:;\0A\09push\090;\0A\09push\0975;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl76:;\0A\09push\090;\0A\09push\0976;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl77:;\0A\09push\090;\0A\09push\0977;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl78:;\0A\09push\090;\0A\09push\0978;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl79:;\0A\09push\090;\0A\09push\0979;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl80:;\0A\09push\090;\0A\09push\0980;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl81:;\0A\09push\090;\0A\09push\0981;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl82:;\0A\09push\090;\0A\09push\0982;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl83:;\0A\09push\090;\0A\09push\0983;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl84:;\0A\09push\090;\0A\09push\0984;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl85:;\0A\09push\090;\0A\09push\0985;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl86:;\0A\09push\090;\0A\09push\0986;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl87:;\0A\09push\090;\0A\09push\0987;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl88:;\0A\09push\090;\0A\09push\0988;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl89:;\0A\09push\090;\0A\09push\0989;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl90:;\0A\09push\090;\0A\09push\0990;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl91:;\0A\09push\090;\0A\09push\0991;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl92:;\0A\09push\090;\0A\09push\0992;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl93:;\0A\09push\090;\0A\09push\0993;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl94:;\0A\09push\090;\0A\09push\0994;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl95:;\0A\09push\090;\0A\09push\0995;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl96:;\0A\09push\090;\0A\09push\0996;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl97:;\0A\09push\090;\0A\09push\0997;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl98:;\0A\09push\090;\0A\09push\0998;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl99:;\0A\09push\090;\0A\09push\0999;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl100:;\0A\09push\090;\0A\09push\09100;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl101:;\0A\09push\090;\0A\09push\09101;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl102:;\0A\09push\090;\0A\09push\09102;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl103:;\0A\09push\090;\0A\09push\09103;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl104:;\0A\09push\090;\0A\09push\09104;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl105:;\0A\09push\090;\0A\09push\09105;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl106:;\0A\09push\090;\0A\09push\09106;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl107:;\0A\09push\090;\0A\09push\09107;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl108:;\0A\09push\090;\0A\09push\09108;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl109:;\0A\09push\090;\0A\09push\09109;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl110:;\0A\09push\090;\0A\09push\09110;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl111:;\0A\09push\090;\0A\09push\09111;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl112:;\0A\09push\090;\0A\09push\09112;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl113:;\0A\09push\090;\0A\09push\09113;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl114:;\0A\09push\090;\0A\09push\09114;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl115:;\0A\09push\090;\0A\09push\09115;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl116:;\0A\09push\090;\0A\09push\09116;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl117:;\0A\09push\090;\0A\09push\09117;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl118:;\0A\09push\090;\0A\09push\09118;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl119:;\0A\09push\090;\0A\09push\09119;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl120:;\0A\09push\090;\0A\09push\09120;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl121:;\0A\09push\090;\0A\09push\09121;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl122:;\0A\09push\090;\0A\09push\09122;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl123:;\0A\09push\090;\0A\09push\09123;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl124:;\0A\09push\090;\0A\09push\09124;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl125:;\0A\09push\090;\0A\09push\09125;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl126:;\0A\09push\090;\0A\09push\09126;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl127:;\0A\09push\090;\0A\09push\09127;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl128:;\0A\09push\090;\0A\09push\09128;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl129:;\0A\09push\090;\0A\09push\09129;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl130:;\0A\09push\090;\0A\09push\09130;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl131:;\0A\09push\090;\0A\09push\09131;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl132:;\0A\09push\090;\0A\09push\09132;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl133:;\0A\09push\090;\0A\09push\09133;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl134:;\0A\09push\090;\0A\09push\09134;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl135:;\0A\09push\090;\0A\09push\09135;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl136:;\0A\09push\090;\0A\09push\09136;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl137:;\0A\09push\090;\0A\09push\09137;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl138:;\0A\09push\090;\0A\09push\09138;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl139:;\0A\09push\090;\0A\09push\09139;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl140:;\0A\09push\090;\0A\09push\09140;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl141:;\0A\09push\090;\0A\09push\09141;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl142:;\0A\09push\090;\0A\09push\09142;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl143:;\0A\09push\090;\0A\09push\09143;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl144:;\0A\09push\090;\0A\09push\09144;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl145:;\0A\09push\090;\0A\09push\09145;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl146:;\0A\09push\090;\0A\09push\09146;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl147:;\0A\09push\090;\0A\09push\09147;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl148:;\0A\09push\090;\0A\09push\09148;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl149:;\0A\09push\090;\0A\09push\09149;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl150:;\0A\09push\090;\0A\09push\09150;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl151:;\0A\09push\090;\0A\09push\09151;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl152:;\0A\09push\090;\0A\09push\09152;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl153:;\0A\09push\090;\0A\09push\09153;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl154:;\0A\09push\090;\0A\09push\09154;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl155:;\0A\09push\090;\0A\09push\09155;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl156:;\0A\09push\090;\0A\09push\09156;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl157:;\0A\09push\090;\0A\09push\09157;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl158:;\0A\09push\090;\0A\09push\09158;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl159:;\0A\09push\090;\0A\09push\09159;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl160:;\0A\09push\090;\0A\09push\09160;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl161:;\0A\09push\090;\0A\09push\09161;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl162:;\0A\09push\090;\0A\09push\09162;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl163:;\0A\09push\090;\0A\09push\09163;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl164:;\0A\09push\090;\0A\09push\09164;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl165:;\0A\09push\090;\0A\09push\09165;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl166:;\0A\09push\090;\0A\09push\09166;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl167:;\0A\09push\090;\0A\09push\09167;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl168:;\0A\09push\090;\0A\09push\09168;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl169:;\0A\09push\090;\0A\09push\09169;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl170:;\0A\09push\090;\0A\09push\09170;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl171:;\0A\09push\090;\0A\09push\09171;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl172:;\0A\09push\090;\0A\09push\09172;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl173:;\0A\09push\090;\0A\09push\09173;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl174:;\0A\09push\090;\0A\09push\09174;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl175:;\0A\09push\090;\0A\09push\09175;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl176:;\0A\09push\090;\0A\09push\09176;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl177:;\0A\09push\090;\0A\09push\09177;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl178:;\0A\09push\090;\0A\09push\09178;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl179:;\0A\09push\090;\0A\09push\09179;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl180:;\0A\09push\090;\0A\09push\09180;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl181:;\0A\09push\090;\0A\09push\09181;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl182:;\0A\09push\090;\0A\09push\09182;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl183:;\0A\09push\090;\0A\09push\09183;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl184:;\0A\09push\090;\0A\09push\09184;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl185:;\0A\09push\090;\0A\09push\09185;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl186:;\0A\09push\090;\0A\09push\09186;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl187:;\0A\09push\090;\0A\09push\09187;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl188:;\0A\09push\090;\0A\09push\09188;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl189:;\0A\09push\090;\0A\09push\09189;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl190:;\0A\09push\090;\0A\09push\09190;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl191:;\0A\09push\090;\0A\09push\09191;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl192:;\0A\09push\090;\0A\09push\09192;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl193:;\0A\09push\090;\0A\09push\09193;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl194:;\0A\09push\090;\0A\09push\09194;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl195:;\0A\09push\090;\0A\09push\09195;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl196:;\0A\09push\090;\0A\09push\09196;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl197:;\0A\09push\090;\0A\09push\09197;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl198:;\0A\09push\090;\0A\09push\09198;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl199:;\0A\09push\090;\0A\09push\09199;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl200:;\0A\09push\090;\0A\09push\09200;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl201:;\0A\09push\090;\0A\09push\09201;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl202:;\0A\09push\090;\0A\09push\09202;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl203:;\0A\09push\090;\0A\09push\09203;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl204:;\0A\09push\090;\0A\09push\09204;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl205:;\0A\09push\090;\0A\09push\09205;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl206:;\0A\09push\090;\0A\09push\09206;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl207:;\0A\09push\090;\0A\09push\09207;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl208:;\0A\09push\090;\0A\09push\09208;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl209:;\0A\09push\090;\0A\09push\09209;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl210:;\0A\09push\090;\0A\09push\09210;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl211:;\0A\09push\090;\0A\09push\09211;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl212:;\0A\09push\090;\0A\09push\09212;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl213:;\0A\09push\090;\0A\09push\09213;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl214:;\0A\09push\090;\0A\09push\09214;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl215:;\0A\09push\090;\0A\09push\09215;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl216:;\0A\09push\090;\0A\09push\09216;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl217:;\0A\09push\090;\0A\09push\09217;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl218:;\0A\09push\090;\0A\09push\09218;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl219:;\0A\09push\090;\0A\09push\09219;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl220:;\0A\09push\090;\0A\09push\09220;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl221:;\0A\09push\090;\0A\09push\09221;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl222:;\0A\09push\090;\0A\09push\09222;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl223:;\0A\09push\090;\0A\09push\09223;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl224:;\0A\09push\090;\0A\09push\09224;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl225:;\0A\09push\090;\0A\09push\09225;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl226:;\0A\09push\090;\0A\09push\09226;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl227:;\0A\09push\090;\0A\09push\09227;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl228:;\0A\09push\090;\0A\09push\09228;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl229:;\0A\09push\090;\0A\09push\09229;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl230:;\0A\09push\090;\0A\09push\09230;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl231:;\0A\09push\090;\0A\09push\09231;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl232:;\0A\09push\090;\0A\09push\09232;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl233:;\0A\09push\090;\0A\09push\09233;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl234:;\0A\09push\090;\0A\09push\09234;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl235:;\0A\09push\090;\0A\09push\09235;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl236:;\0A\09push\090;\0A\09push\09236;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl237:;\0A\09push\090;\0A\09push\09237;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl238:;\0A\09push\090;\0A\09push\09238;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl239:;\0A\09push\090;\0A\09push\09239;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl240:;\0A\09push\090;\0A\09push\09240;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl241:;\0A\09push\090;\0A\09push\09241;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl242:;\0A\09push\090;\0A\09push\09242;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl243:;\0A\09push\090;\0A\09push\09243;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl244:;\0A\09push\090;\0A\09push\09244;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl245:;\0A\09push\090;\0A\09push\09245;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl246:;\0A\09push\090;\0A\09push\09246;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl247:;\0A\09push\090;\0A\09push\09247;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl248:;\0A\09push\090;\0A\09push\09248;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl249:;\0A\09push\090;\0A\09push\09249;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl250:;\0A\09push\090;\0A\09push\09250;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl251:;\0A\09push\090;\0A\09push\09251;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl252:;\0A\09push\090;\0A\09push\09252;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl253:;\0A\09push\090;\0A\09push\09253;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl254:;\0A\09push\090;\0A\09push\09254;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0Aivl255:;\0A\09push\090;\0A\09push\09255;\0A\09jmp\09Istmake;\0A.align\0916, 0xf4;\0AIstmake:;\0A\09push\090;\0A\09push\09eax;\0A\09xor\09eax,\09eax;\0A\09push\09eax;\0A\09push\09DWORD PTR [esp+0x1C];\0A\09push\09eax;\0A\09push\09DWORD PTR [esp+0x20];\0A\09push\09eax;\0A\09push\09DWORD PTR [esp+0x24];\0A\09push\09eax;\0A\09push\09DWORD PTR [esp+0x20];\0A\09push\09eax;\0A\09push\09ebx;\0A\09push\09eax;\0A\09push\09ecx;\0A\09push\09eax;\0A\09push\09edx;\0A\09push\09eax;\0A\09push\09edi;\0A\09push\09eax;\0A\09push\09esi;\0A\09push\09eax;\0A\09push\09ebp;\0A\09push\090;\0A\09push\090;\0A\09sub\09esp,\090x40;\0A\09push\09eax;\0A\09mov\09eax,\09cr0;\0A\09push\09eax;\0A\09sub\09esp,\096;\0A\09mov\09ax,\09ss\0A\09push\09ax;\0A\09mov\09ax,\09ds;\0A\09push\09ax;\0A\09mov\09ax,\09es;\0A\09push\09ax;\0A\09mov\09ax,\09fs;\0A\09push\09ax;\0A\09mov\09ax,\09gs;\0A\09push\09ax;\0A\09mov\09edi,\09esp;\0A\09mov\09eax,\09DWORD PTR [esp+0xB8];\0A", "={di},={ax},~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !358
+  %asmresult = extractvalue { %"struct.maestro::ia32::STACK_TOP"*, i32 } %0, 0
+  %asmresult1 = extractvalue { %"struct.maestro::ia32::STACK_TOP"*, i32 } %0, 1
+  %call.i = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i1 = icmp eq i32 addrspace(12)* %call.i, null
+  br i1 %tobool.i1, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit, label %if.then.i2
+
+if.then.i2:                                       ; preds = %entry
+  %1 = bitcast i32 addrspace(12)* %call.i to i8 addrspace(12)*
+  %2 = bitcast i8 addrspace(12)* %1 to i32*
+  store volatile i32 98, i32* %2, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit:   ; preds = %entry, %if.then.i2
+  %call.i3 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i4 = icmp eq i32 addrspace(12)* %call.i3, null
+  br i1 %tobool.i4, label %_ZN7maestro6LoggerlsEj.exit, label %if.then.i5
+
+if.then.i5:                                       ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit
+  %3 = bitcast i32 addrspace(12)* %call.i3 to i8 addrspace(12)*
+  %4 = bitcast i8 addrspace(12)* %3 to i32*
+  store volatile i32 %asmresult1, i32* %4, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit
+
+_ZN7maestro6LoggerlsEj.exit:                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit, %if.then.i5
+  %call.i7 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i8 = icmp eq i32 addrspace(12)* %call.i7, null
+  br i1 %tobool.i8, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit12, label %if.then.i11
+
+if.then.i11:                                      ; preds = %_ZN7maestro6LoggerlsEj.exit
+  %5 = bitcast i32 addrspace(12)* %call.i7 to i8 addrspace(12)*
+  %6 = bitcast i8 addrspace(12)* %5 to i32*
+  store volatile i32 97, i32* %6, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit12
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit12: ; preds = %_ZN7maestro6LoggerlsEj.exit, %if.then.i11
+  %call.i14 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i15 = icmp eq i32 addrspace(12)* %call.i14, null
+  br i1 %tobool.i15, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit19, label %if.then.i18
+
+if.then.i18:                                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit12
+  %7 = bitcast i32 addrspace(12)* %call.i14 to i8 addrspace(12)*
+  %8 = bitcast i8 addrspace(12)* %7 to i32*
+  store volatile i32 96, i32* %8, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit19
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit19: ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit12, %if.then.i18
+  %CS = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 25
+  %9 = load i16* %CS, align 2
+  %call.i20 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i21 = icmp eq i32 addrspace(12)* %call.i20, null
+  br i1 %tobool.i21, label %_ZN7maestro6LoggerlsEj.exit23, label %if.then.i22
+
+if.then.i22:                                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit19
+  %conv = zext i16 %9 to i32
+  %10 = bitcast i32 addrspace(12)* %call.i20 to i8 addrspace(12)*
+  %11 = bitcast i8 addrspace(12)* %10 to i32*
+  store volatile i32 %conv, i32* %11, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit23
+
+_ZN7maestro6LoggerlsEj.exit23:                    ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit19, %if.then.i22
+  %call.i31 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i32 = icmp eq i32 addrspace(12)* %call.i31, null
+  br i1 %tobool.i32, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit36, label %if.then.i35
+
+if.then.i35:                                      ; preds = %_ZN7maestro6LoggerlsEj.exit23
+  %12 = bitcast i32 addrspace(12)* %call.i31 to i8 addrspace(12)*
+  %13 = bitcast i8 addrspace(12)* %12 to i32*
+  store volatile i32 95, i32* %13, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit36
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit36: ; preds = %_ZN7maestro6LoggerlsEj.exit23, %if.then.i35
+  %14 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 24
+  %EIP = bitcast %union.anon.6* %14 to i32*
+  %15 = load i32* %EIP, align 4
+  %call.i37 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i38 = icmp eq i32 addrspace(12)* %call.i37, null
+  br i1 %tobool.i38, label %_ZN7maestro6LoggerlsEj.exit40, label %if.then.i39
+
+if.then.i39:                                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit36
+  %16 = bitcast i32 addrspace(12)* %call.i37 to i8 addrspace(12)*
+  %17 = bitcast i8 addrspace(12)* %16 to i32*
+  store volatile i32 %15, i32* %17, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit40
+
+_ZN7maestro6LoggerlsEj.exit40:                    ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit36, %if.then.i39
+  %call.i47 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i48 = icmp eq i32 addrspace(12)* %call.i47, null
+  br i1 %tobool.i48, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit52, label %if.then.i51
+
+if.then.i51:                                      ; preds = %_ZN7maestro6LoggerlsEj.exit40
+  %18 = bitcast i32 addrspace(12)* %call.i47 to i8 addrspace(12)*
+  %19 = bitcast i8 addrspace(12)* %18 to i32*
+  store volatile i32 94, i32* %19, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit52
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit52: ; preds = %_ZN7maestro6LoggerlsEj.exit40, %if.then.i51
+  %20 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 28
+  %EAX = bitcast %union.anon.8* %20 to i32*
+  %21 = load i32* %EAX, align 4
+  %call.i53 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i54 = icmp eq i32 addrspace(12)* %call.i53, null
+  br i1 %tobool.i54, label %_ZN7maestro6LoggerlsEj.exit56, label %if.then.i55
+
+if.then.i55:                                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit52
+  %22 = bitcast i32 addrspace(12)* %call.i53 to i8 addrspace(12)*
+  %23 = bitcast i8 addrspace(12)* %22 to i32*
+  store volatile i32 %21, i32* %23, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit56
+
+_ZN7maestro6LoggerlsEj.exit56:                    ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit52, %if.then.i55
+  %call.i64 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i65 = icmp eq i32 addrspace(12)* %call.i64, null
+  br i1 %tobool.i65, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit69, label %if.then.i68
+
+if.then.i68:                                      ; preds = %_ZN7maestro6LoggerlsEj.exit56
+  %24 = bitcast i32 addrspace(12)* %call.i64 to i8 addrspace(12)*
+  %25 = bitcast i8 addrspace(12)* %24 to i32*
+  store volatile i32 93, i32* %25, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit69
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit69: ; preds = %_ZN7maestro6LoggerlsEj.exit56, %if.then.i68
+  %26 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 21
+  %EBX = bitcast %union.anon.5* %26 to i32*
+  %27 = load i32* %EBX, align 4
+  %call.i70 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i71 = icmp eq i32 addrspace(12)* %call.i70, null
+  br i1 %tobool.i71, label %_ZN7maestro6LoggerlsEj.exit73, label %if.then.i72
+
+if.then.i72:                                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit69
+  %28 = bitcast i32 addrspace(12)* %call.i70 to i8 addrspace(12)*
+  %29 = bitcast i8 addrspace(12)* %28 to i32*
+  store volatile i32 %27, i32* %29, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit73
+
+_ZN7maestro6LoggerlsEj.exit73:                    ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit69, %if.then.i72
+  %call.i80 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i81 = icmp eq i32 addrspace(12)* %call.i80, null
+  br i1 %tobool.i81, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit85, label %if.then.i84
+
+if.then.i84:                                      ; preds = %_ZN7maestro6LoggerlsEj.exit73
+  %30 = bitcast i32 addrspace(12)* %call.i80 to i8 addrspace(12)*
+  %31 = bitcast i8 addrspace(12)* %30 to i32*
+  store volatile i32 92, i32* %31, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit85
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit85: ; preds = %_ZN7maestro6LoggerlsEj.exit73, %if.then.i84
+  %32 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 20
+  %ECX = bitcast %union.anon.4* %32 to i32*
+  %33 = load i32* %ECX, align 4
+  %call.i86 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i87 = icmp eq i32 addrspace(12)* %call.i86, null
+  br i1 %tobool.i87, label %_ZN7maestro6LoggerlsEj.exit89, label %if.then.i88
+
+if.then.i88:                                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit85
+  %34 = bitcast i32 addrspace(12)* %call.i86 to i8 addrspace(12)*
+  %35 = bitcast i8 addrspace(12)* %34 to i32*
+  store volatile i32 %33, i32* %35, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit89
+
+_ZN7maestro6LoggerlsEj.exit89:                    ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit85, %if.then.i88
+  %call.i97 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i98 = icmp eq i32 addrspace(12)* %call.i97, null
+  br i1 %tobool.i98, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit102, label %if.then.i101
+
+if.then.i101:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit89
+  %36 = bitcast i32 addrspace(12)* %call.i97 to i8 addrspace(12)*
+  %37 = bitcast i8 addrspace(12)* %36 to i32*
+  store volatile i32 91, i32* %37, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit102
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit102: ; preds = %_ZN7maestro6LoggerlsEj.exit89, %if.then.i101
+  %38 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 19
+  %EDX = bitcast %union.anon.3* %38 to i32*
+  %39 = load i32* %EDX, align 4
+  %call.i103 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i104 = icmp eq i32 addrspace(12)* %call.i103, null
+  br i1 %tobool.i104, label %_ZN7maestro6LoggerlsEj.exit106, label %if.then.i105
+
+if.then.i105:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit102
+  %40 = bitcast i32 addrspace(12)* %call.i103 to i8 addrspace(12)*
+  %41 = bitcast i8 addrspace(12)* %40 to i32*
+  store volatile i32 %39, i32* %41, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit106
+
+_ZN7maestro6LoggerlsEj.exit106:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit102, %if.then.i105
+  %call.i113 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i114 = icmp eq i32 addrspace(12)* %call.i113, null
+  br i1 %tobool.i114, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit118, label %if.then.i117
+
+if.then.i117:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit106
+  %42 = bitcast i32 addrspace(12)* %call.i113 to i8 addrspace(12)*
+  %43 = bitcast i8 addrspace(12)* %42 to i32*
+  store volatile i32 90, i32* %43, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit118
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit118: ; preds = %_ZN7maestro6LoggerlsEj.exit106, %if.then.i117
+  %44 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 18
+  %EDI = bitcast %union.anon.2* %44 to i32*
+  %45 = load i32* %EDI, align 4
+  %call.i119 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i120 = icmp eq i32 addrspace(12)* %call.i119, null
+  br i1 %tobool.i120, label %_ZN7maestro6LoggerlsEj.exit122, label %if.then.i121
+
+if.then.i121:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit118
+  %46 = bitcast i32 addrspace(12)* %call.i119 to i8 addrspace(12)*
+  %47 = bitcast i8 addrspace(12)* %46 to i32*
+  store volatile i32 %45, i32* %47, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit122
+
+_ZN7maestro6LoggerlsEj.exit122:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit118, %if.then.i121
+  %call.i130 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i131 = icmp eq i32 addrspace(12)* %call.i130, null
+  br i1 %tobool.i131, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit135, label %if.then.i134
+
+if.then.i134:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit122
+  %48 = bitcast i32 addrspace(12)* %call.i130 to i8 addrspace(12)*
+  %49 = bitcast i8 addrspace(12)* %48 to i32*
+  store volatile i32 89, i32* %49, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit135
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit135: ; preds = %_ZN7maestro6LoggerlsEj.exit122, %if.then.i134
+  %50 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 17
+  %ESI = bitcast %union.anon.1* %50 to i32*
+  %51 = load i32* %ESI, align 4
+  %call.i136 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i137 = icmp eq i32 addrspace(12)* %call.i136, null
+  br i1 %tobool.i137, label %_ZN7maestro6LoggerlsEj.exit139, label %if.then.i138
+
+if.then.i138:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit135
+  %52 = bitcast i32 addrspace(12)* %call.i136 to i8 addrspace(12)*
+  %53 = bitcast i8 addrspace(12)* %52 to i32*
+  store volatile i32 %51, i32* %53, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit139
+
+_ZN7maestro6LoggerlsEj.exit139:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit135, %if.then.i138
+  %call.i146 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i147 = icmp eq i32 addrspace(12)* %call.i146, null
+  br i1 %tobool.i147, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit151, label %if.then.i150
+
+if.then.i150:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit139
+  %54 = bitcast i32 addrspace(12)* %call.i146 to i8 addrspace(12)*
+  %55 = bitcast i8 addrspace(12)* %54 to i32*
+  store volatile i32 88, i32* %55, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit151
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit151: ; preds = %_ZN7maestro6LoggerlsEj.exit139, %if.then.i150
+  %56 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 16
+  %EBP = bitcast %union.anon.0* %56 to i32*
+  %57 = load i32* %EBP, align 4
+  %call.i152 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i153 = icmp eq i32 addrspace(12)* %call.i152, null
+  br i1 %tobool.i153, label %_ZN7maestro6LoggerlsEj.exit155, label %if.then.i154
+
+if.then.i154:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit151
+  %58 = bitcast i32 addrspace(12)* %call.i152 to i8 addrspace(12)*
+  %59 = bitcast i8 addrspace(12)* %58 to i32*
+  store volatile i32 %57, i32* %59, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit155
+
+_ZN7maestro6LoggerlsEj.exit155:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit151, %if.then.i154
+  %call.i163 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i164 = icmp eq i32 addrspace(12)* %call.i163, null
+  br i1 %tobool.i164, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit168, label %if.then.i167
+
+if.then.i167:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit155
+  %60 = bitcast i32 addrspace(12)* %call.i163 to i8 addrspace(12)*
+  %61 = bitcast i8 addrspace(12)* %60 to i32*
+  store volatile i32 87, i32* %61, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit168
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit168: ; preds = %_ZN7maestro6LoggerlsEj.exit155, %if.then.i167
+  %DS = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 3
+  %62 = load i16* %DS, align 2
+  %call.i169 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i170 = icmp eq i32 addrspace(12)* %call.i169, null
+  br i1 %tobool.i170, label %_ZN7maestro6LoggerlsEj.exit172, label %if.then.i171
+
+if.then.i171:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit168
+  %conv34 = zext i16 %62 to i32
+  %63 = bitcast i32 addrspace(12)* %call.i169 to i8 addrspace(12)*
+  %64 = bitcast i8 addrspace(12)* %63 to i32*
+  store volatile i32 %conv34, i32* %64, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit172
+
+_ZN7maestro6LoggerlsEj.exit172:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit168, %if.then.i171
+  %call.i179 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i180 = icmp eq i32 addrspace(12)* %call.i179, null
+  br i1 %tobool.i180, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit184, label %if.then.i183
+
+if.then.i183:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit172
+  %65 = bitcast i32 addrspace(12)* %call.i179 to i8 addrspace(12)*
+  %66 = bitcast i8 addrspace(12)* %65 to i32*
+  store volatile i32 86, i32* %66, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit184
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit184: ; preds = %_ZN7maestro6LoggerlsEj.exit172, %if.then.i183
+  %ES = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 2
+  %67 = load i16* %ES, align 2
+  %call.i185 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i186 = icmp eq i32 addrspace(12)* %call.i185, null
+  br i1 %tobool.i186, label %_ZN7maestro6LoggerlsEj.exit188, label %if.then.i187
+
+if.then.i187:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit184
+  %conv38 = zext i16 %67 to i32
+  %68 = bitcast i32 addrspace(12)* %call.i185 to i8 addrspace(12)*
+  %69 = bitcast i8 addrspace(12)* %68 to i32*
+  store volatile i32 %conv38, i32* %69, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit188
+
+_ZN7maestro6LoggerlsEj.exit188:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit184, %if.then.i187
+  %call.i190 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i191 = icmp eq i32 addrspace(12)* %call.i190, null
+  br i1 %tobool.i191, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit195, label %if.then.i194
+
+if.then.i194:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit188
+  %70 = bitcast i32 addrspace(12)* %call.i190 to i8 addrspace(12)*
+  %71 = bitcast i8 addrspace(12)* %70 to i32*
+  store volatile i32 85, i32* %71, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit195
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit195: ; preds = %_ZN7maestro6LoggerlsEj.exit188, %if.then.i194
+  %FS = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 1
+  %72 = load i16* %FS, align 2
+  %call.i175 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i176 = icmp eq i32 addrspace(12)* %call.i175, null
+  br i1 %tobool.i176, label %_ZN7maestro6LoggerlsEj.exit178, label %if.then.i177
+
+if.then.i177:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit195
+  %conv42 = zext i16 %72 to i32
+  %73 = bitcast i32 addrspace(12)* %call.i175 to i8 addrspace(12)*
+  %74 = bitcast i8 addrspace(12)* %73 to i32*
+  store volatile i32 %conv42, i32* %74, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit178
+
+_ZN7maestro6LoggerlsEj.exit178:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit195, %if.then.i177
+  %call.i157 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i158 = icmp eq i32 addrspace(12)* %call.i157, null
+  br i1 %tobool.i158, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit162, label %if.then.i161
+
+if.then.i161:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit178
+  %75 = bitcast i32 addrspace(12)* %call.i157 to i8 addrspace(12)*
+  %76 = bitcast i8 addrspace(12)* %75 to i32*
+  store volatile i32 84, i32* %76, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit162
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit162: ; preds = %_ZN7maestro6LoggerlsEj.exit178, %if.then.i161
+  %GS = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 0
+  %77 = load i16* %GS, align 2
+  %call.i142 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i143 = icmp eq i32 addrspace(12)* %call.i142, null
+  br i1 %tobool.i143, label %_ZN7maestro6LoggerlsEj.exit145, label %if.then.i144
+
+if.then.i144:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit162
+  %conv46 = zext i16 %77 to i32
+  %78 = bitcast i32 addrspace(12)* %call.i142 to i8 addrspace(12)*
+  %79 = bitcast i8 addrspace(12)* %78 to i32*
+  store volatile i32 %conv46, i32* %79, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit145
+
+_ZN7maestro6LoggerlsEj.exit145:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit162, %if.then.i144
+  %call.i124 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i125 = icmp eq i32 addrspace(12)* %call.i124, null
+  br i1 %tobool.i125, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit129, label %if.then.i128
+
+if.then.i128:                                     ; preds = %_ZN7maestro6LoggerlsEj.exit145
+  %80 = bitcast i32 addrspace(12)* %call.i124 to i8 addrspace(12)*
+  %81 = bitcast i8 addrspace(12)* %80 to i32*
+  store volatile i32 83, i32* %81, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit129
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit129: ; preds = %_ZN7maestro6LoggerlsEj.exit145, %if.then.i128
+  %SS = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 4
+  %82 = load i16* %SS, align 2
+  %call.i109 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i110 = icmp eq i32 addrspace(12)* %call.i109, null
+  br i1 %tobool.i110, label %_ZN7maestro6LoggerlsEj.exit112, label %if.then.i111
+
+if.then.i111:                                     ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit129
+  %conv50 = zext i16 %82 to i32
+  %83 = bitcast i32 addrspace(12)* %call.i109 to i8 addrspace(12)*
+  %84 = bitcast i8 addrspace(12)* %83 to i32*
+  store volatile i32 %conv50, i32* %84, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit112
+
+_ZN7maestro6LoggerlsEj.exit112:                   ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit129, %if.then.i111
+  %call.i91 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i92 = icmp eq i32 addrspace(12)* %call.i91, null
+  br i1 %tobool.i92, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit96, label %if.then.i95
+
+if.then.i95:                                      ; preds = %_ZN7maestro6LoggerlsEj.exit112
+  %85 = bitcast i32 addrspace(12)* %call.i91 to i8 addrspace(12)*
+  %86 = bitcast i8 addrspace(12)* %85 to i32*
+  store volatile i32 82, i32* %86, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit96
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit96: ; preds = %_ZN7maestro6LoggerlsEj.exit112, %if.then.i95
+  %error_code = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 22
+  %87 = load i32* %error_code, align 4
+  %call.i76 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i77 = icmp eq i32 addrspace(12)* %call.i76, null
+  br i1 %tobool.i77, label %_ZN7maestro6LoggerlsEj.exit79, label %if.then.i78
+
+if.then.i78:                                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit96
+  %88 = bitcast i32 addrspace(12)* %call.i76 to i8 addrspace(12)*
+  %89 = bitcast i8 addrspace(12)* %88 to i32*
+  store volatile i32 %87, i32* %89, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit79
+
+_ZN7maestro6LoggerlsEj.exit79:                    ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit96, %if.then.i78
+  %call.i58 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i59 = icmp eq i32 addrspace(12)* %call.i58, null
+  br i1 %tobool.i59, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit63, label %if.then.i62
+
+if.then.i62:                                      ; preds = %_ZN7maestro6LoggerlsEj.exit79
+  %90 = bitcast i32 addrspace(12)* %call.i58 to i8 addrspace(12)*
+  %91 = bitcast i8 addrspace(12)* %90 to i32*
+  store volatile i32 81, i32* %91, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit63
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit63: ; preds = %_ZN7maestro6LoggerlsEj.exit79, %if.then.i62
+  %92 = getelementptr inbounds %"struct.maestro::ia32::STACK_TOP"* %asmresult, i32 0, i32 27
+  %EFLAGS = bitcast %union.anon.7* %92 to i32*
+  %93 = load i32* %EFLAGS, align 4
+  %call.i43 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 2) nounwind
+  %tobool.i44 = icmp eq i32 addrspace(12)* %call.i43, null
+  br i1 %tobool.i44, label %_ZN7maestro6LoggerlsEj.exit46, label %if.then.i45
+
+if.then.i45:                                      ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit63
+  %94 = bitcast i32 addrspace(12)* %call.i43 to i8 addrspace(12)*
+  %95 = bitcast i8 addrspace(12)* %94 to i32*
+  store volatile i32 %93, i32* %95, align 4
+  br label %_ZN7maestro6LoggerlsEj.exit46
+
+_ZN7maestro6LoggerlsEj.exit46:                    ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit63, %if.then.i45
+  %call.i25 = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 1) nounwind
+  %tobool.i26 = icmp eq i32 addrspace(12)* %call.i25, null
+  br i1 %tobool.i26, label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit30, label %if.then.i29
+
+if.then.i29:                                      ; preds = %_ZN7maestro6LoggerlsEj.exit46
+  %96 = bitcast i32 addrspace(12)* %call.i25 to i8 addrspace(12)*
+  %97 = bitcast i8 addrspace(12)* %96 to i32*
+  store volatile i32 80, i32* %97, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit30
+
+_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit30: ; preds = %_ZN7maestro6LoggerlsEj.exit46, %if.then.i29
+  %98 = atomicrmw volatile xchg i8* @_ZZ5_exitE4flag, i8 1 seq_cst
+  %tobool.i = icmp eq i8 %98, 0
+  br i1 %tobool.i, label %if.then.i, label %if.then2.i
+
+if.then.i:                                        ; preds = %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit30
+  %call.i.i = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 4) nounwind
+  %tobool.i.i = icmp eq i32 addrspace(12)* %call.i.i, null
+  br i1 %tobool.i.i, label %_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE.exit.i, label %if.then.i.i
+
+if.then.i.i:                                      ; preds = %if.then.i
+  %99 = bitcast i32 addrspace(12)* %call.i.i to i8 addrspace(12)*
+  %100 = bitcast i8 addrspace(12)* %99 to i32*
+  store volatile i32 -1, i32* %100, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE.exit.i
+
+_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE.exit.i: ; preds = %if.then.i.i, %if.then.i
+  store volatile i32 -2147418042, i32* inttoptr (i32 -2038431648 to i32*), align 32
+  br label %if.then2.i
+
+if.then2.i:                                       ; preds = %_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE.exit.i, %_ZN7maestro6LoggerlsERKNS_12StaticStringE.exit30
+  tail call void asm sideeffect "movl $$0xdead, %ebx", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !359
+  tail call void asm sideeffect "hlt", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !360
+  unreachable
+}
+
+declare void @llvm.memset.p0i8.i32(i8* nocapture, i8, i32, i32, i1) nounwind
+
+define internal fastcc void @_Z10ThreadExiti(i32 %retCode) noreturn nounwind noinline {
+entry:
+  %0 = load volatile i32* inttoptr (i32 -18874336 to i32*), align 32
+  %call.i = tail call fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj179() nounwind
+  %tobool.i = icmp eq i32 addrspace(12)* %call.i, null
+  br i1 %tobool.i, label %_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE174.exit, label %if.then.i
+
+if.then.i:                                        ; preds = %entry
+  %1 = bitcast i32 addrspace(12)* %call.i to i8 addrspace(12)*
+  %2 = bitcast i8 addrspace(12)* %1 to i32*
+  store volatile i32 %retCode, i32* %2, align 4
+  br label %_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE174.exit
+
+_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE174.exit: ; preds = %entry, %if.then.i
+  %cmp = icmp ult i32 %0, 16777216
+  br i1 %cmp, label %if.then, label %if.else
+
+if.then:                                          ; preds = %_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE174.exit
+  %3 = load i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 2), align 4
+  %cmp.i = icmp ugt i32 %3, 1
+  br i1 %cmp.i, label %if.then.i1, label %_ZN7maestro7Barrier4SyncEv.exit
+
+if.then.i1:                                       ; preds = %if.then
+  %4 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), align 4
+  %5 = atomicrmw add i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 0), i32 1 seq_cst
+  %6 = add i32 %5, 1
+  %7 = load i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 2), align 4
+  %cmp3.i = icmp eq i32 %6, %7
+  br i1 %cmp3.i, label %if.then4.i, label %while.cond.preheader.i
+
+while.cond.preheader.i:                           ; preds = %if.then.i1
+  %8 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), align 4
+  %cmp81.i = icmp eq i32 %8, %4
+  br i1 %cmp81.i, label %while.body.i, label %_ZN7maestro7Barrier4SyncEv.exit
+
+if.then4.i:                                       ; preds = %if.then.i1
+  store i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 0), align 4
+  %9 = atomicrmw add i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), i32 1 seq_cst
+  br label %_ZN7maestro7Barrier4SyncEv.exit
+
+while.body.i:                                     ; preds = %while.cond.preheader.i, %while.body.i
+  tail call void asm sideeffect "pause", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !355
+  %10 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), align 4
+  %cmp8.i = icmp eq i32 %10, %4
+  br i1 %cmp8.i, label %while.body.i, label %_ZN7maestro7Barrier4SyncEv.exit
+
+_ZN7maestro7Barrier4SyncEv.exit:                  ; preds = %while.body.i, %if.then, %while.cond.preheader.i, %if.then4.i
+  %11 = atomicrmw or i32* @_ZL16ThreadExitFailed, i32 %retCode seq_cst
+  %12 = or i32 %11, %retCode
+  %cmp.i2 = icmp eq i32 %12, 0
+  br i1 %cmp.i2, label %if.end.thread, label %if.end.thread14
+
+if.end.thread:                                    ; preds = %_ZN7maestro7Barrier4SyncEv.exit
+  store volatile i32 -2147418032, i32* inttoptr (i32 -2038431648 to i32*), align 32
+  br label %if.else2
+
+if.end.thread14:                                  ; preds = %_ZN7maestro7Barrier4SyncEv.exit
+  store volatile i32 -2147418042, i32* inttoptr (i32 -2038431648 to i32*), align 32
+  br label %if.then1
+
+if.else:                                          ; preds = %_ZN7maestro6LoggerlsERKNS_14ThreadExitCodeE174.exit
+  %13 = atomicrmw or i32* @_ZL16ThreadExitFailed, i32 %retCode seq_cst
+  %14 = load i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 2), align 4
+  %cmp.i4 = icmp ugt i32 %14, 1
+  br i1 %cmp.i4, label %if.then.i6, label %if.end
+
+if.then.i6:                                       ; preds = %if.else
+  %15 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), align 4
+  %16 = atomicrmw add i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 0), i32 1 seq_cst
+  %17 = add i32 %16, 1
+  %18 = load i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 2), align 4
+  %cmp3.i5 = icmp eq i32 %17, %18
+  br i1 %cmp3.i5, label %if.then4.i9, label %while.cond.preheader.i8
+
+while.cond.preheader.i8:                          ; preds = %if.then.i6
+  %19 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), align 4
+  %cmp81.i7 = icmp eq i32 %19, %15
+  br i1 %cmp81.i7, label %while.body.i11, label %if.end
+
+if.then4.i9:                                      ; preds = %if.then.i6
+  store i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 0), align 4
+  %20 = atomicrmw add i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), i32 1 seq_cst
+  br label %if.end
+
+while.body.i11:                                   ; preds = %while.cond.preheader.i8, %while.body.i11
+  tail call void asm sideeffect "pause", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !355
+  %21 = load volatile i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), align 4
+  %cmp8.i10 = icmp eq i32 %21, %15
+  br i1 %cmp8.i10, label %while.body.i11, label %if.end
+
+if.end:                                           ; preds = %while.body.i11, %if.then4.i9, %while.cond.preheader.i8, %if.else
+  %tobool = icmp eq i32 %retCode, 0
+  br i1 %tobool, label %if.else2, label %if.then1
+
+if.then1:                                         ; preds = %if.end.thread14, %if.end
+  tail call void asm sideeffect "movl $$0xdead, %ebx", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !361
+  tail call void asm sideeffect "hlt", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !362
+  unreachable
+
+if.else2:                                         ; preds = %if.end.thread, %if.end
+  tail call void asm sideeffect "mov $$0xaced, %ebx", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !363
+  tail call void asm sideeffect "hlt", "~{dirflag},~{fpsr},~{flags}"() nounwind, !srcloc !364
+  unreachable
+}
+
+define internal void @_GLOBAL__I_a() nounwind section ".text.startup" {
+entry:
+  store i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 0), align 4
+  store volatile i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), align 4
+  store i32 1, i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 2), align 4
+  ret void
+}
+
+define internal fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj(i32 %type) nounwind noinline align 2 {
+entry:
+  %0 = atomicrmw add i32* @LogBufferSize, i32 3 seq_cst
+  %add2 = add i32 %0, 3
+  %cmp = icmp ugt i32 %add2, 262144
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  store i32 262144, i32* @LogBufferSize, align 4
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %shl = shl i32 %type, 16
+  %or = or i32 %shl, 3
+  %inc = add i32 %0, 1
+  %arrayidx = getelementptr inbounds i32 addrspace(12)* bitcast ([1048576 x i8] addrspace(12)* @_ZN12_GLOBAL__N_16bufferE_maestro_init_0 to i32 addrspace(12)*), i32 %0
+  %1 = bitcast i32 addrspace(12)* %arrayidx to i8 addrspace(12)*
+  %2 = bitcast i8 addrspace(12)* %1 to i32*
+  store volatile i32 %or, i32* %2, align 4
+  %3 = load volatile i32* inttoptr (i32 -18874336 to i32*), align 32
+  %shr.i = lshr i32 %3, 24
+  %inc5 = add i32 %0, 2
+  %arrayidx7 = getelementptr inbounds i32 addrspace(12)* bitcast ([1048576 x i8] addrspace(12)* @_ZN12_GLOBAL__N_16bufferE_maestro_init_0 to i32 addrspace(12)*), i32 %inc
+  %4 = bitcast i32 addrspace(12)* %arrayidx7 to i8 addrspace(12)*
+  %5 = bitcast i8 addrspace(12)* %4 to i32*
+  store volatile i32 %shr.i, i32* %5, align 4
+  %add.ptr = getelementptr inbounds i32 addrspace(12)* bitcast ([1048576 x i8] addrspace(12)* @_ZN12_GLOBAL__N_16bufferE_maestro_init_0 to i32 addrspace(12)*), i32 %inc5
+  br label %return
+
+return:                                           ; preds = %if.end, %if.then
+  %retval.0 = phi i32 addrspace(12)* [ null, %if.then ], [ %add.ptr, %if.end ]
+  ret i32 addrspace(12)* %retval.0
+}
+
+define internal i8* @memset(i8* %dst, i32 %value, i32 %num) nounwind inlinehint alwaysinline {
+entry:
+  tail call void asm sideeffect "cld ; rep stosb", "{di},{ax},{cx},~{flags},~{memory},~{dirflag},~{fpsr},~{flags}"(i8* %dst, i32 %value, i32 %num) nounwind, !srcloc !365
+  ret i8* %dst
+}
+
+define internal i8* @memcpy(i8* %dst, i8* %src, i32 %num) nounwind inlinehint alwaysinline {
+entry:
+  tail call void asm sideeffect "cld ; rep movsb", "{si},{di},{cx},~{flags},~{memory},~{dirflag},~{fpsr},~{flags}"(i8* %src, i8* %dst, i32 %num) nounwind, !srcloc !366
+  ret i8* %dst
+}
+
+define fastcc void @main() noreturn nounwind naked {
+entry:
+  %apicIdReg = load i32* inttoptr (i32 -18874336 to i32*), align 32
+  %cond = icmp ult i32 %apicIdReg, 16777216
+  br i1 %cond, label %apicId1, label %idledThreads
+
+idledThreads:                                     ; preds = %entry
+  tail call void asm "hlt", ""() noreturn nounwind
+  unreachable
+
+apicId1:                                          ; preds = %entry
+  tail call void asm sideeffect "movl $0, %esp", "r,~{dirflag},~{fpsr},~{flags}"(i8* getelementptr inbounds ([4096 x i8]* @_mainStub_0_stack, i32 1, i32 0)) nounwind
+  tail call fastcc void @__ExecuteGlobalCtorChain1() nounwind
+  tail call fastcc void @__WaitForGlobalCtorChain1() nounwind
+  store volatile i32 804384, i32* inttoptr (i32 -18873600 to i32*), align 256
+  %0 = tail call fastcc i32 @__MCP__Test__MCP__main() nounwind
+  tail call fastcc void @_Z10ThreadExiti(i32 %0) noreturn nounwind
+  unreachable
+}
+
+define private fastcc void @__ExecuteGlobalCtorChain0() nounwind noinline {
+entry:
+  %0 = atomicrmw xchg i8* @__FlagRunCtorOnce0, i8 1 seq_cst
+  %1 = icmp eq i8 %0, 0
+  br i1 %1, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  tail call fastcc void @__CallAllCtors0()
+  store atomic i8 1, i8* @__BarrierWaitOnCtor0 seq_cst, align 1
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %entry
+  ret void
+}
+
+define private fastcc void @__WaitForGlobalCtorChain0() nounwind noinline {
+entry:
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.cond, %entry
+  %0 = load atomic volatile i8* @__BarrierWaitOnCtor0 seq_cst, align 1
+  %1 = icmp eq i8 %0, 0
+  br i1 %1, label %while.cond, label %while.end
+
+while.end:                                        ; preds = %while.cond
+  ret void
+}
+
+define private fastcc void @__CallAllCtors0() nounwind noinline {
+entry:
+  store i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 0), align 4
+  store volatile i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 1), align 4
+  store i32 1, i32* getelementptr inbounds (%"class.maestro::Barrier"* @__MCP__Test__MCP__bar, i32 0, i32 2), align 4
+  ret void
+}
+
+define private fastcc void @__ExecuteGlobalCtorChain1() nounwind noinline {
+entry:
+  %0 = atomicrmw xchg i8* @__FlagRunCtorOnce1, i8 1 seq_cst
+  %1 = icmp eq i8 %0, 0
+  br i1 %1, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  tail call fastcc void @__CallAllCtors1()
+  store atomic i8 1, i8* @__BarrierWaitOnCtor1 seq_cst, align 1
+  br label %if.end
+
+if.end:                                           ; preds = %if.then, %entry
+  ret void
+}
+
+define private fastcc void @__WaitForGlobalCtorChain1() nounwind noinline {
+entry:
+  br label %while.cond
+
+while.cond:                                       ; preds = %while.cond, %entry
+  %0 = load atomic volatile i8* @__BarrierWaitOnCtor1 seq_cst, align 1
+  %1 = icmp eq i8 %0, 0
+  br i1 %1, label %while.cond, label %while.end
+
+while.end:                                        ; preds = %while.cond
+  ret void
+}
+
+define private fastcc void @__CallAllCtors1() nounwind noinline {
+entry:
+  store i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 0), align 4
+  store volatile i32 0, i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 1), align 4
+  store i32 1, i32* getelementptr inbounds (%"class.maestro::Barrier"* @ThreadExitSync, i32 0, i32 2), align 4
+  ret void
+}
+
+define void @__cxx_global_var_dtor() nounwind readnone {
+entry:
+  ret void
+}
+
+define private fastcc i32 addrspace(12)* @_ZN7maestro6Logger9AddRecordEjj179() nounwind noinline align 2 {
+entry:
+  %0 = atomicrmw add i32* @LogBufferSize, i32 3 seq_cst
+  %add2 = add i32 %0, 3
+  %cmp = icmp ugt i32 %add2, 262144
+  br i1 %cmp, label %if.then, label %if.end
+
+if.then:                                          ; preds = %entry
+  store i32 262144, i32* @LogBufferSize, align 4
+  br label %return
+
+if.end:                                           ; preds = %entry
+  %inc = add i32 %0, 1
+  %arrayidx = getelementptr inbounds i32 addrspace(12)* bitcast ([1048576 x i8] addrspace(12)* @_ZN12_GLOBAL__N_16bufferE_maestro_init_0 to i32 addrspace(12)*), i32 %0
+  %1 = bitcast i32 addrspace(12)* %arrayidx to i8 addrspace(12)*
+  %2 = bitcast i8 addrspace(12)* %1 to i32*
+  store volatile i32 262147, i32* %2, align 4
+  %inc5 = add i32 %0, 2
+  %arrayidx7 = getelementptr inbounds i32 addrspace(12)* bitcast ([1048576 x i8] addrspace(12)* @_ZN12_GLOBAL__N_16bufferE_maestro_init_0 to i32 addrspace(12)*), i32 %inc
+  %3 = bitcast i32 addrspace(12)* %arrayidx7 to i8 addrspace(12)*
+  %4 = bitcast i8 addrspace(12)* %3 to i32*
+  store volatile i32 0, i32* %4, align 4
+  %add.ptr = getelementptr inbounds i32 addrspace(12)* bitcast ([1048576 x i8] addrspace(12)* @_ZN12_GLOBAL__N_16bufferE_maestro_init_0 to i32 addrspace(12)*), i32 %inc5
+  br label %return
+
+return:                                           ; preds = %if.end, %if.then
+  %retval.0 = phi i32 addrspace(12)* [ null, %if.then ], [ %add.ptr, %if.end ]
+  ret i32 addrspace(12)* %retval.0
+}
+
+declare void @llvm.lifetime.start(i64, i8* nocapture) nounwind
+
+declare void @llvm.lifetime.end(i64, i8* nocapture) nounwind
+
+!.maestro.metadata = !{!0, !9, !16, !22, !26, !30, !33, !37, !38, !47, !51, !52, !56, !60, !65, !66, !67, !73, !78, !83, !87, !88, !89, !90, !91, !92, !100, !101, !108, !112, !115, !119, !120, !124, !125, !130, !134, !137, !138, !139, !140, !141, !142, !147, !151, !155, !156, !157, !162, !163, !164, !169, !173, !174, !175, !176, !177, !178, !183, !188, !192, !193, !194, !195, !196, !197, !202, !205, !206, !207, !224, !225, !226, !227, !232, !233, !234, !235, !236, !237, !238, !242, !247, !250, !254, !257, !260, !264, !268, !273, !277, !278, !282, !283, !284, !287, !288, !292, !296, !297, !298, !299, !300, !304, !305, !310, !313, !316, !319, !322, !323, !324, !329, !332, !339, !342, !347, !351}
+
+!0 = metadata !{metadata !"#dict_tgt.xml_0", metadata !1}
+!1 = metadata !{metadata !2, metadata !3, metadata !4, metadata !5, metadata !6, metadata !7, metadata !8}
+!2 = metadata !{i64 1, i64 0, metadata !"GPIO", metadata !"0x0500", i8 0, i8 0}
+!3 = metadata !{i64 1, i64 0, metadata !"PM", metadata !"0x0400", i8 0, i8 0}
+!4 = metadata !{i64 1, i64 0, metadata !"SIOGPIO", metadata !"0x0000", i8 0, i8 0}
+!5 = metadata !{i64 1, i64 0, metadata !"SIOSWC", metadata !"0x0590", i8 0, i8 0}
+!6 = metadata !{i64 1, i64 0, metadata !"SMB", metadata !"0x4040", i8 0, i8 0}
+!7 = metadata !{i64 1, i64 0, metadata !"VTDPVC0BAR", metadata !"0x00000000FED91000", i8 0, i8 0}
+!8 = metadata !{i64 1, i64 0, metadata !"isPCH", metadata !"true", i8 0, i8 0}
+!9 = metadata !{metadata !"#dict_tgt.xml_1", metadata !10}
+!10 = metadata !{metadata !11, metadata !12, metadata !13, metadata !14, metadata !15}
+!11 = metadata !{i64 1, i64 0, metadata !"GFXVTBAR_VTD_BASE", metadata !"0x00000000FED90000", i8 0, i8 0}
+!12 = metadata !{i64 1, i64 0, metadata !"GMADR_APERTURE_BASE", metadata !"0x0000000090000000", i8 0, i8 0}
+!13 = metadata !{i64 1, i64 0, metadata !"GTTMMADR_MMIO_BASE", metadata !"0x0000000086C00000", i8 0, i8 0}
+!14 = metadata !{i64 1, i64 0, metadata !"IO_BASE", metadata !"0x4000", i8 0, i8 0}
+!15 = metadata !{i64 1, i64 0, metadata !"isGtDev", metadata !"true", i8 0, i8 0}
+!16 = metadata !{metadata !"#dict_tgt.xml_10", metadata !17}
+!17 = metadata !{metadata !18, metadata !19, metadata !20, metadata !21}
+!18 = metadata !{i64 1, i64 0, metadata !"end-add", metadata !"0x00000000FBFFFFFF", i8 0, i8 0}
+!19 = metadata !{i64 1, i64 0, metadata !"reserved", metadata !"false", i8 0, i8 0}
+!20 = metadata !{i64 1, i64 0, metadata !"special-type", metadata !"PCIECFG", i8 0, i8 0}
+!21 = metadata !{i64 1, i64 0, metadata !"start-add", metadata !"0x00000000F8000000", i8 0, i8 0}
+!22 = metadata !{metadata !"#dict_tgt.xml_100", metadata !23}
+!23 = metadata !{metadata !24, metadata !25}
+!24 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00002101", i8 0, i8 0}
+!25 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFFF01", i8 0, i8 0}
+!26 = metadata !{metadata !"#dict_tgt.xml_101", metadata !27}
+!27 = metadata !{metadata !28, metadata !29}
+!28 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x86000000", i8 0, i8 0}
+!29 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFF800000", i8 0, i8 0}
+!30 = metadata !{metadata !"#dict_tgt.xml_102", metadata !31}
+!31 = metadata !{metadata !32, metadata !25}
+!32 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00002001", i8 0, i8 0}
+!33 = metadata !{metadata !"#dict_tgt.xml_103", metadata !34}
+!34 = metadata !{metadata !35, metadata !36}
+!35 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00000000", i8 0, i8 0}
+!36 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0x00000000", i8 0, i8 0}
+!37 = metadata !{metadata !"#dict_tgt.xml_104", metadata !34}
+!38 = metadata !{metadata !"#dict_tgt.xml_105", metadata !39}
+!39 = metadata !{metadata !40, metadata !41, metadata !42, metadata !43, metadata !44, metadata !45, metadata !46}
+!40 = metadata !{i64 1, i64 0, metadata !"Bus", metadata !"0x07", i8 0, i8 0}
+!41 = metadata !{i64 1, i64 0, metadata !"Device", metadata !"0x04", i8 0, i8 0}
+!42 = metadata !{i64 1, i64 0, metadata !"Function", metadata !"0x00", i8 0, i8 0}
+!43 = metadata !{i64 1, i64 0, metadata !"HIF", metadata !"true", i8 0, i8 0}
+!44 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_99\00#dict_tgt.xml_100\00#dict_tgt.xml_101\00#dict_tgt.xml_102\00#dict_tgt.xml_103\00#dict_tgt.xml_104\00", i8 0, i8 0}
+!45 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x82A2", i8 0, i8 0}
+!46 = metadata !{i64 1, i64 0, metadata !"vendorID", metadata !"0x10B5", i8 0, i8 0}
+!47 = metadata !{metadata !"#dict_tgt.xml_106", metadata !48}
+!48 = metadata !{metadata !49, metadata !50}
+!49 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x84010000", i8 0, i8 0}
+!50 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFFE00", i8 0, i8 0}
+!51 = metadata !{metadata !"#dict_tgt.xml_107", metadata !34}
+!52 = metadata !{metadata !"#dict_tgt.xml_108", metadata !53}
+!53 = metadata !{metadata !54, metadata !55}
+!54 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x84000000", i8 0, i8 0}
+!55 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFF0000", i8 0, i8 0}
+!56 = metadata !{metadata !"#dict_tgt.xml_109", metadata !57}
+!57 = metadata !{metadata !58, metadata !59}
+!58 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x80000000", i8 0, i8 0}
+!59 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFC000000", i8 0, i8 0}
+!60 = metadata !{metadata !"#dict_tgt.xml_11", metadata !61}
+!61 = metadata !{metadata !62, metadata !19, metadata !63, metadata !64}
+!62 = metadata !{i64 1, i64 0, metadata !"end-add", metadata !"0x000000009FFFFFFF", i8 0, i8 0}
+!63 = metadata !{i64 1, i64 0, metadata !"special-type", metadata !"aperture", i8 0, i8 0}
+!64 = metadata !{i64 1, i64 0, metadata !"start-add", metadata !"0x0000000090000000", i8 0, i8 0}
+!65 = metadata !{metadata !"#dict_tgt.xml_110", metadata !34}
+!66 = metadata !{metadata !"#dict_tgt.xml_111", metadata !34}
+!67 = metadata !{metadata !"#dict_tgt.xml_112", metadata !68}
+!68 = metadata !{metadata !69, metadata !41, metadata !42, metadata !70, metadata !71, metadata !72, metadata !46}
+!69 = metadata !{i64 1, i64 0, metadata !"Bus", metadata !"0x09", i8 0, i8 0}
+!70 = metadata !{i64 1, i64 0, metadata !"HIF", metadata !"false", i8 0, i8 0}
+!71 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_106\00#dict_tgt.xml_107\00#dict_tgt.xml_108\00#dict_tgt.xml_109\00#dict_tgt.xml_110\00#dict_tgt.xml_111\00", i8 0, i8 0}
+!72 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x82A1", i8 0, i8 0}
+!73 = metadata !{metadata !"#dict_tgt.xml_12", metadata !74}
+!74 = metadata !{metadata !75, metadata !19, metadata !76, metadata !77}
+!75 = metadata !{i64 1, i64 0, metadata !"end-add", metadata !"0x0000000062EFFFFF", i8 0, i8 0}
+!76 = metadata !{i64 1, i64 0, metadata !"special-type", metadata !"Amber", i8 0, i8 0}
+!77 = metadata !{i64 1, i64 0, metadata !"start-add", metadata !"0x0000000061B00000", i8 0, i8 0}
+!78 = metadata !{metadata !"#dict_tgt.xml_13", metadata !79}
+!79 = metadata !{metadata !80, metadata !81, metadata !82}
+!80 = metadata !{i64 1, i64 0, metadata !"end-add", metadata !"0x000000007E1FFFFF", i8 0, i8 0}
+!81 = metadata !{i64 1, i64 0, metadata !"reserved", metadata !"true", i8 0, i8 0}
+!82 = metadata !{i64 1, i64 0, metadata !"start-add", metadata !"0x0000000062F00000", i8 0, i8 0}
+!83 = metadata !{metadata !"#dict_tgt.xml_14", metadata !84}
+!84 = metadata !{metadata !85, metadata !81, metadata !86}
+!85 = metadata !{i64 1, i64 0, metadata !"end-add", metadata !"0x00000000000FFFFF", i8 0, i8 0}
+!86 = metadata !{i64 1, i64 0, metadata !"start-add", metadata !"0x00000000000A0000", i8 0, i8 0}
+!87 = metadata !{metadata !"#dict_tgt.xml_15", metadata !34}
+!88 = metadata !{metadata !"#dict_tgt.xml_16", metadata !34}
+!89 = metadata !{metadata !"#dict_tgt.xml_17", metadata !34}
+!90 = metadata !{metadata !"#dict_tgt.xml_18", metadata !34}
+!91 = metadata !{metadata !"#dict_tgt.xml_19", metadata !34}
+!92 = metadata !{metadata !"#dict_tgt.xml_2", metadata !93}
+!93 = metadata !{metadata !94, metadata !95, metadata !96, metadata !97, metadata !98, metadata !99}
+!94 = metadata !{i64 1, i64 0, metadata !"cache_level", metadata !"0x0000000000000001", i8 0, i8 0}
+!95 = metadata !{i64 1, i64 0, metadata !"cache_type", metadata !"0x0000000000000001", i8 0, i8 0}
+!96 = metadata !{i64 1, i64 0, metadata !"line_size", metadata !"0x0000000000000040", i8 0, i8 0}
+!97 = metadata !{i64 1, i64 0, metadata !"num_line_partitions", metadata !"0x0000000000000001", i8 0, i8 0}
+!98 = metadata !{i64 1, i64 0, metadata !"num_sets", metadata !"0x0000000000000040", i8 0, i8 0}
+!99 = metadata !{i64 1, i64 0, metadata !"num_ways", metadata !"0x0000000000000008", i8 0, i8 0}
+!100 = metadata !{metadata !"#dict_tgt.xml_20", metadata !34}
+!101 = metadata !{metadata !"#dict_tgt.xml_21", metadata !102}
+!102 = metadata !{metadata !103, metadata !104, metadata !42, metadata !70, metadata !105, metadata !106, metadata !107}
+!103 = metadata !{i64 1, i64 0, metadata !"Bus", metadata !"0x00", i8 0, i8 0}
+!104 = metadata !{i64 1, i64 0, metadata !"Device", metadata !"0x00", i8 0, i8 0}
+!105 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_15\00#dict_tgt.xml_16\00#dict_tgt.xml_17\00#dict_tgt.xml_18\00#dict_tgt.xml_19\00#dict_tgt.xml_20\00", i8 0, i8 0}
+!106 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x0150", i8 0, i8 0}
+!107 = metadata !{i64 1, i64 0, metadata !"vendorID", metadata !"0x8086", i8 0, i8 0}
+!108 = metadata !{metadata !"#dict_tgt.xml_22", metadata !109}
+!109 = metadata !{metadata !110, metadata !111}
+!110 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x86C00004", i8 0, i8 0}
+!111 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFC00004", i8 0, i8 0}
+!112 = metadata !{metadata !"#dict_tgt.xml_23", metadata !113}
+!113 = metadata !{metadata !35, metadata !114}
+!114 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFFFFF", i8 0, i8 0}
+!115 = metadata !{metadata !"#dict_tgt.xml_24", metadata !116}
+!116 = metadata !{metadata !117, metadata !118}
+!117 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x9000000C", i8 0, i8 0}
+!118 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xF000000C", i8 0, i8 0}
+!119 = metadata !{metadata !"#dict_tgt.xml_25", metadata !113}
+!120 = metadata !{metadata !"#dict_tgt.xml_26", metadata !121}
+!121 = metadata !{metadata !122, metadata !123}
+!122 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00004001", i8 0, i8 0}
+!123 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0x0000FFC1", i8 0, i8 0}
+!124 = metadata !{metadata !"#dict_tgt.xml_27", metadata !34}
+!125 = metadata !{metadata !"#dict_tgt.xml_28", metadata !126}
+!126 = metadata !{metadata !103, metadata !127, metadata !42, metadata !70, metadata !128, metadata !129, metadata !107}
+!127 = metadata !{i64 1, i64 0, metadata !"Device", metadata !"0x02", i8 0, i8 0}
+!128 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_22\00#dict_tgt.xml_23\00#dict_tgt.xml_24\00#dict_tgt.xml_25\00#dict_tgt.xml_26\00#dict_tgt.xml_27\00", i8 0, i8 0}
+!129 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x0152", i8 0, i8 0}
+!130 = metadata !{metadata !"#dict_tgt.xml_29", metadata !131}
+!131 = metadata !{metadata !132, metadata !133}
+!132 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x87070004", i8 0, i8 0}
+!133 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFFFF4", i8 0, i8 0}
+!134 = metadata !{metadata !"#dict_tgt.xml_3", metadata !135}
+!135 = metadata !{metadata !94, metadata !136, metadata !96, metadata !97, metadata !98, metadata !99}
+!136 = metadata !{i64 1, i64 0, metadata !"cache_type", metadata !"0x0000000000000002", i8 0, i8 0}
+!137 = metadata !{metadata !"#dict_tgt.xml_30", metadata !113}
+!138 = metadata !{metadata !"#dict_tgt.xml_31", metadata !34}
+!139 = metadata !{metadata !"#dict_tgt.xml_32", metadata !34}
+!140 = metadata !{metadata !"#dict_tgt.xml_33", metadata !34}
+!141 = metadata !{metadata !"#dict_tgt.xml_34", metadata !34}
+!142 = metadata !{metadata !"#dict_tgt.xml_35", metadata !143}
+!143 = metadata !{metadata !103, metadata !144, metadata !42, metadata !70, metadata !145, metadata !146, metadata !107}
+!144 = metadata !{i64 1, i64 0, metadata !"Device", metadata !"0x16", i8 0, i8 0}
+!145 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_29\00#dict_tgt.xml_30\00#dict_tgt.xml_31\00#dict_tgt.xml_32\00#dict_tgt.xml_33\00#dict_tgt.xml_34\00", i8 0, i8 0}
+!146 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C3A", i8 0, i8 0}
+!147 = metadata !{metadata !"#dict_tgt.xml_36", metadata !148}
+!148 = metadata !{metadata !149, metadata !150}
+!149 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x000040C1", i8 0, i8 0}
+!150 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0x0000FFF9", i8 0, i8 0}
+!151 = metadata !{metadata !"#dict_tgt.xml_37", metadata !152}
+!152 = metadata !{metadata !153, metadata !154}
+!153 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x87060000", i8 0, i8 0}
+!154 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFF000", i8 0, i8 0}
+!155 = metadata !{metadata !"#dict_tgt.xml_38", metadata !34}
+!156 = metadata !{metadata !"#dict_tgt.xml_39", metadata !34}
+!157 = metadata !{metadata !"#dict_tgt.xml_4", metadata !158}
+!158 = metadata !{metadata !159, metadata !160, metadata !96, metadata !97, metadata !161, metadata !99}
+!159 = metadata !{i64 1, i64 0, metadata !"cache_level", metadata !"0x0000000000000002", i8 0, i8 0}
+!160 = metadata !{i64 1, i64 0, metadata !"cache_type", metadata !"0x0000000000000003", i8 0, i8 0}
+!161 = metadata !{i64 1, i64 0, metadata !"num_sets", metadata !"0x0000000000000200", i8 0, i8 0}
+!162 = metadata !{metadata !"#dict_tgt.xml_40", metadata !34}
+!163 = metadata !{metadata !"#dict_tgt.xml_41", metadata !34}
+!164 = metadata !{metadata !"#dict_tgt.xml_42", metadata !165}
+!165 = metadata !{metadata !103, metadata !144, metadata !166, metadata !70, metadata !167, metadata !168, metadata !107}
+!166 = metadata !{i64 1, i64 0, metadata !"Function", metadata !"0x03", i8 0, i8 0}
+!167 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_36\00#dict_tgt.xml_37\00#dict_tgt.xml_38\00#dict_tgt.xml_39\00#dict_tgt.xml_40\00#dict_tgt.xml_41\00", i8 0, i8 0}
+!168 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C3D", i8 0, i8 0}
+!169 = metadata !{metadata !"#dict_tgt.xml_43", metadata !170}
+!170 = metadata !{metadata !171, metadata !172}
+!171 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x87050000", i8 0, i8 0}
+!172 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFFC00", i8 0, i8 0}
+!173 = metadata !{metadata !"#dict_tgt.xml_44", metadata !34}
+!174 = metadata !{metadata !"#dict_tgt.xml_45", metadata !34}
+!175 = metadata !{metadata !"#dict_tgt.xml_46", metadata !34}
+!176 = metadata !{metadata !"#dict_tgt.xml_47", metadata !34}
+!177 = metadata !{metadata !"#dict_tgt.xml_48", metadata !34}
+!178 = metadata !{metadata !"#dict_tgt.xml_49", metadata !179}
+!179 = metadata !{metadata !103, metadata !180, metadata !42, metadata !70, metadata !181, metadata !182, metadata !107}
+!180 = metadata !{i64 1, i64 0, metadata !"Device", metadata !"0x1A", i8 0, i8 0}
+!181 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_43\00#dict_tgt.xml_44\00#dict_tgt.xml_45\00#dict_tgt.xml_46\00#dict_tgt.xml_47\00#dict_tgt.xml_48\00", i8 0, i8 0}
+!182 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C2D", i8 0, i8 0}
+!183 = metadata !{metadata !"#dict_tgt.xml_5", metadata !184}
+!184 = metadata !{metadata !185, metadata !160, metadata !96, metadata !97, metadata !186, metadata !187}
+!185 = metadata !{i64 1, i64 0, metadata !"cache_level", metadata !"0x0000000000000003", i8 0, i8 0}
+!186 = metadata !{i64 1, i64 0, metadata !"num_sets", metadata !"0x0000000000002000", i8 0, i8 0}
+!187 = metadata !{i64 1, i64 0, metadata !"num_ways", metadata !"0x0000000000000010", i8 0, i8 0}
+!188 = metadata !{metadata !"#dict_tgt.xml_50", metadata !189}
+!189 = metadata !{metadata !190, metadata !191}
+!190 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x87040004", i8 0, i8 0}
+!191 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFC004", i8 0, i8 0}
+!192 = metadata !{metadata !"#dict_tgt.xml_51", metadata !113}
+!193 = metadata !{metadata !"#dict_tgt.xml_52", metadata !34}
+!194 = metadata !{metadata !"#dict_tgt.xml_53", metadata !34}
+!195 = metadata !{metadata !"#dict_tgt.xml_54", metadata !34}
+!196 = metadata !{metadata !"#dict_tgt.xml_55", metadata !34}
+!197 = metadata !{metadata !"#dict_tgt.xml_56", metadata !198}
+!198 = metadata !{metadata !103, metadata !199, metadata !42, metadata !70, metadata !200, metadata !201, metadata !107}
+!199 = metadata !{i64 1, i64 0, metadata !"Device", metadata !"0x1B", i8 0, i8 0}
+!200 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_50\00#dict_tgt.xml_51\00#dict_tgt.xml_52\00#dict_tgt.xml_53\00#dict_tgt.xml_54\00#dict_tgt.xml_55\00", i8 0, i8 0}
+!201 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C20", i8 0, i8 0}
+!202 = metadata !{metadata !"#dict_tgt.xml_57", metadata !203}
+!203 = metadata !{metadata !204, metadata !172}
+!204 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x87030000", i8 0, i8 0}
+!205 = metadata !{metadata !"#dict_tgt.xml_58", metadata !34}
+!206 = metadata !{metadata !"#dict_tgt.xml_59", metadata !34}
+!207 = metadata !{metadata !"#dict_tgt.xml_6", metadata !208}
+!208 = metadata !{metadata !209, metadata !210, metadata !211, metadata !212, metadata !213, metadata !214, metadata !215, metadata !216, metadata !217, metadata !218, metadata !219, metadata !220, metadata !221, metadata !222, metadata !223}
+!209 = metadata !{i64 1, i64 0, metadata !"DMI_BASE_ADDRESS", metadata !"0xFED18000", i8 0, i8 0}
+!210 = metadata !{i64 1, i64 0, metadata !"Is1GbPageEn", metadata !"0x0000000000000000", i8 0, i8 0}
+!211 = metadata !{i64 1, i64 0, metadata !"IsApicEn", metadata !"0x0000000000000001", i8 0, i8 0}
+!212 = metadata !{i64 1, i64 0, metadata !"IsPse36En", metadata !"0x0000000000000001", i8 0, i8 0}
+!213 = metadata !{i64 1, i64 0, metadata !"IsX2ApicEn", metadata !"0x0000000000000001", i8 0, i8 0}
+!214 = metadata !{i64 1, i64 0, metadata !"MCH_BASE_ADDRESS", metadata !"0xFED10000", i8 0, i8 0}
+!215 = metadata !{i64 1, i64 0, metadata !"PCIEX_BASE_ADDRESS", metadata !"0xF8000000", i8 0, i8 0}
+!216 = metadata !{i64 1, i64 0, metadata !"PhysAddrSize", metadata !"0x0000000000000024", i8 0, i8 0}
+!217 = metadata !{i64 1, i64 0, metadata !"REG_BASE_ADDRESS", metadata !"0x7E210000", i8 0, i8 0}
+!218 = metadata !{i64 1, i64 0, metadata !"VirtAddrSize", metadata !"0x0000000000000030", i8 0, i8 0}
+!219 = metadata !{i64 1, i64 0, metadata !"apic_id", metadata !"0x0000", i8 0, i8 0}
+!220 = metadata !{i64 1, i64 0, metadata !"caches", metadata !"#dict_tgt.xml_2\00#dict_tgt.xml_3\00#dict_tgt.xml_4\00#dict_tgt.xml_5\00", i8 0, i8 0}
+!221 = metadata !{i64 1, i64 0, metadata !"core_id", metadata !"0", i8 0, i8 0}
+!222 = metadata !{i64 1, i64 0, metadata !"max_cache_level", metadata !"0x0000000000000003", i8 0, i8 0}
+!223 = metadata !{i64 1, i64 0, metadata !"pkg_id", metadata !"0", i8 0, i8 0}
+!224 = metadata !{metadata !"#dict_tgt.xml_60", metadata !34}
+!225 = metadata !{metadata !"#dict_tgt.xml_61", metadata !34}
+!226 = metadata !{metadata !"#dict_tgt.xml_62", metadata !34}
+!227 = metadata !{metadata !"#dict_tgt.xml_63", metadata !228}
+!228 = metadata !{metadata !103, metadata !229, metadata !42, metadata !70, metadata !230, metadata !231, metadata !107}
+!229 = metadata !{i64 1, i64 0, metadata !"Device", metadata !"0x1D", i8 0, i8 0}
+!230 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_57\00#dict_tgt.xml_58\00#dict_tgt.xml_59\00#dict_tgt.xml_60\00#dict_tgt.xml_61\00#dict_tgt.xml_62\00", i8 0, i8 0}
+!231 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C26", i8 0, i8 0}
+!232 = metadata !{metadata !"#dict_tgt.xml_64", metadata !34}
+!233 = metadata !{metadata !"#dict_tgt.xml_65", metadata !34}
+!234 = metadata !{metadata !"#dict_tgt.xml_66", metadata !34}
+!235 = metadata !{metadata !"#dict_tgt.xml_67", metadata !34}
+!236 = metadata !{metadata !"#dict_tgt.xml_68", metadata !34}
+!237 = metadata !{metadata !"#dict_tgt.xml_69", metadata !34}
+!238 = metadata !{metadata !"#dict_tgt.xml_7", metadata !239}
+!239 = metadata !{metadata !240, metadata !19, metadata !241}
+!240 = metadata !{i64 1, i64 0, metadata !"end-add", metadata !"0x0000000061AFFFFF", i8 0, i8 0}
+!241 = metadata !{i64 1, i64 0, metadata !"start-add", metadata !"0x0000000000100000", i8 0, i8 0}
+!242 = metadata !{metadata !"#dict_tgt.xml_70", metadata !243}
+!243 = metadata !{metadata !103, metadata !244, metadata !42, metadata !70, metadata !245, metadata !246, metadata !107}
+!244 = metadata !{i64 1, i64 0, metadata !"Device", metadata !"0x1F", i8 0, i8 0}
+!245 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_64\00#dict_tgt.xml_65\00#dict_tgt.xml_66\00#dict_tgt.xml_67\00#dict_tgt.xml_68\00#dict_tgt.xml_69\00", i8 0, i8 0}
+!246 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C4E", i8 0, i8 0}
+!247 = metadata !{metadata !"#dict_tgt.xml_71", metadata !248}
+!248 = metadata !{metadata !249, metadata !150}
+!249 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x000040B1", i8 0, i8 0}
+!250 = metadata !{metadata !"#dict_tgt.xml_72", metadata !251}
+!251 = metadata !{metadata !252, metadata !253}
+!252 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x000040A1", i8 0, i8 0}
+!253 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0x0000FFFD", i8 0, i8 0}
+!254 = metadata !{metadata !"#dict_tgt.xml_73", metadata !255}
+!255 = metadata !{metadata !256, metadata !150}
+!256 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00004091", i8 0, i8 0}
+!257 = metadata !{metadata !"#dict_tgt.xml_74", metadata !258}
+!258 = metadata !{metadata !259, metadata !253}
+!259 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00004081", i8 0, i8 0}
+!260 = metadata !{metadata !"#dict_tgt.xml_75", metadata !261}
+!261 = metadata !{metadata !262, metadata !263}
+!262 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00004061", i8 0, i8 0}
+!263 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0x0000FFE1", i8 0, i8 0}
+!264 = metadata !{metadata !"#dict_tgt.xml_76", metadata !265}
+!265 = metadata !{metadata !266, metadata !267}
+!266 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x87020000", i8 0, i8 0}
+!267 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFF800", i8 0, i8 0}
+!268 = metadata !{metadata !"#dict_tgt.xml_77", metadata !269}
+!269 = metadata !{metadata !103, metadata !244, metadata !270, metadata !70, metadata !271, metadata !272, metadata !107}
+!270 = metadata !{i64 1, i64 0, metadata !"Function", metadata !"0x02", i8 0, i8 0}
+!271 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_71\00#dict_tgt.xml_72\00#dict_tgt.xml_73\00#dict_tgt.xml_74\00#dict_tgt.xml_75\00#dict_tgt.xml_76\00", i8 0, i8 0}
+!272 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C02", i8 0, i8 0}
+!273 = metadata !{metadata !"#dict_tgt.xml_78", metadata !274}
+!274 = metadata !{metadata !275, metadata !276}
+!275 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x87010004", i8 0, i8 0}
+!276 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFFF04", i8 0, i8 0}
+!277 = metadata !{metadata !"#dict_tgt.xml_79", metadata !113}
+!278 = metadata !{metadata !"#dict_tgt.xml_8", metadata !279}
+!279 = metadata !{metadata !280, metadata !19, metadata !281}
+!280 = metadata !{i64 1, i64 0, metadata !"end-add", metadata !"0x0000000100CFFFFF", i8 0, i8 0}
+!281 = metadata !{i64 1, i64 0, metadata !"start-add", metadata !"0x0000000100000000", i8 0, i8 0}
+!282 = metadata !{metadata !"#dict_tgt.xml_80", metadata !34}
+!283 = metadata !{metadata !"#dict_tgt.xml_81", metadata !34}
+!284 = metadata !{metadata !"#dict_tgt.xml_82", metadata !285}
+!285 = metadata !{metadata !286, metadata !263}
+!286 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00004041", i8 0, i8 0}
+!287 = metadata !{metadata !"#dict_tgt.xml_83", metadata !34}
+!288 = metadata !{metadata !"#dict_tgt.xml_84", metadata !289}
+!289 = metadata !{metadata !103, metadata !244, metadata !166, metadata !70, metadata !290, metadata !291, metadata !107}
+!290 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_78\00#dict_tgt.xml_79\00#dict_tgt.xml_80\00#dict_tgt.xml_81\00#dict_tgt.xml_82\00#dict_tgt.xml_83\00", i8 0, i8 0}
+!291 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C22", i8 0, i8 0}
+!292 = metadata !{metadata !"#dict_tgt.xml_85", metadata !293}
+!293 = metadata !{metadata !294, metadata !295}
+!294 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x87000004", i8 0, i8 0}
+!295 = metadata !{i64 1, i64 0, metadata !"size", metadata !"0xFFFFF004", i8 0, i8 0}
+!296 = metadata !{metadata !"#dict_tgt.xml_86", metadata !113}
+!297 = metadata !{metadata !"#dict_tgt.xml_87", metadata !34}
+!298 = metadata !{metadata !"#dict_tgt.xml_88", metadata !34}
+!299 = metadata !{metadata !"#dict_tgt.xml_89", metadata !34}
+!300 = metadata !{metadata !"#dict_tgt.xml_9", metadata !301}
+!301 = metadata !{metadata !302, metadata !19, metadata !303}
+!302 = metadata !{i64 1, i64 0, metadata !"end-add", metadata !"0x000000000009FFFF", i8 0, i8 0}
+!303 = metadata !{i64 1, i64 0, metadata !"start-add", metadata !"0x0000000000000000", i8 0, i8 0}
+!304 = metadata !{metadata !"#dict_tgt.xml_90", metadata !34}
+!305 = metadata !{metadata !"#dict_tgt.xml_91", metadata !306}
+!306 = metadata !{metadata !103, metadata !244, metadata !307, metadata !70, metadata !308, metadata !309, metadata !107}
+!307 = metadata !{i64 1, i64 0, metadata !"Function", metadata !"0x06", i8 0, i8 0}
+!308 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_85\00#dict_tgt.xml_86\00#dict_tgt.xml_87\00#dict_tgt.xml_88\00#dict_tgt.xml_89\00#dict_tgt.xml_90\00", i8 0, i8 0}
+!309 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x1C24", i8 0, i8 0}
+!310 = metadata !{metadata !"#dict_tgt.xml_92", metadata !311}
+!311 = metadata !{metadata !312, metadata !50}
+!312 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x85800000", i8 0, i8 0}
+!313 = metadata !{metadata !"#dict_tgt.xml_93", metadata !314}
+!314 = metadata !{metadata !315, metadata !25}
+!315 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x00003001", i8 0, i8 0}
+!316 = metadata !{metadata !"#dict_tgt.xml_94", metadata !317}
+!317 = metadata !{metadata !318, metadata !29}
+!318 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x85000000", i8 0, i8 0}
+!319 = metadata !{metadata !"#dict_tgt.xml_95", metadata !320}
+!320 = metadata !{metadata !321, metadata !29}
+!321 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x84800000", i8 0, i8 0}
+!322 = metadata !{metadata !"#dict_tgt.xml_96", metadata !34}
+!323 = metadata !{metadata !"#dict_tgt.xml_97", metadata !34}
+!324 = metadata !{metadata !"#dict_tgt.xml_98", metadata !325}
+!325 = metadata !{metadata !326, metadata !41, metadata !42, metadata !70, metadata !327, metadata !328, metadata !46}
+!326 = metadata !{i64 1, i64 0, metadata !"Bus", metadata !"0x05", i8 0, i8 0}
+!327 = metadata !{i64 1, i64 0, metadata !"bar", metadata !"#dict_tgt.xml_92\00#dict_tgt.xml_93\00#dict_tgt.xml_94\00#dict_tgt.xml_95\00#dict_tgt.xml_96\00#dict_tgt.xml_97\00", i8 0, i8 0}
+!328 = metadata !{i64 1, i64 0, metadata !"deviceID", metadata !"0x82A0", i8 0, i8 0}
+!329 = metadata !{metadata !"#dict_tgt.xml_99", metadata !330}
+!330 = metadata !{metadata !331, metadata !50}
+!331 = metadata !{i64 1, i64 0, metadata !"base", metadata !"0x86800000", i8 0, i8 0}
+!332 = metadata !{metadata !"SysConfig", metadata !333}
+!333 = metadata !{metadata !334, metadata !335, metadata !336, metadata !337, metadata !338}
+!334 = metadata !{i64 1, i64 0, metadata !"archsim", metadata !"0", i8 0, i8 0}
+!335 = metadata !{i64 1, i64 0, metadata !"devices", metadata !"#dict_tgt.xml_0\00#dict_tgt.xml_1\00#dict_tgt.xml_21\00#dict_tgt.xml_28\00#dict_tgt.xml_35\00#dict_tgt.xml_42\00#dict_tgt.xml_49\00#dict_tgt.xml_56\00#dict_tgt.xml_63\00#dict_tgt.xml_70\00#dict_tgt.xml_77\00#dict_tgt.xml_84\00#dict_tgt.xml_91\00#dict_tgt.xml_98\00#dict_tgt.xml_105\00#dict_tgt.xml_112\00", i8 0, i8 0}
+!336 = metadata !{i64 1, i64 0, metadata !"memory", metadata !"#dict_tgt.xml_7\00#dict_tgt.xml_8\00#dict_tgt.xml_9\00#dict_tgt.xml_10\00#dict_tgt.xml_11\00#dict_tgt.xml_12\00#dict_tgt.xml_13\00#dict_tgt.xml_14\00", i8 0, i8 0}
+!337 = metadata !{i64 1, i64 0, metadata !"ostype", metadata !"4", i8 0, i8 0}
+!338 = metadata !{i64 1, i64 0, metadata !"procs", metadata !"#dict_tgt.xml_6\00", i8 0, i8 0}
+!339 = metadata !{metadata !"_InstallDefaultHandlers", metadata !340, metadata !"external"}
+!340 = metadata !{metadata !341}
+!341 = metadata !{i64 1, i64 0, metadata !"cc", metadata !"prolog", i8 0, i8 0}
+!342 = metadata !{metadata !"__MCP__Test__MCP__main", metadata !343, metadata !"external"}
+!343 = metadata !{metadata !344, metadata !345, metadata !346}
+!344 = metadata !{i64 1, i64 0, metadata !"cc", metadata !"main", i8 0, i8 0}
+!345 = metadata !{i64 1, i64 0, metadata !"numeric_num_threads", metadata !"1", i8 0, i8 0}
+!346 = metadata !{i64 1, i64 0, metadata !"program_name", metadata !"Test", i8 0, i8 0}
+!347 = metadata !{metadata !"_mainStub_0", metadata !348}
+!348 = metadata !{metadata !349, metadata !350}
+!349 = metadata !{i64 1, i64 0, metadata !"apic_id", metadata !"0", i8 0, i8 0}
+!350 = metadata !{i64 1, i64 0, metadata !"tls_id", metadata !"0", i8 0, i8 0}
+!351 = metadata !{metadata !"main", metadata !352}
+!352 = metadata !{metadata !345}
+!353 = metadata !{i32 6376, i32 6400}
+!354 = metadata !{i32 5491}
+!355 = metadata !{i32 1136}
+!356 = metadata !{i32 5131}
+!357 = metadata !{i32 5177}
+!358 = metadata !{i32 2291, i32 -2147364467, i32 -2147364449, i32 -2147364432, i32 -2147364412, i32 -2147364390, i32 -2147364365, i32 -2147364347, i32 -2147364330, i32 -2147364310, i32 -2147364288, i32 -2147364263, i32 -2147364245, i32 -2147364228, i32 -2147364208, i32 -2147364186, i32 -2147364161, i32 -2147364143, i32 -2147364126, i32 -2147364106, i32 -2147364084, i32 -2147364059, i32 -2147364041, i32 -2147364024, i32 -2147364004, i32 -2147363982, i32 -2147363957, i32 -2147363939, i32 -2147363922, i32 -2147363902, i32 -2147363880, i32 -2147363855, i32 -2147363837, i32 -2147363820, i32 -2147363800, i32 -2147363778, i32 -2147363753, i32 -2147363735, i32 -2147363718, i32 -2147363698, i32 -2147363676, i32 -2147363651, i32 -2147363633, i32 -2147363613, i32 -2147363591, i32 -2147363566, i32 -2147363548, i32 -2147363531, i32 -2147363511, i32 -2147363489, i32 -2147363464, i32 -2147363446, i32 -2147363426, i32 -2147363404, i32 -2147363378, i32 -2147363360, i32 -2147363340, i32 -2147363318, i32 -2147363292, i32 -2147363274, i32 -2147363254, i32 -2147363232, i32 -2147363206, i32 -2147363188, i32 -2147363168, i32 -2147363146, i32 -2147363120, i32 -2147363102, i32 -2147363082, i32 -2147363060, i32 -2147363034, i32 -2147363016, i32 -2147362999, i32 -2147362979, i32 -2147362957, i32 -2147362931, i32 -2147362913, i32 -2147362896, i32 -2147362876, i32 -2147362854, i32 -2147362828, i32 -2147362810, i32 -2147362790, i32 -2147362768, i32 -2147362742, i32 -2147362724, i32 -2147362707, i32 -2147362687, i32 -2147362665, i32 -2147362639, i32 -2147362621, i32 -2147362604, i32 -2147362584, i32 -2147362562, i32 -2147362297, i32 -2147362279, i32 -2147362262, i32 -2147362242, i32 -2147362220, i32 -2147362191, i32 -2147362173, i32 -2147362156, i32 -2147362136, i32 -2147362114, i32 -2147362085, i32 -2147362067, i32 -2147362050, i32 -2147362030, i32 -2147362008, i32 -2147361979, i32 -2147361961, i32 -2147361944, i32 -2147361924, i32 -2147361902, i32 -2147361873, i32 -2147361855, i32 -2147361838, i32 -2147361818, i32 -2147361796, i32 -2147361767, i32 -2147361749, i32 -2147361732, i32 -2147361712, i32 -2147361690, i32 -2147361661, i32 -2147361643, i32 -2147361626, i32 -2147361606, i32 -2147361584, i32 -2147361555, i32 -2147361537, i32 -2147361520, i32 -2147361500, i32 -2147361478, i32 -2147361449, i32 -2147361431, i32 -2147361414, i32 -2147361394, i32 -2147361372, i32 -2147361343, i32 -2147361325, i32 -2147361308, i32 -2147361288, i32 -2147361266, i32 -2147361001, i32 -2147360983, i32 -2147360966, i32 -2147360946, i32 -2147360924, i32 -2147360895, i32 -2147360877, i32 -2147360860, i32 -2147360840, i32 -2147360818, i32 -2147360789, i32 -2147360771, i32 -2147360754, i32 -2147360734, i32 -2147360712, i32 -2147360683, i32 -2147360665, i32 -2147360648, i32 -2147360628, i32 -2147360606, i32 -2147360577, i32 -2147360559, i32 -2147360542, i32 -2147360522, i32 -2147360500, i32 -2147360471, i32 -2147360453, i32 -2147360436, i32 -2147360416, i32 -2147360394, i32 -2147360365, i32 -2147360347, i32 -2147360330, i32 -2147360310, i32 -2147360288, i32 -2147360259, i32 -2147360241, i32 -2147360224, i32 -2147360204, i32 -2147360182, i32 -2147360153, i32 -2147360135, i32 -2147360118, i32 -2147360098, i32 -2147360076, i32 -2147360047, i32 -2147360029, i32 -2147360012, i32 -2147359992, i32 -2147359970, i32 -2147359705, i32 -2147359687, i32 -2147359670, i32 -2147359650, i32 -2147359628, i32 -2147359599, i32 -2147359581, i32 -2147359564, i32 -2147359544, i32 -2147359522, i32 -2147359493, i32 -2147359475, i32 -2147359458, i32 -2147359438, i32 -2147359416, i32 -2147359387, i32 -2147359369, i32 -2147359352, i32 -2147359332, i32 -2147359310, i32 -2147359281, i32 -2147359263, i32 -2147359246, i32 -2147359226, i32 -2147359204, i32 -2147359175, i32 -2147359157, i32 -2147359140, i32 -2147359120, i32 -2147359098, i32 -2147359069, i32 -2147359051, i32 -2147359034, i32 -2147359014, i32 -2147358992, i32 -2147358963, i32 -2147358945, i32 -2147358928, i32 -2147358908, i32 -2147358886, i32 -2147358857, i32 -2147358839, i32 -2147358822, i32 -2147358802, i32 -2147358780, i32 -2147358751, i32 -2147358733, i32 -2147358716, i32 -2147358696, i32 -2147358674, i32 -2147358283, i32 -2147358265, i32 -2147358248, i32 -2147358228, i32 -2147358206, i32 -2147358177, i32 -2147358159, i32 -2147358142, i32 -2147358122, i32 -2147358100, i32 -2147358071, i32 -2147358053, i32 -2147358036, i32 -2147358016, i32 -2147357994, i32 -2147357965, i32 -2147357947, i32 -2147357930, i32 -2147357910, i32 -2147357888, i32 -2147357859, i32 -2147357841, i32 -2147357824, i32 -2147357804, i32 -2147357782, i32 -2147357753, i32 -2147357735, i32 -2147357718, i32 -2147357698, i32 -2147357676, i32 -2147357647, i32 -2147357629, i32 -2147357612, i32 -2147357592, i32 -2147357570, i32 -2147357541, i32 -2147357523, i32 -2147357506, i32 -2147357486, i32 -2147357464, i32 -2147357435, i32 -2147357417, i32 -2147357400, i32 -2147357380, i32 -2147357358, i32 -2147357329, i32 -2147357311, i32 -2147357294, i32 -2147357274, i32 -2147357252, i32 -2147356987, i32 -2147356969, i32 -2147356952, i32 -2147356932, i32 -2147356910, i32 -2147356881, i32 -2147356863, i32 -2147356846, i32 -2147356826, i32 -2147356804, i32 -2147356775, i32 -2147356757, i32 -2147356740, i32 -2147356720, i32 -2147356698, i32 -2147356669, i32 -2147356651, i32 -2147356634, i32 -2147356614, i32 -2147356592, i32 -2147356563, i32 -2147356545, i32 -2147356528, i32 -2147356508, i32 -2147356486, i32 -2147356457, i32 -2147356439, i32 -2147356422, i32 -2147356402, i32 -2147356380, i32 -2147356351, i32 -2147356333, i32 -2147356316, i32 -2147356296, i32 -2147356274, i32 -2147356245, i32 -2147356227, i32 -2147356210, i32 -2147356190, i32 -2147356168, i32 -2147356139, i32 -2147356121, i32 -2147356104, i32 -2147356084, i32 -2147356062, i32 -2147356033, i32 -2147356015, i32 -2147355998, i32 -2147355978, i32 -2147355956, i32 -2147355691, i32 -2147355673, i32 -2147355656, i32 -2147355636, i32 -2147355614, i32 -2147355585, i32 -2147355567, i32 -2147355550, i32 -2147355530, i32 -2147355508, i32 -2147355479, i32 -2147355461, i32 -2147355444, i32 -2147355424, i32 -2147355402, i32 -2147355373, i32 -2147355355, i32 -2147355338, i32 -2147355318, i32 -2147355296, i32 -2147355267, i32 -2147355249, i32 -2147355232, i32 -2147355212, i32 -2147355190, i32 -2147355161, i32 -2147355143, i32 -2147355126, i32 -2147355106, i32 -2147355084, i32 -2147355055, i32 -2147355037, i32 -2147355020, i32 -2147355000, i32 -2147354978, i32 -2147354949, i32 -2147354931, i32 -2147354914, i32 -2147354894, i32 -2147354872, i32 -2147354843, i32 -2147354825, i32 -2147354808, i32 -2147354788, i32 -2147354766, i32 -2147354737, i32 -2147354719, i32 -2147354702, i32 -2147354682, i32 -2147354660, i32 -2147354395, i32 -2147354377, i32 -2147354360, i32 -2147354340, i32 -2147354318, i32 -2147354289, i32 -2147354271, i32 -2147354254, i32 -2147354234, i32 -2147354212, i32 -2147354183, i32 -2147354165, i32 -2147354148, i32 -2147354128, i32 -2147354106, i32 -2147354077, i32 -2147354059, i32 -2147354042, i32 -2147354022, i32 -2147354000, i32 -2147353971, i32 -2147353953, i32 -2147353936, i32 -2147353916, i32 -2147353894, i32 -2147353865, i32 -2147353847, i32 -2147353830, i32 -2147353810, i32 -2147353788, i32 -2147353759, i32 -2147353741, i32 -2147353724, i32 -2147353704, i32 -2147353682, i32 -2147353653, i32 -2147353635, i32 -2147353618, i32 -2147353598, i32 -2147353576, i32 -2147353547, i32 -2147353529, i32 -2147353512, i32 -2147353492, i32 -2147353470, i32 -2147353441, i32 -2147353423, i32 -2147353406, i32 -2147353386, i32 -2147353364, i32 -2147353099, i32 -2147353081, i32 -2147353064, i32 -2147353044, i32 -2147353022, i32 -2147352993, i32 -2147352975, i32 -2147352958, i32 -2147352938, i32 -2147352916, i32 -2147352887, i32 -2147352869, i32 -2147352852, i32 -2147352832, i32 -2147352810, i32 -2147352781, i32 -2147352763, i32 -2147352746, i32 -2147352726, i32 -2147352704, i32 -2147352675, i32 -2147352657, i32 -2147352640, i32 -2147352620, i32 -2147352598, i32 -2147352569, i32 -2147352551, i32 -2147352534, i32 -2147352514, i32 -2147352492, i32 -2147352463, i32 -2147352445, i32 -2147352428, i32 -2147352408, i32 -2147352386, i32 -2147352357, i32 -2147352339, i32 -2147352322, i32 -2147352302, i32 -2147352280, i32 -2147352251, i32 -2147352233, i32 -2147352216, i32 -2147352196, i32 -2147352174, i32 -2147352145, i32 -2147352127, i32 -2147352110, i32 -2147352090, i32 -2147352068, i32 -2147351653, i32 -2147351635, i32 -2147351618, i32 -2147351598, i32 -2147351576, i32 -2147351545, i32 -2147351527, i32 -2147351510, i32 -2147351490, i32 -2147351468, i32 -2147351437, i32 -2147351419, i32 -2147351402, i32 -2147351382, i32 -2147351360, i32 -2147351329, i32 -2147351311, i32 -2147351294, i32 -2147351274, i32 -2147351252, i32 -2147351221, i32 -2147351203, i32 -2147351186, i32 -2147351166, i32 -2147351144, i32 -2147351113, i32 -2147351095, i32 -2147351078, i32 -2147351058, i32 -2147351036, i32 -2147351005, i32 -2147350987, i32 -2147350970, i32 -2147350950, i32 -2147350928, i32 -2147350897, i32 -2147350879, i32 -2147350862, i32 -2147350842, i32 -2147350820, i32 -2147350789, i32 -2147350771, i32 -2147350754, i32 -2147350734, i32 -2147350712, i32 -2147350681, i32 -2147350663, i32 -2147350646, i32 -2147350626, i32 -2147350604, i32 -2147350324, i32 -2147350306, i32 -2147350289, i32 -2147350269, i32 -2147350247, i32 -2147350216, i32 -2147350198, i32 -2147350181, i32 -2147350161, i32 -2147350139, i32 -2147350108, i32 -2147350090, i32 -2147350073, i32 -2147350053, i32 -2147350031, i32 -2147350000, i32 -2147349982, i32 -2147349965, i32 -2147349945, i32 -2147349923, i32 -2147349892, i32 -2147349874, i32 -2147349857, i32 -2147349837, i32 -2147349815, i32 -2147349784, i32 -2147349766, i32 -2147349749, i32 -2147349729, i32 -2147349707, i32 -2147349676, i32 -2147349658, i32 -2147349641, i32 -2147349621, i32 -2147349599, i32 -2147349568, i32 -2147349550, i32 -2147349533, i32 -2147349513, i32 -2147349491, i32 -2147349460, i32 -2147349442, i32 -2147349425, i32 -2147349405, i32 -2147349383, i32 -2147349352, i32 -2147349334, i32 -2147349317, i32 -2147349297, i32 -2147349275, i32 -2147348995, i32 -2147348977, i32 -2147348960, i32 -2147348940, i32 -2147348918, i32 -2147348887, i32 -2147348869, i32 -2147348852, i32 -2147348832, i32 -2147348810, i32 -2147348779, i32 -2147348761, i32 -2147348744, i32 -2147348724, i32 -2147348702, i32 -2147348671, i32 -2147348653, i32 -2147348636, i32 -2147348616, i32 -2147348594, i32 -2147348563, i32 -2147348545, i32 -2147348528, i32 -2147348508, i32 -2147348486, i32 -2147348455, i32 -2147348437, i32 -2147348420, i32 -2147348400, i32 -2147348378, i32 -2147348347, i32 -2147348329, i32 -2147348312, i32 -2147348292, i32 -2147348270, i32 -2147348239, i32 -2147348221, i32 -2147348204, i32 -2147348184, i32 -2147348162, i32 -2147348131, i32 -2147348113, i32 -2147348096, i32 -2147348076, i32 -2147348054, i32 -2147348023, i32 -2147348005, i32 -2147347988, i32 -2147347968, i32 -2147347946, i32 -2147347666, i32 -2147347648, i32 -2147347631, i32 -2147347611, i32 -2147347589, i32 -2147347558, i32 -2147347540, i32 -2147347523, i32 -2147347503, i32 -2147347481, i32 -2147347450, i32 -2147347432, i32 -2147347415, i32 -2147347395, i32 -2147347373, i32 -2147347342, i32 -2147347324, i32 -2147347307, i32 -2147347287, i32 -2147347265, i32 -2147347234, i32 -2147347216, i32 -2147347199, i32 -2147347179, i32 -2147347157, i32 -2147347126, i32 -2147347108, i32 -2147347091, i32 -2147347071, i32 -2147347049, i32 -2147347018, i32 -2147347000, i32 -2147346983, i32 -2147346963, i32 -2147346941, i32 -2147346910, i32 -2147346892, i32 -2147346875, i32 -2147346855, i32 -2147346833, i32 -2147346802, i32 -2147346784, i32 -2147346767, i32 -2147346747, i32 -2147346725, i32 -2147346694, i32 -2147346676, i32 -2147346659, i32 -2147346639, i32 -2147346617, i32 -2147346337, i32 -2147346319, i32 -2147346302, i32 -2147346282, i32 -2147346260, i32 -2147346229, i32 -2147346211, i32 -2147346194, i32 -2147346174, i32 -2147346152, i32 -2147346121, i32 -2147346103, i32 -2147346086, i32 -2147346066, i32 -2147346044, i32 -2147346013, i32 -2147345995, i32 -2147345978, i32 -2147345958, i32 -2147345936, i32 -2147345905, i32 -2147345887, i32 -2147345870, i32 -2147345850, i32 -2147345828, i32 -2147345797, i32 -2147345779, i32 -2147345762, i32 -2147345742, i32 -2147345720, i32 -2147345689, i32 -2147345671, i32 -2147345654, i32 -2147345634, i32 -2147345612, i32 -2147345581, i32 -2147345563, i32 -2147345546, i32 -2147345526, i32 -2147345504, i32 -2147345473, i32 -2147345455, i32 -2147345438, i32 -2147345418, i32 -2147345396, i32 -2147345365, i32 -2147345347, i32 -2147345330, i32 -2147345310, i32 -2147345288, i32 -2147344872, i32 -2147344854, i32 -2147344837, i32 -2147344817, i32 -2147344795, i32 -2147344764, i32 -2147344746, i32 -2147344729, i32 -2147344709, i32 -2147344687, i32 -2147344656, i32 -2147344638, i32 -2147344621, i32 -2147344601, i32 -2147344579, i32 -2147344548, i32 -2147344530, i32 -2147344513, i32 -2147344493, i32 -2147344471, i32 -2147344440, i32 -2147344422, i32 -2147344405, i32 -2147344385, i32 -2147344363, i32 -2147344332, i32 -2147344314, i32 -2147344297, i32 -2147344277, i32 -2147344255, i32 -2147344224, i32 -2147344206, i32 -2147344189, i32 -2147344169, i32 -2147344147, i32 -2147344116, i32 -2147344098, i32 -2147344081, i32 -2147344061, i32 -2147344039, i32 -2147344008, i32 -2147343990, i32 -2147343973, i32 -2147343953, i32 -2147343931, i32 -2147343900, i32 -2147343882, i32 -2147343865, i32 -2147343845, i32 -2147343823, i32 -2147343543, i32 -2147343525, i32 -2147343508, i32 -2147343488, i32 -2147343466, i32 -2147343435, i32 -2147343417, i32 -2147343400, i32 -2147343380, i32 -2147343358, i32 -2147343327, i32 -2147343309, i32 -2147343292, i32 -2147343272, i32 -2147343250, i32 -2147343219, i32 -2147343201, i32 -2147343184, i32 -2147343164, i32 -2147343142, i32 -2147343111, i32 -2147343093, i32 -2147343076, i32 -2147343056, i32 -2147343034, i32 -2147343003, i32 -2147342985, i32 -2147342968, i32 -2147342948, i32 -2147342926, i32 -2147342895, i32 -2147342877, i32 -2147342860, i32 -2147342840, i32 -2147342818, i32 -2147342787, i32 -2147342769, i32 -2147342752, i32 -2147342732, i32 -2147342710, i32 -2147342679, i32 -2147342661, i32 -2147342644, i32 -2147342624, i32 -2147342602, i32 -2147342571, i32 -2147342553, i32 -2147342536, i32 -2147342516, i32 -2147342494, i32 -2147342214, i32 -2147342196, i32 -2147342179, i32 -2147342159, i32 -2147342137, i32 -2147342106, i32 -2147342088, i32 -2147342071, i32 -2147342051, i32 -2147342029, i32 -2147341998, i32 -2147341980, i32 -2147341963, i32 -2147341943, i32 -2147341921, i32 -2147341890, i32 -2147341872, i32 -2147341855, i32 -2147341835, i32 -2147341813, i32 -2147341782, i32 -2147341764, i32 -2147341747, i32 -2147341727, i32 -2147341705, i32 -2147341674, i32 -2147341656, i32 -2147341639, i32 -2147341619, i32 -2147341597, i32 -2147341566, i32 -2147341548, i32 -2147341531, i32 -2147341511, i32 -2147341489, i32 -2147341458, i32 -2147341440, i32 -2147341423, i32 -2147341403, i32 -2147341381, i32 -2147341350, i32 -2147341332, i32 -2147341315, i32 -2147341295, i32 -2147341273, i32 -2147341242, i32 -2147341224, i32 -2147341207, i32 -2147341187, i32 -2147341165, i32 -2147340885, i32 -2147340867, i32 -2147340850, i32 -2147340830, i32 -2147340808, i32 -2147340777, i32 -2147340759, i32 -2147340742, i32 -2147340722, i32 -2147340700, i32 -2147340669, i32 -2147340651, i32 -2147340634, i32 -2147340614, i32 -2147340592, i32 -2147340561, i32 -2147340543, i32 -2147340526, i32 -2147340506, i32 -2147340484, i32 -2147340453, i32 -2147340435, i32 -2147340418, i32 -2147340398, i32 -2147340376, i32 -2147340345, i32 -2147340327, i32 -2147340310, i32 -2147340290, i32 -2147340268, i32 -2147340237, i32 -2147340219, i32 -2147340202, i32 -2147340182, i32 -2147340160, i32 -2147340129, i32 -2147340111, i32 -2147340094, i32 -2147340074, i32 -2147340052, i32 -2147340021, i32 -2147340003, i32 -2147339986, i32 -2147339966, i32 -2147339944, i32 -2147339913, i32 -2147339895, i32 -2147339878, i32 -2147339858, i32 -2147339836, i32 -2147339556, i32 -2147339538, i32 -2147339521, i32 -2147339501, i32 -2147339479, i32 -2147339448, i32 -2147339430, i32 -2147339413, i32 -2147339393, i32 -2147339371, i32 -2147339340, i32 -2147339322, i32 -2147339305, i32 -2147339285, i32 -2147339263, i32 -2147339232, i32 -2147339214, i32 -2147339197, i32 -2147339177, i32 -2147339155, i32 -2147339124, i32 -2147339106, i32 -2147339089, i32 -2147339069, i32 -2147339047, i32 -2147339016, i32 -2147338998, i32 -2147338981, i32 -2147338961, i32 -2147338939, i32 -2147338908, i32 -2147338890, i32 -2147338873, i32 -2147338853, i32 -2147338831, i32 -2147338800, i32 -2147338782, i32 -2147338765, i32 -2147338745, i32 -2147338723, i32 -2147338692, i32 -2147338674, i32 -2147338657, i32 -2147338637, i32 -2147338615, i32 -2147338584, i32 -2147338566, i32 -2147338549, i32 -2147338529, i32 -2147338507, i32 -2147338091, i32 -2147338073, i32 -2147338056, i32 -2147338036, i32 -2147338014, i32 -2147337983, i32 -2147337965, i32 -2147337948, i32 -2147337928, i32 -2147337906, i32 -2147337875, i32 -2147337857, i32 -2147337840, i32 -2147337820, i32 -2147337798, i32 -2147337767, i32 -2147337749, i32 -2147337732, i32 -2147337712, i32 -2147337690, i32 -2147337659, i32 -2147337641, i32 -2147337624, i32 -2147337604, i32 -2147337582, i32 -2147337551, i32 -2147337533, i32 -2147337516, i32 -2147337496, i32 -2147337474, i32 -2147337443, i32 -2147337425, i32 -2147337408, i32 -2147337388, i32 -2147337366, i32 -2147337335, i32 -2147337317, i32 -2147337300, i32 -2147337280, i32 -2147337258, i32 -2147337227, i32 -2147337209, i32 -2147337192, i32 -2147337172, i32 -2147337150, i32 -2147337119, i32 -2147337101, i32 -2147337084, i32 -2147337064, i32 -2147337042, i32 -2147336762, i32 -2147336744, i32 -2147336727, i32 -2147336707, i32 -2147336685, i32 -2147336654, i32 -2147336636, i32 -2147336619, i32 -2147336599, i32 -2147336577, i32 -2147336546, i32 -2147336528, i32 -2147336511, i32 -2147336491, i32 -2147336469, i32 -2147336438, i32 -2147336420, i32 -2147336403, i32 -2147336383, i32 -2147336361, i32 -2147336330, i32 -2147336312, i32 -2147336295, i32 -2147336275, i32 -2147336253, i32 -2147336222, i32 -2147336204, i32 -2147336187, i32 -2147336167, i32 -2147336145, i32 -2147336114, i32 -2147336096, i32 -2147336079, i32 -2147336059, i32 -2147336037, i32 -2147336006, i32 -2147335988, i32 -2147335971, i32 -2147335951, i32 -2147335929, i32 -2147335898, i32 -2147335880, i32 -2147335863, i32 -2147335843, i32 -2147335821, i32 -2147335790, i32 -2147335772, i32 -2147335755, i32 -2147335735, i32 -2147335713, i32 -2147335433, i32 -2147335415, i32 -2147335398, i32 -2147335378, i32 -2147335356, i32 -2147335325, i32 -2147335307, i32 -2147335290, i32 -2147335270, i32 -2147335248, i32 -2147335217, i32 -2147335199, i32 -2147335182, i32 -2147335162, i32 -2147335140, i32 -2147335109, i32 -2147335091, i32 -2147335074, i32 -2147335054, i32 -2147335032, i32 -2147335001, i32 -2147334983, i32 -2147334966, i32 -2147334946, i32 -2147334924, i32 -2147334893, i32 -2147334875, i32 -2147334858, i32 -2147334838, i32 -2147334816, i32 -2147334785, i32 -2147334767, i32 -2147334750, i32 -2147334730, i32 -2147334708, i32 -2147334677, i32 -2147334659, i32 -2147334642, i32 -2147334622, i32 -2147334600, i32 -2147334569, i32 -2147334551, i32 -2147334534, i32 -2147334514, i32 -2147334492, i32 -2147334461, i32 -2147334443, i32 -2147334426, i32 -2147334406, i32 -2147334384, i32 -2147334104, i32 -2147334086, i32 -2147334069, i32 -2147334049, i32 -2147334027, i32 -2147333996, i32 -2147333978, i32 -2147333961, i32 -2147333941, i32 -2147333919, i32 -2147333888, i32 -2147333870, i32 -2147333853, i32 -2147333833, i32 -2147333811, i32 -2147333780, i32 -2147333762, i32 -2147333745, i32 -2147333725, i32 -2147333703, i32 -2147333672, i32 -2147333654, i32 -2147333637, i32 -2147333617, i32 -2147333595, i32 -2147333564, i32 -2147333546, i32 -2147333529, i32 -2147333509, i32 -2147333487, i32 -2147333456, i32 -2147333438, i32 -2147333421, i32 -2147333401, i32 -2147333379, i32 -2147333348, i32 -2147333330, i32 -2147333313, i32 -2147333293, i32 -2147333271, i32 -2147333240, i32 -2147333222, i32 -2147333205, i32 -2147333185, i32 -2147333163, i32 -2147333132, i32 -2147333114, i32 -2147333097, i32 -2147333077, i32 -2147333055, i32 -2147332775, i32 -2147332757, i32 -2147332740, i32 -2147332720, i32 -2147332698, i32 -2147332667, i32 -2147332649, i32 -2147332632, i32 -2147332612, i32 -2147332590, i32 -2147332559, i32 -2147332541, i32 -2147332524, i32 -2147332504, i32 -2147332482, i32 -2147332451, i32 -2147332433, i32 -2147332416, i32 -2147332396, i32 -2147332374, i32 -2147332343, i32 -2147332325, i32 -2147332308, i32 -2147332288, i32 -2147332266, i32 -2147332235, i32 -2147332217, i32 -2147332200, i32 -2147332180, i32 -2147332158, i32 -2147332127, i32 -2147332109, i32 -2147332092, i32 -2147332072, i32 -2147332050, i32 -2147332019, i32 -2147332001, i32 -2147331984, i32 -2147331964, i32 -2147331942, i32 -2147331911, i32 -2147331893, i32 -2147331876, i32 -2147331856, i32 -2147331834, i32 -2147331803, i32 -2147331785, i32 -2147331768, i32 -2147331748, i32 -2147331726, i32 -2147331699, i32 -2147331681, i32 -2147331664, i32 -2147331644, i32 -2147331622, i32 -2147331595, i32 -2147331577, i32 -2147331560, i32 -2147331540, i32 -2147331518, i32 -2147331491, i32 -2147331473, i32 -2147331456, i32 -2147331436, i32 -2147331414, i32 -2147331387, i32 -2147331369, i32 -2147331352, i32 -2147331332, i32 -2147331310, i32 -2147331283, i32 -2147331265, i32 -2147331248, i32 -2147331228, i32 -2147331206, i32 -2147331179, i32 -2147331161, i32 -2147331144, i32 -2147331124, i32 -2147331102, i32 3105, i32 3265, i32 3281, i32 3299, i32 3321, i32 3339, i32 3374, i32 3392, i32 3427, i32 3445, i32 3480, i32 3498, i32 3533, i32 3551, i32 3569, i32 3587, i32 3605, i32 3623, i32 3641, i32 3659, i32 3677, i32 3695, i32 3713, i32 3731, i32 3749, i32 3765, i32 3781, i32 3804, i32 3822, i32 3844, i32 3862, i32 3882, i32 3901, i32 3918, i32 3938, i32 3955, i32 3975, i32 3992, i32 4012, i32 4029, i32 4049, i32 4115, i32 4178}
+!359 = metadata !{i32 1479}
+!360 = metadata !{i32 1519}
+!361 = metadata !{i32 928}
+!362 = metadata !{i32 968}
+!363 = metadata !{i32 1008}
+!364 = metadata !{i32 1047}
+!365 = metadata !{i32 218}
+!366 = metadata !{i32 489}

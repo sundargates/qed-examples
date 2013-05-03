@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect usage.  Expected: run <file.bc>"
+else
+	FILENAME=${1##*/}
+	BASENAME=${FILENAME%%.*}
+	llc ${BASENAME}.bc -o ${BASENAME}.s					&&	\
+	clang ${BASENAME}.s -o ${BASENAME}.native		&&	\
+	./${BASENAME}.native
+fi

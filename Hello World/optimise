@@ -1,0 +1,1 @@
+opt -load LLVMHello.dylib -hello < hello.bc > trial.bc

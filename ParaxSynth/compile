@@ -1,0 +1,1 @@
+clang -emit-llvm hello.cpp -c -o hello.bc

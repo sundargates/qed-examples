@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Small script to help with testing. Run make tests to use.
+
+if [[ $1 = '-baseline' ]]; then
+	for file in *.native
+	do
+		./$file;
+	done
+fi
+if [[ $1 = '-qeds' ]]; then
+	for file in *.qed.native
+	do
+		./$file;
+	done
+fi

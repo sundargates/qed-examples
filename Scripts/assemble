@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect usage.  Expected: ./assemble <file.ll>. Converts a LLVM IR (Text) to LLVM IR (binary)"
+else
+	FILENAME=${1##*/}
+	BASENAME=${FILENAME%%.*}
+	llvm-as -o ${BASENAME}.bc $1
+fi

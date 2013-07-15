@@ -1,1 +1,10 @@
-clang -emit-llvm hello.c -c -o hello.bc
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect usage.  Expected: ./compile <file.c> or ./compile <file.cpp>"
+else
+	FILENAME=${1##*/}
+	BASENAME=${FILENAME%%.*}
+	# clang -O3 -emit-llvm ${FILENAME} -c -o ${BASENAME}.bc && display ${BASENAME}.bc > ${BASENAME}.ll
+	clang -O3 -emit-llvm ${FILENAME} -c -o ${BASENAME}.bc && display ${BASENAME}.bc > ${BASENAME}.ll
+fi

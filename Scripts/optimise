@@ -1,1 +1,9 @@
-opt -load LLVMHello.dylib -hello < hello.bc > trial.bc
+#!/bin/sh
+
+if [ $# -ne 1 ]; then
+	echo "Incorrect usage.  Expected: ./optimise <file.bc>"
+else
+	FILENAME=${1##*/}
+	BASENAME=${FILENAME%%.*}
+	opt -load LLVMHello.dylib -hello -QED-Mode=ALL < ${BASENAME}.bc > ${BASENAME}-QED.bc && display ${BASENAME}-QED.bc > ${BASENAME}-QED.ll
+fi

@@ -1,1 +1,0 @@
-opt -load LLVMHello.dylib -hello < parax.ll > trial.bc

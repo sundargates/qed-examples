@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ $# -ne 1 ]; then
-	echo "Incorrect usage.  Expected: ./optimise <file.bc>"
-else
-	FILENAME=${1##*/}
-	BASENAME=${FILENAME%%.*}
-	opt -load LLVMHello.dylib -hello < ${BASENAME}.bc > trial.bc
-fi

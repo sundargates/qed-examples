@@ -1,9 +1,0 @@
-#!/bin/sh
-
-if [ $# -ne 1 ]; then
-	echo "Incorrect usage.  Expected: ./compile <file.c>"
-else
-	FILENAME=${1##*/}
-	BASENAME=${FILENAME%%.*}
-	clang -O1 -emit-llvm ${FILENAME} -c -o ${BASENAME}.bc
-fi

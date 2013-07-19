@@ -1,3 +1,5 @@
+.PHONY: diff check
+
 LLVM_BASE=../../llvm/build/Debug+Asserts
 
 LDFLAGS=
@@ -14,7 +16,7 @@ OPTLIB=LLVMHello.dylib
 CC=clang
 LD=llvm-link
 OPT=opt
-LLC=llc
+LLC=llc -disable-cfi
 LLVM-DIS=llvm-dis
 
 BYTECODE=$(APPLICATION).bc
@@ -69,5 +71,22 @@ $(DIS): $(BYTECODE)
 $(QED_DIS): $(QED_BYTECODE)
 	$(LLVM-DIS)	$(QED_BYTECODE) -o $@
 
+# Diffs the outputs of the two executable files.
+diff: $(EXECUTABLE) $(QED_EXECUTABLE)
+	./$(EXECUTABLE) &> test_native
+	./$(QED_EXECUTABLE) &> test-qed_native
+	diff -s test_native test-qed_native
+	rm test_native test-qed_native
 
-
+# Runs the QED-transformed program with each of the arguments provided in TEST_ARGS.
+# Then, scans for failure of QED somewhere in the program.
+check: $(QED_EXECUTABLE)
+ifdef TEST_ARGS
+	$(foreach TEST, $(TEST_ARGS), ./$(QED_EXECUTABLE) $(TEST) >> test_check 2>&1;)
+	@cat test_check
+	grep -v "EDDI failed." test_check > /dev/null
+	grep -v "CFCSS failed." test_check > /dev/null
+	rm test_check
+else
+	$(error No arguments supplied to this Makefile)
+endif

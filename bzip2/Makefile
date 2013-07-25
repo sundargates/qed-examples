@@ -1,8 +1,14 @@
 SOURCES      = bzip2.c spec.c
-QED_MODE     = CFCSS
+# ALL Modes
+# 1st bit - QED
+# 2nd bit - CFTSS
+# 3rd bit - CFCSS
+# 4th bit - GlobalCFCSS
+
+QED_MODE     = 15
 NUM_CFTSS_BB = 10
 APPLICATION  = bzip2
-OPTIMIZATION = 
+OPTIMIZATION = -O3
 BENCHLANG    = C
 
 # Include standard template for this suite

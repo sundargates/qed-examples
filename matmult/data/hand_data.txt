@@ -1,0 +1,69 @@
+The purpose of this textfile is to contain the coverage/timing data for the hand/ directory (which is the one for which QED checks were inserted by hand).
+For each test, record the results and the time taken.
+
+Out of 1000 trials of the EDDI file tester, there were:
+	167 errors caught by EDDI,
+	0 errors that terminated, but weren't caught,
+	311 errors that created infinite loops,
+	1 segmentation faults,
+	0 bus errors,
+	0 other errors (didn't run), and
+	17 correct programs.
+21/8 ~15 min
+
+Out of 200 trials of the EDDI file tester, there were:
+	45 errors caught by EDDI,
+	50 errors that terminated, but weren't caught,
+	0 errors that created infinite loops,
+	0 segmentation faults,
+	0 bus errors,
+	3 other errors (didn't run), and
+	102 correct programs.
+
+real	2m8.051s
+
+Out of 200 trials of the EDDI file tester, there were:
+	31 errors caught by EDDI,
+	54 errors that terminated, but weren't caught,
+	1 errors that created infinite loops,
+	3 other errors (didn't run), and
+	111 correct programs.
+
+real	2m20.366s
+
+Now, compiling with -O0 to see if it makes a difference.
+Out of 100 trials of the EDDI file tester, there were:
+	19 errors caught by EDDI,
+	38 errors that terminated, but weren't caught,
+	0 errors that created infinite loops,
+	0 other errors (didn't run), and
+	43 correct programs.
+
+real	0m55.017s
+Out of 100 trials of the EDDI file tester, there were:
+	23 errors caught by EDDI,
+	29 errors that terminated, but weren't caught,
+	0 errors that created infinite loops,
+	1 other errors (didn't run), and
+	47 correct programs.
+
+real	0m57.239s
+
+Out of 500 trials of the EDDI file tester, there were:
+	97 errors caught by EDDI,
+	201 errors that terminated, but weren't caught,
+	1 errors that created infinite loops,
+	4 other errors (didn't run), and
+	197 correct programs.
+
+real	6m16.819s
+
+(now, I have unexpected exits!)
+Out of 100 trials of the EDDI file tester, there were:
+	19 errors caught by EDDI,
+	0 errors that terminated, but weren't caught,
+	33 unexpected exits,
+	1 errors that created infinite loops,
+	0 other errors (didn't run), and
+	47 correct programs.
+

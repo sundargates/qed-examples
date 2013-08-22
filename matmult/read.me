@@ -1,0 +1,21 @@
+This direcotry contains the setup I used to test the matmult programs, and in particular the fault-
+injecting script that I used to run tests. In it you will find:
+
+data/: A subdirectory containing some trials I ran, though there aren't any formal trials yet.
+hand/: The hand-coded QED version of the program.
+llvm:/ The LLVM-QED version of the program.
+
+Note that both of these programs were modified by me, for a few reasons:
+	1. I wanted to silence warnings. Mostly, this ionvolved changing %d to %lu in printf format strings.
+	2. The outputs were different between the two programs. This wasn't helpful for testing, so I
+	   standardized them.
+
+Makefile.defaults: Commonalities between the Makefiles of the two above directories. To make or
+run the tests, work from one of those two directories; the scripts assume you are in hand/ or llvm/.
+scripts/: Three routines I found useful for automating tests.
+	eddi_file_tester.sh: Create a fault-injected executable and run it.
+	eddi_iterate_tester.sh: Run eddi_file_tester.sh multiple times and record data on what happens.
+	faultInjector.py: Add a fault to a program (copied to a separate file). The fault is created
+					  to be a single bit flip in somewhere in the executable.
+
+Arun Debray, 21 August 2013

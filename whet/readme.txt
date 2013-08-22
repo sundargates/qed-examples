@@ -10,9 +10,9 @@ For a related example, there is also timer.c, which also fails with EDDI. Howeve
 case, once the function call to gettimeofday() is duplicated in the LLVM IR, it works as
 intended.
 
-What other function calls could cause this sort of behavior? I'm guessing there are issues
-in general when EDDI assumes the world doesn't change between two calls, and in some cases
-it actually does.
+Since there are many such edge cases and tricks hidden in system calls and library functions,
+this example shouldn't be taken as an error we need to fix, but just as an example of
+what we aren't as worried about.
 
 Following are the relevant lines of whets.c and the LLVM assembly. The call that generates
 the error is on line 901 of whets.c, and corresponds to line 4632 of the assembly.

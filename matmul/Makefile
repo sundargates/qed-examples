@@ -1,4 +1,4 @@
-SOURCES      = fft.c
+SOURCES      = matmul.c
 
 # ALL Modes
 # 1st bit - EDDI
@@ -8,7 +8,7 @@ SOURCES      = fft.c
 
 QED_MODE     = 3
 NUM_CFTSS_BB = 10
-APPLICATION  = fft
+APPLICATION  = matmul
 OPTIMIZATION = -O3
 BENCHLANG    = C
 

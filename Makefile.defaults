@@ -1,8 +1,8 @@
 .PHONY: diff check
 
-LLVM_BASE = ../../llvm/build/Debug+Asserts
-# LLVM_BIN  = $(LLVM_BASE)/bin/
-LLVM_BIN  = 
+LLVM_BASE = /rsgs/scratch0/linhai88/llvm/llvm-3.3/build/Release+Asserts
+LLVM_BIN  = $(LLVM_BASE)/bin/
+# LLVM_BIN  = 
 
 LDFLAGS=
 CFLAGS=$(OPTIMIZATION) $(BENCH_FLAGS) -emit-llvm -c -w
@@ -13,13 +13,18 @@ else
 endif
 
 OPTFLAGS       = -load
-OPTLIB         = LLVMHello.dylib
+OPTLIB         = LLVMHello.so
 
 CC             = $(LLVM_BIN)clang
 LD             = $(LLVM_BIN)llvm-link
 OPT            = $(LLVM_BIN)opt
 LLC            = $(LLVM_BIN)llc -disable-cfi
 LLVM-DIS       = $(LLVM_BIN)llvm-dis
+MATHLIBOPT     = -lm
+
+ifdef NEED_MATH
+MATH_LIBS      = $(MATHLIBOPT)
+endif
 
 BYTECODE       = $(APPLICATION).bc
 QED_BYTECODE   = $(APPLICATION)-qed.bc
@@ -36,11 +41,11 @@ QED_DIS        = $(APPLICATION)-qed.ll
 all: $(SOURCES) $(BYTECODE) $(QED_BYTECODE) $(ASSEMBLY) $(QED_ASSEMBLY) $(EXECUTABLE) $(QED_EXECUTABLE)
 
 $(EXECUTABLE): $(ASSEMBLY)
-	$(CC) $(ASSEMBLY) -o $@
+	$(CC) $(ASSEMBLY) $(MATH_LIBS) $(BENCH_FLAGS) -o $@
 	rm $(ASSEMBLY)
 
 $(QED_EXECUTABLE): $(QED_ASSEMBLY)
-	$(CC) $(QED_ASSEMBLY) -o $@
+	$(CC) $(QED_ASSEMBLY) $(MATH_LIBS) $(BENCH_FLAGS) -o $@
 	rm $(QED_ASSEMBLY)
 
 $(ASSEMBLY): $(BYTECODE)
@@ -54,7 +59,6 @@ $(QED_BYTECODE): $(BYTECODE)
 
 $(BYTECODE): $(OBJECTS)
 	$(LD) $(LDFLAGS) $(OBJECTS) -o $@
-	# rm $(OBJECTS)
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@

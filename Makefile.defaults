@@ -1,6 +1,8 @@
 .PHONY: diff check
 
-LLVM_BASE=../../llvm/build/Debug+Asserts
+LLVM_BASE = ../../llvm/build/Debug+Asserts
+# LLVM_BIN  = $(LLVM_BASE)/bin/
+LLVM_BIN  = 
 
 LDFLAGS=
 CFLAGS=$(OPTIMIZATION) $(BENCH_FLAGS) -emit-llvm -c -w
@@ -13,11 +15,11 @@ endif
 OPTFLAGS       = -load
 OPTLIB         = LLVMHello.dylib
 
-CC             = clang
-LD             = llvm-link
-OPT            = opt
-LLC            = llc -disable-cfi
-LLVM-DIS       = llvm-dis
+CC             = $(LLVM_BIN)clang
+LD             = $(LLVM_BIN)llvm-link
+OPT            = $(LLVM_BIN)opt
+LLC            = $(LLVM_BIN)llc -disable-cfi
+LLVM-DIS       = $(LLVM_BIN)llvm-dis
 
 BYTECODE       = $(APPLICATION).bc
 QED_BYTECODE   = $(APPLICATION)-qed.bc

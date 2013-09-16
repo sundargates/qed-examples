@@ -1,0 +1,467 @@
+168a169
+>   %call321_dup = tail call i32 @"\01_getopt"(i32 %argc_dup, i8** %argv_dup, i8* getelementptr inbounds ([13 x i8]* @.str_dup, i64 0, i64 0)) #6
+170c171
+<   %cmp322_dup = icmp eq i32 %call321, -1
+---
+>   %cmp322_dup = icmp eq i32 %call321_dup, -1
+177c178
+<   %call323_dup = phi i32 [ %call, %while.cond.backedge ], [ %call321, %entry ]
+---
+>   %call323_dup = phi i32 [ %call, %while.cond.backedge ], [ %call321_dup, %entry ]
+185c186
+<   %call323_QED_CHECK_155 = icmp eq i32 %call323, %call323_dup
+---
+>   %call323call323 = icmp eq i32 %call323, %call323_dup
+189c190
+<   %while.body_error = and i1 %call323_QED_CHECK_155, %conv_QED_CHECK_156
+---
+>   %while.body_error = and i1 %call323call323, %conv_QED_CHECK_156
+210a212
+>   %call2_dup = tail call i32 @atoi(i8* undef) #6
+212c214
+<   %conv3_dup = sext i32 %call2 to i64
+---
+>   %conv3_dup = sext i32 %call2_dup to i64
+217c219
+<   %cmp4_dup = icmp slt i32 %call2, 1
+---
+>   %cmp4_dup = icmp slt i32 %call2_dup, 1
+232c234
+<   %cmp2.i312_dup = icmp eq i32 %call2, 1
+---
+>   %cmp2.i312_dup = icmp eq i32 %call2_dup, 1
+235c237
+<   %notlhs313_dup = icmp slt i32 %call2, 2
+---
+>   %notlhs313_dup = icmp slt i32 %call2_dup, 2
+251a254,255
+>   %call.i_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %26, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([16 x i8]* @.str1_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+340c344
+<   %"cmp2.i.not\00\00\00\00\00\00\00 /\00_167" = icmp eq i1 %cmp2.i.not, %cmp2.i.not_dup
+---
+>   %"cmp2.i.not\00\00\00\00\00\00\00p/\00_167" = icmp eq i1 %cmp2.i.not, %cmp2.i.not_dup
+350c354
+<   %52 = and i1 %not.or.cond.not.demorgannot.or.cond.not.demorgan, %"cmp2.i.not\00\00\00\00\00\00\00 /\00_167"
+---
+>   %52 = and i1 %not.or.cond.not.demorgannot.or.cond.not.demorgan, %"cmp2.i.not\00\00\00\00\00\00\00p/\00_167"
+367a372,373
+>   %call.i254_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %61, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([24 x i8]* @.str2_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+379a386
+>   %call12_dup = tail call i32 @atoi(i8* undef) #6
+381,382c388,389
+<   %conv13_dup = sext i32 %call12 to i64
+<   %conv13_QED_CHECK_180 = icmp eq i64 %conv13, %conv13_dup
+---
+>   %conv13_dup = sext i32 %call12_dup to i64
+>   %conv13conv13 = icmp eq i64 %conv13, %conv13_dup
+394c401
+<   %67 = and i1 %conv13_QED_CHECK_180, %div_QED_CHECK_181
+---
+>   %67 = and i1 %conv13conv13, %div_QED_CHECK_181
+410a418,419
+>   %call.i255_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %75, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([16 x i8]* @.str3_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+422a432
+>   %call19_dup = tail call i32 @atoi(i8* undef) #6
+424c434
+<   %conv20_dup = sext i32 %call19 to i64
+---
+>   %conv20_dup = sext i32 %call19_dup to i64
+431c441
+<   %cmp21_dup = icmp slt i32 %call19, 1
+---
+>   %cmp21_dup = icmp slt i32 %call19_dup, 1
+447a458,459
+>   %call.i256_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %87, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([36 x i8]* @.str4_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+459a472
+>   %call26_dup = tail call i32 @atoi(i8* undef) #6
+461c474
+<   %conv27_dup = sext i32 %call26 to i64
+---
+>   %conv27_dup = sext i32 %call26_dup to i64
+466c479
+<   %cmp28_dup = icmp slt i32 %call26, 0
+---
+>   %cmp28_dup = icmp slt i32 %call26_dup, 0
+480a494
+>   %call_dup = tail call i32 @"\01_getopt"(i32 %argc_dup, i8** %argv_dup, i8* getelementptr inbounds ([13 x i8]* @.str_dup, i64 0, i64 0)) #6
+482c496
+<   %cmp_dup = icmp eq i32 %call, -1
+---
+>   %cmp_dup = icmp eq i32 %call_dup, -1
+497a512,513
+>   %call.i257_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %104, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([55 x i8]* @.str5_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+513c529
+<   %lnot_QED_CHECK_188 = icmp eq i1 %lnot, %lnot_dup
+---
+>   %lnotlnot = icmp eq i1 %lnot, %lnot_dup
+519c535
+<   %sw.bb32_error = and i1 %lnot_QED_CHECK_188, %conv33_QED_CHECK_189
+---
+>   %sw.bb32_error = and i1 %lnotlnot, %conv33_QED_CHECK_189
+535c551
+<   %lnot36lnot36 = icmp eq i1 %lnot36, %lnot36_dup
+---
+>   %lnot36_QED_CHECK_190 = icmp eq i1 %lnot36, %lnot36_dup
+541c557
+<   %sw.bb34_error = and i1 %lnot36lnot36, %conv38_QED_CHECK_191
+---
+>   %sw.bb34_error = and i1 %lnot36_QED_CHECK_190, %conv38_QED_CHECK_191
+557c573
+<   %lnot41_QED_CHECK_192 = icmp eq i1 %lnot41, %lnot41_dup
+---
+>   %lnot41lnot41 = icmp eq i1 %lnot41, %lnot41_dup
+563c579
+<   %sw.bb39_error = and i1 %lnot41_QED_CHECK_192, %conv43_QED_CHECK_193
+---
+>   %sw.bb39_error = and i1 %lnot41lnot41, %conv43_QED_CHECK_193
+575a592
+>   %puts242_dup = tail call i32 @puts(i8* getelementptr inbounds ([22 x i8]* @str62_dup, i64 0, i64 0))
+576a594
+>   %puts243_dup = tail call i32 @puts(i8* getelementptr inbounds ([9 x i8]* @str63_dup, i64 0, i64 0))
+577a596
+>   %puts244_dup = tail call i32 @puts(i8* getelementptr inbounds ([70 x i8]* @str64_dup, i64 0, i64 0))
+578a598
+>   %puts245_dup = tail call i32 @puts(i8* getelementptr inbounds ([56 x i8]* @str65_dup, i64 0, i64 0))
+579a600
+>   %puts246_dup = tail call i32 @puts(i8* getelementptr inbounds ([35 x i8]* @str66_dup, i64 0, i64 0))
+580a602
+>   %puts247_dup = tail call i32 @puts(i8* getelementptr inbounds ([54 x i8]* @str67_dup, i64 0, i64 0))
+581a604
+>   %puts248_dup = tail call i32 @puts(i8* getelementptr inbounds ([54 x i8]* @str68_dup, i64 0, i64 0))
+582a606
+>   %puts249_dup = tail call i32 @puts(i8* getelementptr inbounds ([67 x i8]* @str69_dup, i64 0, i64 0))
+583a608
+>   %puts250_dup = tail call i32 @puts(i8* getelementptr inbounds ([71 x i8]* @str70_dup, i64 0, i64 0))
+584a610
+>   %puts251_dup = tail call i32 @puts(i8* getelementptr inbounds ([57 x i8]* @str71_dup, i64 0, i64 0))
+585a612
+>   %puts252_dup = tail call i32 @puts(i8* getelementptr inbounds ([39 x i8]* @str72_dup, i64 0, i64 0))
+586a614
+>   %puts253_dup = tail call i32 @puts(i8* getelementptr inbounds ([41 x i8]* @str73_dup, i64 0, i64 0))
+587a616,617
+>   %call57_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([38 x i8]* @.str18_dup, i64 0, i64 0), i32 4, i32 1, i32 256, i32 4) #6
+>   tail call void @exit(i32 0) #7
+617c647
+<   %"sh_prom60\00\00\00\00\00\00\00 3\00_5" = icmp eq i32 %sh_prom60, %sh_prom60_dup
+---
+>   %"sh_prom60\00\00\00\00\00\00\00p5\00_5" = icmp eq i32 %sh_prom60, %sh_prom60_dup
+639c669
+<   %143 = and i1 %"sh_prom60\00\00\00\00\00\00\00 3\00_5", %shl61_QED_CHECK_6
+---
+>   %143 = and i1 %"sh_prom60\00\00\00\00\00\00\00p5\00_5", %shl61_QED_CHECK_6
+657a688,689
+>   %call.i258_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %153, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([48 x i8]* @.str19_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+699a732
+>   %call74_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([55 x i8]* @.str20_dup, i64 0, i64 0), i64 16) #6
+700a734
+>   %puts240_dup = tail call i32 @puts(i8* getelementptr inbounds ([42 x i8]* @str60_dup, i64 0, i64 0))
+701a736
+>   %puts241_dup = tail call i32 @puts(i8* getelementptr inbounds ([41 x i8]* @str61_dup, i64 0, i64 0))
+747c782
+<   %"storemerge\00\00\00\00\00\00\00 7\00_21" = icmp eq i64 %storemerge, %storemerge_dup
+---
+>   %"storemerge\00\00\00\00\00\00\00p7\00_21" = icmp eq i64 %storemerge, %storemerge_dup
+762c797
+<   %186 = and i1 %div83_QED_CHECK_20, %"storemerge\00\00\00\00\00\00\00 7\00_21"
+---
+>   %186 = and i1 %div83_QED_CHECK_20, %"storemerge\00\00\00\00\00\00\00p7\00_21"
+860a896,897
+>   %call.i259_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %216, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([32 x i8]* @.str23_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+938a976,977
+>   %call.i260_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %245, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([31 x i8]* @.str24_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+966a1006,1007
+>   %call.i261_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %257, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([35 x i8]* @.str25_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+980,981c1021,1022
+<   %cmp151_QED_CHECK_42 = icmp eq i1 %cmp151, %cmp151_dup
+<   call void @eddi_check_function(i1 %cmp151_QED_CHECK_42)
+---
+>   %cmp151cmp151 = icmp eq i1 %cmp151, %cmp151_dup
+>   call void @eddi_check_function(i1 %cmp151cmp151)
+994a1036,1037
+>   %call.i262_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %269, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([35 x i8]* @.str26_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+1008,1009c1051,1052
+<   %cmp155_QED_CHECK_43 = icmp eq i1 %cmp155, %cmp155_dup
+<   call void @eddi_check_function(i1 %cmp155_QED_CHECK_43)
+---
+>   %cmp155cmp155 = icmp eq i1 %cmp155, %cmp155_dup
+>   call void @eddi_check_function(i1 %cmp155cmp155)
+1022a1066,1067
+>   %call.i263_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %281, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* getelementptr inbounds ([36 x i8]* @.str27_dup, i64 0, i64 0)) #6
+>   tail call void @exit(i32 -1) #7
+1070a1116
+>   %putchar_dup = tail call i32 @putchar(i32 10) #6
+1071a1118
+>   %puts_dup = tail call i32 @puts(i8* getelementptr inbounds ([28 x i8]* @str_dup, i64 0, i64 0))
+1074a1122
+>   %call172_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([24 x i8]* @.str30_dup, i64 0, i64 0), i64 %300) #6
+1077a1126
+>   %call173_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([19 x i8]* @.str31_dup, i64 0, i64 0), i64 %302) #6
+1096a1146
+>   %call177_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([20 x i8]* @.str32_dup, i64 0, i64 0), i64 %306) #6
+1099a1150
+>   %call178_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([43 x i8]* @.str33_dup, i64 0, i64 0), i64 %313) #6
+1110a1162
+>   %call180_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([20 x i8]* @.str32_dup, i64 0, i64 0), i64 %304) #6
+1129a1182
+>   %call184_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([22 x i8]* @.str34_dup, i64 0, i64 0), i32 %shl183_dup) #6
+1130a1184
+>   %call185_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([22 x i8]* @.str35_dup, i64 0, i64 0), i32 4096) #6
+1131a1186
+>   %putchar229_dup = tail call i32 @putchar(i32 10) #6
+1134a1190
+>   tail call void @srand48(i64 0) #6
+1139,1140c1195,1196
+<   %cmp24.i_QED_CHECK_47 = icmp eq i1 %cmp24.i, %cmp24.i_dup
+<   %330 = and i1 %shl183_QED_CHECK_46, %cmp24.i_QED_CHECK_47
+---
+>   %cmp24.icmp24.i = icmp eq i1 %cmp24.i, %cmp24.i_dup
+>   %330 = and i1 %shl183_QED_CHECK_46, %cmp24.icmp24.i
+1192a1249
+>   %call.i265_dup = tail call double @drand48() #6
+1202c1259
+<   store double %call.i265, double* %arrayidx.i_dup, align 8, !tbaa !46
+---
+>   store double %call.i265_dup, double* %arrayidx.i_dup, align 8, !tbaa !46
+1203a1261
+>   %call6.i_dup = tail call double @drand48() #6
+1210c1268
+<   store double %call6.i, double* %arrayidx10.i_dup, align 8, !tbaa !46
+---
+>   store double %call6.i_dup, double* %arrayidx10.i_dup, align 8, !tbaa !46
+1439a1498
+>   %puts239_dup = tail call i32 @puts(i8* getelementptr inbounds ([22 x i8]* @str59_dup, i64 0, i64 0))
+1564a1624
+>   %call.i296_dup = tail call double @cos(double %div.i_dup) #8
+1571c1631
+<   store double %call.i296, double* %arrayidx.i297_dup, align 8, !tbaa !46
+---
+>   store double %call.i296_dup, double* %arrayidx.i297_dup, align 8, !tbaa !46
+1572a1633
+>   %call22.i_dup = tail call double @sin(double %div.i_dup) #8
+1574,1575c1635,1636
+<   %sub23.i_dup = fsub double -0.000000e+00, %call22.i
+<   %sub23.i_QED_CHECK_82 = fcmp oeq double %sub23.i, %sub23.i_dup
+---
+>   %sub23.i_dup = fsub double -0.000000e+00, %call22.i_dup
+>   %sub23.isub23.i = fcmp oeq double %sub23.i, %sub23.i_dup
+1592c1653
+<   %481 = and i1 %sub23.i_QED_CHECK_82, %add2645.i_QED_CHECK_83
+---
+>   %481 = and i1 %sub23.isub23.i, %add2645.i_QED_CHECK_83
+1706a1768
+>   %call.us.i_dup = tail call double @cos(double %div.us.i_dup) #8
+1716c1778
+<   store double %call.us.i, double* %arrayidx.us.i302_dup, align 8, !tbaa !46
+---
+>   store double %call.us.i_dup, double* %arrayidx.us.i302_dup, align 8, !tbaa !46
+1717a1780
+>   %call16.us.i_dup = tail call double @sin(double %div.us.i_dup) #8
+1719c1782
+<   %sub.us.i_dup = fsub double -0.000000e+00, %call16.us.i
+---
+>   %sub.us.i_dup = fsub double -0.000000e+00, %call16.us.i_dup
+1810a1874
+>   %puts238_dup = tail call i32 @puts(i8* getelementptr inbounds ([31 x i8]* @str58_dup, i64 0, i64 0))
+1821a1886
+>   %puts237_dup = tail call i32 @puts(i8* getelementptr inbounds ([23 x i8]* @str57_dup, i64 0, i64 0))
+1847a1913
+>   %putchar230_dup = tail call i32 @putchar(i32 10) #6
+1848a1915
+>   %puts231_dup = tail call i32 @puts(i8* getelementptr inbounds ([36 x i8]* @str51_dup, i64 0, i64 0))
+1849a1917
+>   %puts232_dup = tail call i32 @puts(i8* getelementptr inbounds ([53 x i8]* @str52_dup, i64 0, i64 0))
+1850a1919
+>   %puts233_dup = tail call i32 @puts(i8* getelementptr inbounds ([52 x i8]* @str53_dup, i64 0, i64 0))
+1873,1874c1942,1943
+<   %cmp27.i_QED_CHECK_112 = icmp eq i1 %cmp27.i, %cmp27.i_dup
+<   call void @eddi_check_function(i1 %cmp27.i_QED_CHECK_112)
+---
+>   %cmp27.icmp27.i = icmp eq i1 %cmp27.i, %cmp27.i_dup
+>   call void @eddi_check_function(i1 %cmp27.icmp27.i)
+2000a2070
+>   %puts234_dup = tail call i32 @puts(i8* getelementptr inbounds ([39 x i8]* @str54_dup, i64 0, i64 0))
+2008a2079
+>   %call213_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([42 x i8]* @.str43_dup, i64 0, i64 0), double %sub212_dup, double %620, double %622) #6
+2015c2086
+<   %sub214sub214 = fcmp oeq double %sub214, %sub214_dup
+---
+>   %sub214_QED_CHECK_130 = fcmp oeq double %sub214, %sub214_dup
+2016a2088
+>   %call215_dup = tail call double @fabs(double %sub214_dup) #8
+2018,2019c2090,2091
+<   %cmp216_dup = fcmp olt double %call215, 1.000000e-03
+<   %cmp216_QED_CHECK_131 = icmp eq i1 %cmp216, %cmp216_dup
+---
+>   %cmp216_dup = fcmp olt double %call215_dup, 1.000000e-03
+>   %cmp216cmp216 = icmp eq i1 %cmp216, %cmp216_dup
+2021c2093
+<   %628 = and i1 %sub214sub214, %cmp216_QED_CHECK_131
+---
+>   %628 = and i1 %sub214_QED_CHECK_130, %cmp216cmp216
+2034a2107
+>   %puts236_dup = tail call i32 @puts(i8* getelementptr inbounds ([12 x i8]* @str56_dup, i64 0, i64 0))
+2045a2119
+>   %puts235_dup = tail call i32 @puts(i8* getelementptr inbounds ([12 x i8]* @str55_dup, i64 0, i64 0))
+2079a2154
+>   %call_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %6, i8* getelementptr inbounds ([11 x i8]* @.str49_dup, i64 0, i64 0), i8* %s_dup) #6
+2223a2299
+>   tail call void @srand48(i64 0) #6
+2275a2352
+>   %call_dup = tail call double @drand48() #6
+2285c2362
+<   store double %call, double* %arrayidx_dup, align 8, !tbaa !46
+---
+>   store double %call_dup, double* %arrayidx_dup, align 8, !tbaa !46
+2286a2364
+>   %call6_dup = tail call double @drand48() #6
+2293c2371
+<   store double %call6, double* %arrayidx10_dup, align 8, !tbaa !46
+---
+>   store double %call6_dup, double* %arrayidx10_dup, align 8, !tbaa !46
+2385,2386c2463,2464
+<   %exitcond31_QED_CHECK_233 = icmp eq i1 %exitcond31, %exitcond31_dup
+<   %for.inc12.us_error = and i1 %inc13.us_QED_CHECK_232, %exitcond31_QED_CHECK_233
+---
+>   %"exitcond31\00\00\00\00\00\00\00p\05\00_233" = icmp eq i1 %exitcond31, %exitcond31_dup
+>   %for.inc12.us_error = and i1 %inc13.us_QED_CHECK_232, %"exitcond31\00\00\00\00\00\00\00p\05\00_233"
+2580a2659
+>   %call_dup = tail call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([13 x i8]* @.str47_dup, i64 0, i64 0), double %30, double %32) #6
+2609a2689
+>   %putchar41_dup = tail call i32 @putchar(i32 44) #6
+2656a2737
+>   %putchar40_dup = tail call i32 @putchar(i32 10) #6
+2709a2791
+>   %putchar_dup = tail call i32 @putchar(i32 10) #6
+2710a2793
+>   %putchar37_dup = tail call i32 @putchar(i32 10) #6
+2828a2912
+>   %call_dup = tail call double @cos(double %div_dup) #8
+2835c2919
+<   store double %call, double* %arrayidx_dup, align 8, !tbaa !46
+---
+>   store double %call_dup, double* %arrayidx_dup, align 8, !tbaa !46
+2836a2921
+>   %call22_dup = tail call double @sin(double %div_dup) #8
+2838,2839c2923,2924
+<   %sub23_dup = fsub double -0.000000e+00, %call22
+<   %sub23_QED_CHECK_275 = fcmp oeq double %sub23, %sub23_dup
+---
+>   %sub23_dup = fsub double -0.000000e+00, %call22_dup
+>   %sub23sub23 = fcmp oeq double %sub23, %sub23_dup
+2856c2941
+<   %38 = and i1 %sub23_QED_CHECK_275, %add2645_QED_CHECK_276
+---
+>   %38 = and i1 %sub23sub23, %add2645_QED_CHECK_276
+2954,2955c3039,3040
+<   %"exitcond42\00\00\00\00\00\00\00 /\00_302" = icmp eq i1 %exitcond42, %exitcond42_dup
+<   %for.inc21.us_error = and i1 %inc22.us_QED_CHECK_301, %"exitcond42\00\00\00\00\00\00\00 /\00_302"
+---
+>   %"exitcond42\00\00\00\00\00\00\00p/\00_302" = icmp eq i1 %exitcond42, %exitcond42_dup
+>   %for.inc21.us_error = and i1 %inc22.us_QED_CHECK_301, %"exitcond42\00\00\00\00\00\00\00p/\00_302"
+2982a3068
+>   %call.us_dup = tail call double @cos(double %div.us_dup) #8
+2985c3071
+<   %add8.us_QED_CHECK_295 = icmp eq i64 %add8.us, %add8.us_dup
+---
+>   %add8.usadd8.us = icmp eq i64 %add8.us, %add8.us_dup
+2992c3078
+<   store double %call.us, double* %arrayidx.us_dup, align 8, !tbaa !46
+---
+>   store double %call.us_dup, double* %arrayidx.us_dup, align 8, !tbaa !46
+2993a3080
+>   %call16.us_dup = tail call double @sin(double %div.us_dup) #8
+2995c3082
+<   %sub.us_dup = fsub double -0.000000e+00, %call16.us
+---
+>   %sub.us_dup = fsub double -0.000000e+00, %call16.us_dup
+3015c3102
+<   %29 = and i1 %add8.us_QED_CHECK_295, %28
+---
+>   %29 = and i1 %add8.usadd8.us, %28
+3153a3241,3242
+>   %call2_dup = tail call i32 (%struct.__sFILE*, i8*, ...)* @fprintf(%struct.__sFILE* %42, i8* getelementptr inbounds ([44 x i8]* @.str46_dup, i64 0, i64 0), i64 0) #6
+>   tail call void @exit(i32 -1) #7
+3858,3859c3947,3948
+<   %"exitcond126l\A1\A4\9E\FC\07\00\A0\02\00_381" = icmp eq i1 %exitcond126, %exitcond126_dup
+<   %for.inc21_error = and i1 %inc22_QED_CHECK_380, %"exitcond126l\A1\A4\9E\FC\07\00\A0\02\00_381"
+---
+>   %"exitcond126\D6\A8\0C\F3\FE\07\00\00\02\00_381" = icmp eq i1 %exitcond126, %exitcond126_dup
+>   %for.inc21_error = and i1 %inc22_QED_CHECK_380, %"exitcond126\D6\A8\0C\F3\FE\07\00\00\02\00_381"
+4378c4467
+<   %"exitcond323\00\00\00\00\00\00\00 ,\00_462" = icmp eq i1 %exitcond323, %exitcond323_dup
+---
+>   %"exitcond323\00\00\00\00\00\00\00p,\00_462" = icmp eq i1 %exitcond323, %exitcond323_dup
+4385c4474
+<   %80 = and i1 %inc39_QED_CHECK_461, %"exitcond323\00\00\00\00\00\00\00 ,\00_462"
+---
+>   %80 = and i1 %inc39_QED_CHECK_461, %"exitcond323\00\00\00\00\00\00\00p,\00_462"
+4586c4675
+<   %"add88271\00\00\00\00\00\00\00 #\00_493" = icmp eq i64 %add88271, %add88271_dup
+---
+>   %"add88271\00\00\00\00\00\00\00p#\00_493" = icmp eq i64 %add88271, %add88271_dup
+4596c4685
+<   %"exitcond318\00\00\00\00\00\00\00 /\00_495" = icmp eq i1 %exitcond318, %exitcond318_dup
+---
+>   %"exitcond318\00\00\00\00\00\00\00p/\00_495" = icmp eq i1 %exitcond318, %exitcond318_dup
+4603,4604c4692,4693
+<   %141 = and i1 %inc91_QED_CHECK_494, %"exitcond318\00\00\00\00\00\00\00 /\00_495"
+<   %142 = and i1 %"add88271\00\00\00\00\00\00\00 #\00_493", %141
+---
+>   %141 = and i1 %inc91_QED_CHECK_494, %"exitcond318\00\00\00\00\00\00\00p/\00_495"
+>   %142 = and i1 %"add88271\00\00\00\00\00\00\00p#\00_493", %141
+4700,4701c4789,4790
+<   %"cmp109282\00\00\00\00\00\00\00 #\00_506" = icmp eq i1 %cmp109282, %cmp109282_dup
+<   call void @eddi_check_function(i1 %"cmp109282\00\00\00\00\00\00\00 #\00_506")
+---
+>   %"cmp109282\00\00\00\00\00\00\00p#\00_506" = icmp eq i1 %cmp109282, %cmp109282_dup
+>   call void @eddi_check_function(i1 %"cmp109282\00\00\00\00\00\00\00p#\00_506")
+4826c4915
+<   %"add138269\00\00\00\00\00\00\00 #\00_524" = icmp eq i64 %add138269, %add138269_dup
+---
+>   %"add138269\00\00\00\00\00\00\00p#\00_524" = icmp eq i64 %add138269, %add138269_dup
+4836c4925
+<   %"exitcond\00\00\00\00\00\00\00 /\00_526" = icmp eq i1 %exitcond, %exitcond_dup
+---
+>   %"exitcond\00\00\00\00\00\00\00p/\00_526" = icmp eq i1 %exitcond, %exitcond_dup
+4843,4844c4932,4933
+<   %207 = and i1 %inc141_QED_CHECK_525, %"exitcond\00\00\00\00\00\00\00 /\00_526"
+<   %208 = and i1 %"add138269\00\00\00\00\00\00\00 #\00_524", %207
+---
+>   %207 = and i1 %inc141_QED_CHECK_525, %"exitcond\00\00\00\00\00\00\00p/\00_526"
+>   %208 = and i1 %"add138269\00\00\00\00\00\00\00p#\00_524", %207
+5252c5341
+<   %"arrayidx11.sum\00\00\00\00\00\00\00 \03\00_578" = icmp eq i64 %arrayidx11.sum, %arrayidx11.sum_dup
+---
+>   %"arrayidx11.sum\00\00\00\00\00\00\00p\03\00_578" = icmp eq i64 %arrayidx11.sum, %arrayidx11.sum_dup
+5284c5373
+<   %"arrayidx8.sum\00\00\00\00\00\00\00 \03\00_586" = icmp eq i64 %arrayidx8.sum, %arrayidx8.sum_dup
+---
+>   %"arrayidx8.sum\00\00\00\00\00\00\00p\03\00_586" = icmp eq i64 %arrayidx8.sum, %arrayidx8.sum_dup
+5326c5415
+<   %108 = and i1 %"arrayidx11.sum\00\00\00\00\00\00\00 \03\00_578", %arrayidx11.sum103_QED_CHECK_579
+---
+>   %108 = and i1 %"arrayidx11.sum\00\00\00\00\00\00\00p\03\00_578", %arrayidx11.sum103_QED_CHECK_579
+5333c5422
+<   %115 = and i1 %"arrayidx8.sum\00\00\00\00\00\00\00 \03\00_586", %arrayidx8.sum104_QED_CHECK_587
+---
+>   %115 = and i1 %"arrayidx8.sum\00\00\00\00\00\00\00p\03\00_586", %arrayidx8.sum104_QED_CHECK_587
+5674c5763
+<   %"exitcond\00\00\00\00\00\00\00 +\00_631" = icmp eq i1 %exitcond, %exitcond_dup
+---
+>   %"exitcond\00\00\00\00\00\00\00p+\00_631" = icmp eq i1 %exitcond, %exitcond_dup
+5676c5765
+<   %15 = and i1 %inc_QED_CHECK_630, %"exitcond\00\00\00\00\00\00\00 +\00_631"
+---
+>   %15 = and i1 %inc_QED_CHECK_630, %"exitcond\00\00\00\00\00\00\00p+\00_631"
+5889a5979
+>   %puts_dup = tail call i32 @puts(i8* getelementptr inbounds ([7 x i8]* @str74_dup, i64 0, i64 0))

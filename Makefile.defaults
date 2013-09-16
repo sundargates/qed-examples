@@ -3,33 +3,33 @@
 LLVM_BASE=../../llvm/build/Debug+Asserts
 
 LDFLAGS=
-CFLAGS=$(OPTIMIZATION) -emit-llvm -c -w
+CFLAGS=$(OPTIMIZATION) $(BENCH_FLAGS) -emit-llvm -c -w
 ifeq ($(BENCHLANG),C)
 	OBJECTS=$(SOURCES:.c=.o)
 else
 	OBJECTS=$(SOURCES:.cpp=.o)
 endif
 
-OPTFLAGS=-load
-OPTLIB=LLVMHello.dylib
+OPTFLAGS       = -load
+OPTLIB         = LLVMHello.dylib
 
-CC=clang
-LD=llvm-link
-OPT=opt
-LLC=llc -disable-cfi
-LLVM-DIS=llvm-dis
+CC             = clang
+LD             = llvm-link
+OPT            = opt
+LLC            = llc -disable-cfi
+LLVM-DIS       = llvm-dis
 
-BYTECODE=$(APPLICATION).bc
-QED_BYTECODE=$(APPLICATION)-qed.bc
+BYTECODE       = $(APPLICATION).bc
+QED_BYTECODE   = $(APPLICATION)-qed.bc
 
-EXECUTABLE=$(APPLICATION).native
-QED_EXECUTABLE=$(APPLICATION)-qed.native
+EXECUTABLE     = $(APPLICATION).native
+QED_EXECUTABLE = $(APPLICATION)-qed.native
 
-ASSEMBLY=$(APPLICATION).s
-QED_ASSEMBLY=$(APPLICATION)-qed.s
+ASSEMBLY       = $(APPLICATION).s
+QED_ASSEMBLY   = $(APPLICATION)-qed.s
 
-DIS=$(APPLICATION).ll
-QED_DIS=$(APPLICATION)-qed.ll
+DIS            = $(APPLICATION).ll
+QED_DIS        = $(APPLICATION)-qed.ll
 
 all: $(SOURCES) $(BYTECODE) $(QED_BYTECODE) $(ASSEMBLY) $(QED_ASSEMBLY) $(EXECUTABLE) $(QED_EXECUTABLE)
 
@@ -58,10 +58,13 @@ $(BYTECODE): $(OBJECTS)
 	$(CC) $(CFLAGS) $< -o $@
 
 .cpp.o:
-	$(CC) $(CFLAGS) $< -o $@	
+	$(CC) $(CFLAGS) $< -o $@
 
 clean:
 	rm -fr *.bc *.ll *.s *.out *.native *.o
+
+clear:
+	rm -fr *.bc
 
 display: $(DIS) $(QED_DIS)
 

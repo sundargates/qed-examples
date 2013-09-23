@@ -248,6 +248,7 @@ int main(int argc, char *argv[])
 
   }
   a = (double **) valloc(nblocks*nblocks*sizeof(double *));;
+  a[0] = NULL;
   if (a == NULL) {
     printerr("Could not malloc memory for a\n");
     exit(-1);

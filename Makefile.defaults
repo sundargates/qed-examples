@@ -13,6 +13,7 @@ else
 endif
 
 OPTFLAGS       = -load
+POST_OPT_FLAGS = -always-inline -inline
 OPTLIB         = LLVMHello.dylib
 
 CC             = $(LLVM_BIN)clang
@@ -37,11 +38,9 @@ all: $(SOURCES) $(BYTECODE) $(QED_BYTECODE) $(ASSEMBLY) $(QED_ASSEMBLY) $(EXECUT
 
 $(EXECUTABLE): $(ASSEMBLY)
 	$(CC) $(ASSEMBLY) -o $@
-	rm $(ASSEMBLY)
 
 $(QED_EXECUTABLE): $(QED_ASSEMBLY)
 	$(CC) $(QED_ASSEMBLY) -o $@
-	rm $(QED_ASSEMBLY)
 
 $(ASSEMBLY): $(BYTECODE)
 	$(LLC) $(BYTECODE) -o $@
@@ -51,10 +50,10 @@ $(QED_ASSEMBLY): $(QED_BYTECODE)
 
 $(QED_BYTECODE): $(BYTECODE)
 	$(OPT) $(OPTFLAGS) $(OPTLIB) -hello -QED-Mode=$(QED_MODE) -NUM-CFTSS-BB=$(NUM_CFTSS_BB) $(BYTECODE) -o $@
+	$(OPT) $(POST_OPT_FLAGS) $(QED_BYTECODE) -o $@
 
 $(BYTECODE): $(OBJECTS)
 	$(LD) $(LDFLAGS) $(OBJECTS) -o $@
-	# rm $(OBJECTS)
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@

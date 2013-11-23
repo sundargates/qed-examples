@@ -1,15 +1,17 @@
 .PHONY: diff check
 
-LLVM_BASE = /rsgs/scratch0/linhai88/llvm/llvm-3.3/build/Release+Asserts
-# LLVM_BIN  = $(LLVM_BASE)/bin/
+LLVM_BASE = ../../../llvm/build/Debug+Asserts
 LLVM_BIN  = 
+
+# LLVM_BASE = /rsgs/scratch0/linhai88/llvm/llvm-3.3/build/Release+Asserts
+# LLVM_BIN  = $(LLVM_BASE)/bin/
 
 LDFLAGS=
 CFLAGS=$(OPTIMIZATION) $(BENCH_FLAGS) -emit-llvm -c -w
 ifeq ($(BENCHLANG),C)
 	OBJECTS=$(SOURCES:.c=.o)
 else
-	OBJECTS=$(SOURCES:.cpp=.o)
+	OBJECTS=$(SOURCES:.cc=.o)
 endif
 
 OPTFLAGS       = -load
@@ -17,6 +19,7 @@ POST_OPT_FLAGS = -always-inline -inline
 OPTLIB         = LLVMHello.dylib
 
 CC             = $(LLVM_BIN)clang
+CXX            = $(LLVM_BIN)clang
 LD             = $(LLVM_BIN)llvm-link
 OPT            = $(LLVM_BIN)opt
 LLC            = $(LLVM_BIN)llc -disable-cfi
@@ -43,21 +46,19 @@ all: $(SOURCES) $(BYTECODE) $(QED_BYTECODE) $(ASSEMBLY) $(QED_ASSEMBLY) $(EXECUT
 
 $(EXECUTABLE): $(ASSEMBLY)
 	$(CC) $(ASSEMBLY) $(MATH_LIBS) $(BENCH_FLAGS) -o $@
-	rm $(ASSEMBLY)
 
 $(QED_EXECUTABLE): $(QED_ASSEMBLY)
 	$(CC) $(QED_ASSEMBLY) $(MATH_LIBS) $(BENCH_FLAGS) -o $@
-	rm $(QED_ASSEMBLY)
 
 $(ASSEMBLY): $(BYTECODE)
-	$(LLC) $(BYTECODE) -o $@
+	$(LLC) $(OPTIMIZATION) $(BYTECODE) -o $@
 
 $(QED_ASSEMBLY): $(QED_BYTECODE)
-	$(LLC) $(QED_BYTECODE) -o $@
+	$(LLC) $(OPTIMIZATION) $(QED_BYTECODE) -o $@
 
 $(QED_BYTECODE): $(BYTECODE)
 	$(OPT) $(OPTFLAGS) $(OPTLIB) -hello -QED-Mode=$(QED_MODE) -NUM-CFTSS-BB=$(NUM_CFTSS_BB) $(BYTECODE) -o $@
-	$(OPT) $(POST_OPT_FLAGS) $(QED_BYTECODE) -o $@
+	# $(OPT) $(POST_OPT_FLAGS) $(QED_BYTECODE) -o $@
 
 $(BYTECODE): $(OBJECTS)
 	$(LD) $(LDFLAGS) $(OBJECTS) -o $@
@@ -68,11 +69,14 @@ $(BYTECODE): $(OBJECTS)
 .cpp.o:
 	$(CC) $(CFLAGS) $< -o $@
 
+.cc.o:
+	$(CXX) $(CFLAGS) $< -o $@
+
 clean:
-	rm -fr *.bc *.ll *.s *.out *.native *.o
+	rm -fr *.bc *.ll *.s *.out *.native *.o *.asm
 
 clear:
-	rm -fr *.bc
+	rm -fr $(QED_BYTECODE)
 
 display: $(DIS) $(QED_DIS)
 
@@ -82,12 +86,21 @@ $(DIS): $(BYTECODE)
 $(QED_DIS): $(QED_BYTECODE)
 	$(LLVM-DIS)	$(QED_BYTECODE) -o $@
 
-# Diffs the outputs of the two executable files.
+run_qed: $(QED_EXECUTABLE)
+	./$(QED_EXECUTABLE) $(RUN_PARAMS)
+
+run: $(EXECUTABLE)
+	./$(EXECUTABLE) $(RUN_PARAMS)
+
 diff: $(EXECUTABLE) $(QED_EXECUTABLE)
-	./$(EXECUTABLE) &> test_native
-	./$(QED_EXECUTABLE) &> test-qed_native
-	diff -s test_native test-qed_native
-	rm test_native test-qed_native
+	diff -s <(make run) <(make run_qed)
+
+# Diffs the outputs of the two executable files.
+# diff: $(EXECUTABLE) $(QED_EXECUTABLE)
+# 	./$(EXECUTABLE) &> test_native
+# 	./$(QED_EXECUTABLE) &> test-qed_native
+# 	diff -s test_native test-qed_native
+# 	rm test_native test-qed_native
 
 # Runs the QED-transformed program with each of the arguments provided in TEST_ARGS.
 # Then, scans for failure of QED somewhere in the program.

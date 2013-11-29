@@ -1,10 +1,10 @@
 .PHONY: diff check
 
 LLVM_BASE = ../../../llvm/build/Debug+Asserts
-LLVM_BIN  = 
+# LLVM_BIN  = 
 
 # LLVM_BASE = /rsgs/scratch0/linhai88/llvm/llvm-3.3/build/Release+Asserts
-# LLVM_BIN  = $(LLVM_BASE)/bin/
+LLVM_BIN  = $(LLVM_BASE)/bin/
 
 LDFLAGS=
 CFLAGS=$(OPTIMIZATION) $(BENCH_FLAGS) -emit-llvm -c -w
@@ -18,6 +18,7 @@ OPTFLAGS       = -load
 POST_OPT_FLAGS = -always-inline -inline
 OPTLIB         = LLVMHello.dylib
 
+APPLICATION    = $(NAME)
 CC             = $(LLVM_BIN)clang
 CXX            = $(LLVM_BIN)clang
 LD             = $(LLVM_BIN)llvm-link
@@ -62,6 +63,7 @@ $(QED_BYTECODE): $(BYTECODE)
 
 $(BYTECODE): $(OBJECTS)
 	$(LD) $(LDFLAGS) $(OBJECTS) -o $@
+	$(OPT) -instcombine $(BYTECODE) -o $@
 
 .c.o:
 	$(CC) $(CFLAGS) $< -o $@
